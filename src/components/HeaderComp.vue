@@ -4,6 +4,20 @@
       <li class="header__item">
         <a href="#" class="header__link"><img class="header__image--logo" src="../assets/svg/logo.svg" alt="logo"></a>
       </li>
+      <ul class="header__navigation">
+        <li class="header__navigationItem">
+          <a href="#" class="header__navigationLink">Про нас</a>
+        </li>
+        <li class="header__navigationItem">
+          <a href="#" class="header__navigationLink">Послуги</a>
+        </li>
+        <li class="header__navigationItem">
+          <a href="#" class="header__navigationLink">Наші переваги</a>
+        </li>
+        <li class="header__navigationItem">
+          <a href="#" class="header__navigationLink">Контакти</a>
+        </li>
+      </ul>
       <li class="header__item header__item--contacts">
         <ul class="header__contacts">
           <li class="header__item"><a href="#" class="header__link header__link--bold">38(050) 574-23-62</a></li>
@@ -12,7 +26,7 @@
           <li class="header__item header__item--margin">Графік роботи: Пн-Пт, з 9:00 до 19:00</li>
         </ul>
       </li>
-      <li class="header__item">
+      <li class="header__item header__item--burger">
         <img @click="mobileMenuOpen()" class="header__image--burger" src="../assets/svg/burger_icons.svg" alt="logo">
       </li>
     </ul>
@@ -71,6 +85,9 @@ export default {
 
 <style lang="scss">
 
+
+
+
 @keyframes showOn {
   0% {
     opacity: 0;
@@ -102,11 +119,41 @@ ul {
   list-style: none;
 }
 .header {
-  padding: 5px 30px 0;
+  max-width: 320px;
+  padding-top: 5px;
+  margin: 0 auto;
+  @media (max-width: 475px) {
+    max-width: 320px;
+  }
+  @media (min-width: 767px) {
+    max-width: 640px;
+  }
+  @media (min-width: 1200px) {
+    max-width: 1200px;
+  }
   &__list {
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+  &__navigation {
+    display: flex;
+    @media (max-width: 1200px) {
+      display: none;
+    }
+  }
+
+  &__navigationItem {
+    &:not(:last-child) {
+      margin-right: 80px;
+    }
+  }
+
+  &__navigationLink {
+    font-size: 18px;
+    font-weight: 600;
+    text-decoration: none;
+    color: #000;
   }
 
   &__image {
@@ -139,6 +186,11 @@ ul {
         animation: showOn 1s linear infinite alternate;
       }
     }
+    &--burger {
+      @media (min-width: 1200px) {
+        display: none;
+      }
+    }
   }
   &__link {
     color: #000;
@@ -152,7 +204,7 @@ ul {
 
 .mobileMenu {
   padding: 42px 20px;
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   height: 100vh;
@@ -162,6 +214,7 @@ ul {
   display: flex;
   flex-direction: column;
   max-width: 600px;
+  z-index: 10;
   &__close {
     right: 15px;
     top: 15px;
