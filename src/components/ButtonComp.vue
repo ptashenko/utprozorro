@@ -1,0 +1,62 @@
+<template>
+    <div class="button">
+        <a class="button__link" href="#">{{ service }}</a>
+        <p class="button__more">Детальніше</p>
+    </div>
+</template>
+
+<script>
+export default {
+    props: ["service"],
+}
+</script>
+
+<style lang="scss">
+
+
+
+.button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    width: 300px;
+    height: 300px;
+    background: #1550e7;
+    &:not(:last-child) {
+        margin-bottom: 20px;
+    }
+    &__link {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        color: #fff;
+        text-decoration: none;
+        flex-grow: 1;
+        font-size: 24px;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+    &__more {
+        display: flex;
+        width: 100%;
+        margin: 0;
+        justify-content: end;
+        color: #fff;
+        &::after {
+            content: '>';
+            display: block;
+            width: 10px;
+            height: 10px;
+            transform: translateX(-10px);
+            opacity: 0;
+            transition: all 250ms linear;
+        }
+    }
+    &:hover > .button__more::after {
+        opacity: 1;
+        transform: translateX(5px);
+    }
+}
+</style>

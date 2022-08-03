@@ -2,61 +2,132 @@
   <header class="header">
     <ul class="header__list">
       <li class="header__item">
-        <a href="#" class="header__link"><img class="header__image--logo" src="../assets/svg/logo.svg" alt="logo"></a>
+        <a
+          href="#"
+          class="header__link">
+          <img
+            class="header__image--logo"
+            src="../assets/svg/logo.svg"
+            alt="logo"/>
+        </a>
       </li>
       <ul class="header__navigation">
         <li class="header__navigationItem">
-          <a href="#" class="header__navigationLink">Про нас</a>
+          <a
+            href="#"
+            class="header__navigationLink">
+            Про нас
+          </a>
         </li>
         <li class="header__navigationItem">
-          <a href="#" class="header__navigationLink">Послуги</a>
+          <a
+            href="#"
+            class="header__navigationLink">
+            Послуги
+          </a>
         </li>
         <li class="header__navigationItem">
-          <a href="#" class="header__navigationLink">Наші переваги</a>
+          <a
+            href="#"
+            class="header__navigationLink">
+            Наші переваги
+          </a>
         </li>
         <li class="header__navigationItem">
-          <a href="#" class="header__navigationLink">Контакти</a>
+          <a
+            href="#"
+            class="header__navigationLink">
+            Контакти
+          </a>
         </li>
       </ul>
       <li class="header__item header__item--contacts">
         <ul class="header__contacts">
-          <li class="header__item"><a href="#" class="header__link header__link--bold">38(050) 574-23-62</a></li>
-          <li class="header__item"><a href="#" class="header__link header__link--bold">client.utprozorron@gmail.com</a>
+          <li class="header__item">
+            <a
+              href="#"
+              class="header__link header__link--bold">
+              38(050) 574-23-62
+            </a>
+          </li>
+          <li class="header__item">
+            <a
+              href="#"
+              class="header__link header__link--bold"
+              >client.utprozorron@gmail.com</a
+            >
           </li>
           <li class="header__item header__item--margin">Графік роботи: Пн-Пт, з 9:00 до 19:00</li>
         </ul>
       </li>
       <li class="header__item header__item--burger">
-        <img @click="mobileMenuOpen()" class="header__image--burger" src="../assets/svg/burger_icons.svg" alt="logo">
+        <img
+          @click="mobileMenuOpen()"
+          class="header__image--burger"
+          src="../assets/svg/burger_icons.svg"
+          alt="logo" />
       </li>
     </ul>
     <transition name="slideOn">
-      <div v-if="mobileMenu" class="mobileMenu">
-        <img @click="mobileMenuOpen()" src="../assets/svg/cross.svg" alt="Закрыть" class="mobileMenu__close">
+      <div
+        v-if="mobileMenu"
+        class="mobileMenu">
+        <img
+          @click="mobileMenuOpen()"
+          src="../assets/svg/cross.svg"
+          alt="Закрыть"
+          class="mobileMenu__close" />
         <ul class="mobileMenu__menuList mobileMenu__menuList--navigation">
           <li class="mobileMenu__menuItem">
-            <a class="mobileMenu__menuLink" href="#">Про нас</a>
+            <a
+              class="mobileMenu__menuLink"
+              href="#">
+              Про нас
+            </a>
           </li>
           <li class="mobileMenu__menuItem">
-            <a class="mobileMenu__menuLink" href="#">Послуги</a>
+            <a
+              class="mobileMenu__menuLink"
+              href="#">
+              Послуги
+            </a>
           </li>
           <li class="mobileMenu__menuItem">
-            <a class="mobileMenu__menuLink" href="#">Наші переваги</a>
+            <a
+              class="mobileMenu__menuLink"
+              href="#">
+              Наші переваги
+            </a>
           </li>
           <li class="mobileMenu__menuItem">
-            <a class="mobileMenu__menuLink" href="#">Контакти</a>
+            <a
+              class="mobileMenu__menuLink"
+              href="#">
+              Контакти
+            </a>
           </li>
         </ul>
         <ul class="mobileMenu__contactsList">
           <li class="mobileMenu__contactsItem">
-            <a href="tel:0505742362" class="mobileMenu__contactsLink">38(050) 574-23-62</a>
+            <a
+              href="tel:0505742362"
+              class="mobileMenu__contactsLink">
+              38(050) 574-23-62
+            </a>
           </li>
           <li class="mobileMenu__contactsItem">
-            <a href="mailto:client.utprozorro@gmail.com"
-              class="mobileMenu__contactsLink">client.utprozorro@gmail.com</a>
+            <a
+              href="mailto:client.utprozorro@gmail.com"
+              class="mobileMenu__contactsLink">
+              client.utprozorro@gmail.com
+            </a>
           </li>
           <li class="mobileMenu__contactsItem">
-            <a href="#" class="mobileMenu__contactsLink">Графік роботи: Пн-Пт, з 9:00 до 19:00</a>
+            <a
+              href="#"
+              class="mobileMenu__contactsLink">
+              Графік роботи: Пн-Пт, з 9:00 до 19:00
+            </a>
           </li>
         </ul>
       </div>
@@ -69,7 +140,7 @@ export default {
   data() {
     return {
       mobileMenu: false,
-    }
+    };
   },
   methods: {
     mobileMenuOpen() {
@@ -78,16 +149,12 @@ export default {
       } else {
         this.mobileMenu = true;
       }
-    }
+    },
   },
-}
+};
 </script>
 
 <style lang="scss">
-
-
-
-
 @keyframes showOn {
   0% {
     opacity: 0;
@@ -106,11 +173,11 @@ export default {
   }
 }
 .slideOn-enter-active {
-  animation: slide .5s;
+  animation: slide 0.5s;
 }
 
 .slideOn-leave-active {
-  animation: slide .5s reverse;
+  animation: slide 0.5s reverse;
 }
 
 ul {
