@@ -69,9 +69,6 @@ export default {
     &__container {
         max-width: 320px;
         margin: 0 auto;
-        @media (max-width: 475px) {
-            max-width: 320px;
-        }
     
         @media (min-width: 767px) {
             max-width: 640px;

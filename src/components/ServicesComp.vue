@@ -22,10 +22,19 @@ export default {
 
 <style lang="scss">
 
+
 .services {
     max-width: 320px;
     padding: 60px 0;
     margin: 0 auto;
+
+    @media (min-width: 767px) {
+        max-width: 640px;
+    }
+
+    @media (min-width: 1200px) {
+        max-width: 1200px;
+    }
 
     &__title {
         position: relative;
@@ -65,6 +74,21 @@ export default {
         color: #000;
         font-size: 16px;
         line-height: 1;
+    }
+}
+@media (min-width: 767px) {
+    .services {
+        &__title {
+            margin: 0 0 0 60px;
+        }
+    }
+}
+
+@media (min-width: 1200px) {
+    .services {
+        &__list {
+            flex-direction: row;
+        }
     }
 }
 </style>

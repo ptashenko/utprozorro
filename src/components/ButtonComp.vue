@@ -15,6 +15,7 @@ export default {
 
 
 
+
 .button {
     display: flex;
     flex-direction: column;
@@ -24,6 +25,7 @@ export default {
     width: 300px;
     height: 300px;
     background: #1550e7;
+    transition: all 250ms linear;
     &:not(:last-child) {
         margin-bottom: 20px;
     }
@@ -54,9 +56,22 @@ export default {
             transition: all 250ms linear;
         }
     }
+    &:hover {
+        background: #0034b8;
+    }
     &:hover > .button__more::after {
         opacity: 1;
         transform: translateX(5px);
+    }
+}
+
+@media (min-width: 1200px) {
+    .button {
+        width: 370px;
+        height: 370px;
+        &__link {
+            font-size: 26px;
+        }
     }
 }
 </style>
