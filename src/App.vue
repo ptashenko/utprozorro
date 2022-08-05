@@ -4,6 +4,8 @@
   <AboutUs />
   <ServicesComp />
   <OurExp />
+  <BenefitsComp />
+  <ContactsComp />
 </template>
 
 <script>
@@ -13,9 +15,11 @@ import HeroComp from './components/HeroComp.vue';
 import AboutUs from './components/AboutUs.vue';
 import ServicesComp from './components/ServicesComp.vue';
 import OurExp from './components/OurExp.vue';
+import BenefitsComp from './components/BenefitsComp.vue';
+import ContactsComp from './components/ContactsComp.vue';
 export default {
   name: 'App',
-  components: { HeaderComp, HeroComp, AboutUs, ServicesComp, OurExp },
+  components: { HeaderComp, HeroComp, AboutUs, ServicesComp, OurExp, BenefitsComp, ContactsComp },
 };
 </script>
 
