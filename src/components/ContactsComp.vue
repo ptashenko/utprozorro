@@ -2,36 +2,44 @@
     <footer class="footer">
         <div class="footer__container">
             <h2 class="footer__title">Контакти</h2>
-            <ul class="footer__contacts">
-                <li class="footer__item">
-                    <img class="footer__icon" src="../assets/svg/phone.svg" alt="">
-                    <p class="footer__contact">38(050) 574-23-62</p>
-                </li>
-                <li class="footer__item">
-                    <img class="footer__icon" src="../assets/svg/email.svg" alt="">
-                    <p class="footer__contact">client.utprozorro@gmail.com</p>
-                </li>
-                <li class="footer__item">
-                    <img class="footer__icon" src="../assets/svg/telegram.svg" alt="">
-                    <p class="footer__contact">@aptashenko</p>
-                </li>
-                <li class="footer__item">
-                    <img class="footer__icon" src="../assets/svg/schedule.svg" alt="">
-                    <p class="footer__contact">Графік роботи: Пн-Пт, з 9:00 до 19:00</p>
-                </li>
-            </ul>
-            <FormKit type="form" v-model="data" id="myForm" @submit="handleSubmit" submit-label="Відправити">
-                <h3 class="form__title">Залиште своє запитання</h3>
-                <div class="form__wrapper">
-                    <FormKit type="text" name="name" validation="?length:2" :validation-messages="{
-                        length: 'Введіть справжнє ім`я'}" placeholder="Введіть ваше ім'я" />
-                    <FormKit type="text" name="email" validation="email" :validation-messages="{
-                        email: 'Ввеліть корректний емейл'}" placeholder="Введіть ваш email" />
-                    <FormKit type="text" name="phone"
-                        :validation="[['required'], ['matches', /^\d{3} \d{3} \d{2} \d{2}$/]]" :validation-messages="{matches: 'Введіть номер телефону у форматі 050 574 23 62',}" placeholder="38 (050) 999-99-99" />
-                    <FormKit type="textarea" text-area name="comment" placeholder="Залиште коментар або запитання" />
-                </div>
-            </FormKit>
+            <div class="footer__wrapper">
+                <ul class="footer__contacts">
+                    <li class="footer__item">
+                        <img class="footer__icon" src="../assets/svg/phone.svg" alt="">
+                        <p class="footer__contact">38(050) 574-23-62</p>
+                    </li>
+                    <li class="footer__item">
+                        <img class="footer__icon" src="../assets/svg/email.svg" alt="">
+                        <p class="footer__contact">client.utprozorro@gmail.com</p>
+                    </li>
+                    <li class="footer__item">
+                        <img class="footer__icon" src="../assets/svg/telegram.svg" alt="">
+                        <p class="footer__contact">@aptashenko</p>
+                    </li>
+                    <li class="footer__item">
+                        <img class="footer__icon" src="../assets/svg/schedule.svg" alt="">
+                        <p class="footer__contact">Графік роботи: Пн-Пт, з 9:00 до 19:00</p>
+                    </li>
+                </ul>
+                <FormKit type="form" v-model="data" id="myForm" @submit="handleSubmit" submit-label="Відправити">
+                    <h3 class="form__title">Залиште своє запитання</h3>
+                    <div class="form__wrapper">
+                        <FormKit type="text" name="name" validation="?length:2" :validation-messages="{
+                            length: 'Введіть справжнє ім`я'
+                        }" placeholder="Введіть ваше ім'я" />
+                        <FormKit type="text" name="email" validation="email" :validation-messages="{
+                            email: 'Ввеліть корректний емейл'
+                        }" placeholder="Введіть ваш email" />
+                        <FormKit type="tel" name="phone"
+                            :validation="[['required'], ['matches', /^[\(]\d{3}[\)] \d{3}-\d{2}-\d{2}$/]]"
+                            :validation-messages="{
+    matches: 'Введіть номер телефону у форматі (050) 574-23-62', required: 'Номер телефона обязателен!',}"
+                            placeholder="(050) 000-00-00" />
+                        <FormKit type="textarea" text-area name="comment"
+                            placeholder="Залиште коментар або запитання" />
+                    </div>
+                </FormKit>
+            </div>
         </div>
     </footer>
 </template>
@@ -106,7 +114,7 @@ export default {
         }
         &__contact {
             margin: 0;
-            font-size: 20px;
+            font-size: 18px;
         }
 }
 .form {
@@ -132,6 +140,7 @@ export default {
         padding: 10px 5px;
         width: 100%;
         border: none;
+        outline: none;
         border-bottom: 1px solid #000;
     }
 }
@@ -161,4 +170,42 @@ export default {
     margin: 5px 0;
     color: red;
 }
+
+@media (min-width: 767px) {
+    .footer {
+        &__title {
+            margin: 0 0 0 60px;
+        }
+        &__contacts {
+            width: 375px;
+            margin: 20px auto 0;
+        }
+    }
+    .form {
+        padding: 40px 40px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .footer {
+        &__wrapper {
+            display: flex;
+            margin-top: 30px;
+        }
+        &__contacts {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin: 0;
+        }
+        &__contact {
+            font-size: 22px;
+        }
+    }
+    .form {
+        margin: 0;
+        flex-grow:  1;
+    }
+}
+
 </style>
