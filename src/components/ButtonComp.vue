@@ -1,21 +1,21 @@
 <template>
-    <div class="button">
-        <a class="button__link" href="#">{{ service }}</a>
+    <div class="button" v-for="(button, idx) of services" :key="idx">
+        <a class="button__link" :href="idx === 0 ? 'uchasnyky' : 'oskarzhennya'">{{ button }}</a>
         <p class="button__more">Детальніше</p>
     </div>
 </template>
 
 <script>
 export default {
-    props: ["service"],
+    props: ["services"],
+    data() {
+        return {
+        }
+    }
 }
 </script>
 
 <style lang="scss">
-
-
-
-
 .button {
     display: flex;
     flex-direction: column;
@@ -26,6 +26,7 @@ export default {
     height: 300px;
     background: #1550e7;
     transition: all 250ms linear;
+    margin: 0 auto;
     &:not(:last-child) {
         margin-bottom: 20px;
     }

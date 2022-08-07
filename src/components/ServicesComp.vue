@@ -2,7 +2,7 @@
     <section class="services">
         <h2 class="services__title">Наші послуги</h2>
         <ul class="services__list">
-            <ButtonComp v-for="button of buttonsNames" :key="button" :service="button" />
+            <ButtonComp :services="buttonsNames" />
         </ul>
         <a class="services__button" href="#">Замовити наші послуги</a>
     </section>
@@ -16,6 +16,8 @@ export default {
         return {
             buttonsNames: ["Послуги для учасників", "Послуги в оскарженні вимог/рішень"],
         }
+    },
+    methods: {
     }
 }
 </script>
