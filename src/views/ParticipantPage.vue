@@ -46,131 +46,28 @@
   <div class="patricipant">
     <h2 class="patricipant__subtitle">Наші переваги</h2>
     <ul class="patricipant__benefits">
-      <li class="patricipant__benefit">
-        <h3 class="patricipant__benefitName">Комплексний підхід</h3>
-        <p class="patricipant__benefitText">Консультації, перевірка та підготовка документів. Консультуємо з будь-яких
-          питань щодо публічних закупівель</p>
-      </li>
-      <li class="patricipant__benefit">
-        <h3 class="patricipant__benefitName">Повне занурення в потреби клієнтів</h3>
-        <p class="patricipant__benefitText">Попередній аудит тендерної документації, виявлення слабких сторін клієнта,
-          рекомендації щодо усунення слабких сторін, повний супровід протягом всього строку дії тендеру.</p>
-      </li>
-      <li class="patricipant__benefit">
-        <h3 class="patricipant__benefitName">Послуги під ключ</h3>
-        <p class="patricipant__benefitText">Від реєстрації на майданчику до укладення договору з Замовником. Ми зробимо
-          всю роботу, не відволікаючи вас.</p>
-      </li>
-      <li class="patricipant__benefit">
-        <h3 class="patricipant__benefitName">Економія часу</h3>
-        <p class="patricipant__benefitText">Ви займаєтесь розвитком свого бізнесу, а ми беремо на себе всі тендерні
-          завдання.</p>
+      <li class="patricipant__benefit" v-for="(item,indx) of benefits" :key="indx">
+        <h3 class="patricipant__benefitName">{{item.title}}</h3>
+        <p class="patricipant__benefitText">{{item.description}}</p>
       </li>
     </ul>
   </div>
   <div class="patricipant patricipant--wider">
     <h2 class="patricipant__subtitle">Пакети послуг</h2>
     <ul class="pricelist">
-      <li class="pricelist__item">
+      <li class="pricelist__item" v-for="(item, idx) of servicesList" :key="idx">
         <span class="pricelist__wrapper">
-          <h3 class="pricelist__name">Підготовка тендерних пропозицій спрощених закупівель</h3>
+          <h3 class="pricelist__name">{{item.title}}</h3>
           <ul class="pricelist__list">
-            <li class="pricelist__description">
-              -реєстрація особистого кабінету компанії на електронному майданчику
-            </li>
-            <li class="pricelist__description">
-              -аудит тендерної документації закупівлі
-            </li>
-            <li class="pricelist__description">
-              -аудит ваших кваліфікаційних та технічних документів
-            </li>
-            <li class="pricelist__description">
-              -підготовка тендерної пропозиції під ключ
-            </li>
-            <li class="pricelist__description">
-              -завантаження документів пропозиції на майданчик
-            </li>
-            <li class="pricelist__description">
-              -замовлення тендерного забезпечення
-            </li>
-            <li class="pricelist__description">
-              -підготовка кваліфікаційних документів після перемоги в аукціоні
-            </li>
-            <li class="pricelist__description">
-              -підготовка договору для підписання із замовником
+            <li class="pricelist__description" v-for="(itm,indx) of item.descriptions" :key="indx">
+              -{{itm}}
             </li>
           </ul>
-          <p class="pricelist__price">Ціна:<span class="pricelist__price--blue"> 1200 грн/шт</span></p>
-          <p class="pricelist__price">Ціна при замовленні від 3шт:<span class="pricelist__price--blue"> 950
+          <p class="pricelist__price">Ціна: <span class="pricelist__price--blue">{{item.price}} грн/шт</span></p>
+          <p class="pricelist__price">Ціна при замовленні від 3шт: <span class="pricelist__price--blue">{{item.priceDiscount}}
               грн/шт</span>
           </p>
         </span>
-      </li>
-      <li class="pricelist__item">
-        <h3 class="pricelist__name">Підготовка тендерних пропозицій відкритих торгів до 5 000 000 грн</h3>
-        <ul class="pricelist__list">
-          <li class="pricelist__description">
-            -реєстрація особистого кабінету компанії на електронному майданчику
-          </li>
-          <li class="pricelist__description">
-            -аудит тендерної документації закупівлі
-          </li>
-          <li class="pricelist__description">
-            -аудит ваших кваліфікаційних та технічних документів
-          </li>
-          <li class="pricelist__description">
-            -підготовка тендерної пропозиції під ключ
-          </li>
-          <li class="pricelist__description">
-            -завантаження документів пропозиції на майданчик
-          </li>
-          <li class="pricelist__description">
-            -замовлення тендерного забезпечення
-          </li>
-          <li class="pricelist__description">
-            -підготовка кваліфікаційних документів після перемоги в аукціоні
-          </li>
-          <li class="pricelist__description">
-            -підготовка договору для підписання із замовником
-          </li>
-        </ul>
-        <p class="pricelist__price">Ціна: <span class="pricelist__price--blue">2400 грн/шт</span></p>
-        <p class="pricelist__price">Ціна при замовленні від 3шт: <span class="pricelist__price--blue">1800
-            грн/шт</span>
-        </p>
-      </li>
-      <li class="pricelist__item">
-        <h3 class="pricelist__name">Підготовка тендерних пропозицій закупівель на суму від 5 000 000 грн</h3>
-        <ul class="pricelist__list">
-          <li class="pricelist__description">
-            -реєстрація особистого кабінету компанії на електронному майданчику
-          </li>
-          <li class="pricelist__description">
-            -аудит тендерної документації закупівлі
-          </li>
-          <li class="pricelist__description">
-            -аудит ваших кваліфікаційних та технічних документів
-          </li>
-          <li class="pricelist__description">
-            -підготовка тендерної пропозиції під ключ
-          </li>
-          <li class="pricelist__description">
-            -завантаження документів пропозиції на майданчик
-          </li>
-          <li class="pricelist__description">
-            -замовлення тендерного забезпечення
-          </li>
-          <li class="pricelist__description">
-            -підготовка кваліфікаційних документів після перемоги в аукціоні
-          </li>
-          <li class="pricelist__description">
-            -підготовка договору для підписання із замовником
-          </li>
-        </ul>
-        <p class="pricelist__price">Ціна: <span class="pricelist__price--blue">5000 грн/шт</span></p>
-        <p class="pricelist__price">Ціна при замовленні від 3шт: <span class="pricelist__price--blue">3500
-            грн/шт</span>
-        </p>
       </li>
     </ul>
   </div>
@@ -195,6 +92,9 @@
 <script>
 import ButtonComp from "../components/ButtonComp.vue";
 import faq from "../texts/faq";
+import servicesList from "../texts/services"
+import benefits from "../texts/ourBenefits"
+
 export default {
   components: { ButtonComp },
   data() {
@@ -206,7 +106,13 @@ export default {
   computed: {
     faqText() {
       return faq;
-    }
+    },
+    servicesList() {
+      return servicesList;
+    },
+    benefits() {
+      return benefits;
+    },
   },
   methods: {
     showFaqAnswer(index) {
@@ -215,6 +121,7 @@ export default {
   },
   mounted() {
     faq.forEach(el => this.activeAnswer.push(el.active));
+    console.log(this.servicesList[0].descriptions)
   }
 }
 </script>
@@ -398,6 +305,7 @@ export default {
   &__question {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     margin: 0;
     font-size: 20px;
     font-weight: 700;
