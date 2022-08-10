@@ -72,37 +72,39 @@
     <h2 class="patricipant__subtitle">Пакети послуг</h2>
     <ul class="pricelist">
       <li class="pricelist__item">
-        <h3 class="pricelist__name">Підготовка тендерних пропозицій спрощених закупівель</h3>
-        <ul class="pricelist__list">
-          <li class="pricelist__description">
-            -реєстрація особистого кабінету компанії на електронному майданчику
-          </li>
-          <li class="pricelist__description">
-            -аудит тендерної документації закупівлі
-          </li>
-          <li class="pricelist__description">
-            -аудит ваших кваліфікаційних та технічних документів
-          </li>
-          <li class="pricelist__description">
-            -підготовка тендерної пропозиції під ключ
-          </li>
-          <li class="pricelist__description">
-            -завантаження документів пропозиції на майданчик
-          </li>
-          <li class="pricelist__description">
-            -замовлення тендерного забезпечення
-          </li>
-          <li class="pricelist__description">
-            -підготовка кваліфікаційних документів після перемоги в аукціоні
-          </li>
-          <li class="pricelist__description">
-            -підготовка договору для підписання із замовником
-          </li>
-        </ul>
-        <p class="pricelist__price">Ціна:<span class="pricelist__price--blue"> 1200 грн/шт</span></p>
-        <p class="pricelist__price">Ціна при замовленні від 3шт:<span class="pricelist__price--blue"> 950
-            грн/шт</span>
-        </p>
+        <span class="pricelist__wrapper">
+          <h3 class="pricelist__name">Підготовка тендерних пропозицій спрощених закупівель</h3>
+          <ul class="pricelist__list">
+            <li class="pricelist__description">
+              -реєстрація особистого кабінету компанії на електронному майданчику
+            </li>
+            <li class="pricelist__description">
+              -аудит тендерної документації закупівлі
+            </li>
+            <li class="pricelist__description">
+              -аудит ваших кваліфікаційних та технічних документів
+            </li>
+            <li class="pricelist__description">
+              -підготовка тендерної пропозиції під ключ
+            </li>
+            <li class="pricelist__description">
+              -завантаження документів пропозиції на майданчик
+            </li>
+            <li class="pricelist__description">
+              -замовлення тендерного забезпечення
+            </li>
+            <li class="pricelist__description">
+              -підготовка кваліфікаційних документів після перемоги в аукціоні
+            </li>
+            <li class="pricelist__description">
+              -підготовка договору для підписання із замовником
+            </li>
+          </ul>
+          <p class="pricelist__price">Ціна:<span class="pricelist__price--blue"> 1200 грн/шт</span></p>
+          <p class="pricelist__price">Ціна при замовленні від 3шт:<span class="pricelist__price--blue"> 950
+              грн/шт</span>
+          </p>
+        </span>
       </li>
       <li class="pricelist__item">
         <h3 class="pricelist__name">Підготовка тендерних пропозицій відкритих торгів до 5 000 000 грн</h3>
@@ -311,6 +313,8 @@ export default {
     margin-top: 20px;
   }
   &__benefit {
+    max-width: 400px;
+    margin: 0 auto;
     padding: 20px;
     background: #f5f5f5;
     &:not(:last-child) {
@@ -417,5 +421,42 @@ export default {
     transform: rotate(45deg);
     background: #eeee;
   }
+}
+
+@media (min-width: 767px) {
+  .patricipant, .container {
+    max-width: 640px;
+    &--wider {
+      max-width: 100%;
+    }
+    &__title, .patricipant__subtitle {
+      font-size: 24px;
+    }
+    &__description, .patricipant__service, .patricipant__text, .patricipant__benefitName {
+      font-size: 18px;
+    }
+    &__button {
+      font-size: 18px;
+      padding: 20px 0px;
+      text-align: center;
+    }
+    &__benefit {
+      padding: 40px;
+    }
+    &__benefitText {
+      font-size: 16px;
+    }
+  }
+  .pricelist {
+    &__wrapper {
+      display: block;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+  }
+}
+
+@media (min-width: 1200px) {
+  // max-width: 1200px;
 }
 </style>
