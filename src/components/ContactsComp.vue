@@ -67,7 +67,7 @@ export default {
 
 .footer {
     background: #fafafa;
-    padding: 60px 0;
+    padding: 30px 0;
         &__container {
             max-width: 320px;
             margin: 0 auto;

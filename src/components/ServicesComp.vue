@@ -27,7 +27,7 @@ export default {
 
 .services {
     max-width: 320px;
-    padding: 60px 0;
+    padding: 30px 0;
     margin: 0 auto;
 
     @media (min-width: 767px) {
@@ -69,7 +69,7 @@ export default {
         display: block;
         width: 280px;
         text-align: center;
-        margin: 20px auto;
+        margin: 30px auto 0;
         text-decoration: none;
         padding: 20px 40px;
         border: 1px solid #000;

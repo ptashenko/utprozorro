@@ -12,12 +12,6 @@ import ContactsComp from '@/components/ContactsComp.vue';
 export default {
   name: 'App',
   components: { HeaderComp, ContactsComp },
-  data() {
-    return {
-    }
-  },
-  mounted() {
-  }
 };
 </script>
 
@@ -29,5 +23,9 @@ export default {
 body {
   font-family: Montserrat, sans-serif;
   margin: 0 auto;
+}
+
+#app {
+  padding-top: 10px;
 }
 </style>

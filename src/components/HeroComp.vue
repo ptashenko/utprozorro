@@ -59,7 +59,7 @@ export default {};
 <style lang="scss">
 .hero {
   max-width: 320px;
-  padding: 100px 0;
+  padding: 30px 0;
   margin: 0 auto;
   &__title {
     font-size: 28px;
@@ -93,7 +93,7 @@ export default {};
     display: block;
     width: 270px;
     text-align: center;
-    margin: 20px auto;
+    margin: 30px auto;
     text-decoration: none;
     padding: 20px 40px;
     border: 1px solid #000;

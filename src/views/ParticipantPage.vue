@@ -2,7 +2,7 @@
   <div class="patricipant">
     <ul class="patricipant__adress">
       <li class="patricipant__adressName">
-        <a href="#">Головна</a>
+        <a href="/">Головна</a>
       </li>
       <li class="patricipant__adressName">
         Послуги для учасників
@@ -218,9 +218,6 @@ export default {
 </script>
 
 <style lang="scss">
-
-
-
 
 .patricipant {
   max-width: 320px;

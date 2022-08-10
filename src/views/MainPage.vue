@@ -15,6 +15,10 @@ import BenefitsComp from '@/components/BenefitsComp.vue';
 
 export default {
     components: { HeroComp, AboutUs, ServicesComp, OurExp, BenefitsComp },
+    data() {
+        return {
+        }
+    }
 }
 </script>
 

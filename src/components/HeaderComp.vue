@@ -42,7 +42,8 @@
         </ul>
       </li>
       <li class="header__item header__item--burger">
-        <img @click="mobileMenuOpen()" class="header__image--burger" src="../assets/svg/burger_icons.svg" alt="logo" />
+        <img @click="mobileMenuOpen()" v-show="mainPage === '/'" class="header__image--burger"
+          src="../assets/svg/burger_icons.svg" alt="logo" />
       </li>
     </ul>
     <transition name="slideOn">
@@ -97,6 +98,7 @@ export default {
   data() {
     return {
       mobileMenu: false,
+      mainPage: window.location.pathname,
     };
   },
   methods: {

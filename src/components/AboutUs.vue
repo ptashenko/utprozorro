@@ -64,7 +64,7 @@ export default {
 
 .about {
     background: #fafafa;
-    padding: 60px 0;
+    padding: 30px 0;
     
     &__container {
         max-width: 320px;
@@ -110,6 +110,7 @@ export default {
         position: relative;
         max-width: 440px;
         &--wrapper {
+            margin: 20px 0;
             &::before {
                 content: '';
                 position: absolute;
@@ -128,7 +129,6 @@ export default {
         display: block;
         width: 100%;
         max-width: 440px;
-        margin: 0 auto;
     }
 }
 @media (min-width: 767px) {
@@ -163,6 +163,11 @@ export default {
             justify-content: space-between;
             align-items: flex-start;
             width: 75%;
+        }
+        &__bottomItem {
+            &--wrapper {
+                margin: 0;
+            }
         }
         &__bottomText {
             font-size: 18px;

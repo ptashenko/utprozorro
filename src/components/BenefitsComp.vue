@@ -35,7 +35,7 @@ export default {
 
 .benefits {
     max-width: 320px;
-    padding: 60px 0;
+    padding: 30px 0;
     margin: 0 auto;
     &__title {
         position: relative;
