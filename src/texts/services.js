@@ -1,4 +1,4 @@
-export default [
+const tender = [
     {
         title: 'Підготовка тендерних пропозицій спрощених закупівель',
         descriptions: [
@@ -45,3 +45,23 @@ export default [
         priceDiscount: 3500,
     }
 ]
+
+const complaint = [
+    {
+        title: 'Аудит тендерної документації (на наявність дискримінаційних вимог)',
+        price: 500,
+        priceDiscount: 400,
+    },
+    {
+        title: 'Аудит тендерної пропозиції Учасника на наявність помилок',
+        price: 500,
+        priceDiscount: 400,
+    },
+    {
+        title: 'Оформлення та направлення скарг до АМКУ',
+        price: 2000,
+        priceDiscount: 1600,
+    }
+]
+
+export default {tender, complaint}

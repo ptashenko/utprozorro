@@ -6,7 +6,7 @@
 
 <script>
 import './assets/style/normalize.scss';
-import HeaderComp from './components/HeaderComp.vue';
+import HeaderComp from './components/Header/HeaderComp.vue';
 import ContactsComp from '@/components/ContactsComp.vue';
 
 export default {

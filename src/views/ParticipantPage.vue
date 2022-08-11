@@ -55,7 +55,7 @@
   <div class="patricipant patricipant--wider">
     <h2 class="patricipant__subtitle">Пакети послуг</h2>
     <ul class="pricelist">
-      <li class="pricelist__item" v-for="(item, idx) of servicesList" :key="idx">
+      <li class="pricelist__item" v-for="(item, idx) of servicesList.tender" :key="idx">
         <span class="pricelist__wrapper">
           <h3 class="pricelist__name">{{item.title}}</h3>
           <ul class="pricelist__list">
@@ -121,7 +121,6 @@ export default {
   },
   mounted() {
     faq.forEach(el => this.activeAnswer.push(el.active));
-    console.log(this.servicesList[0].descriptions)
   }
 }
 </script>
