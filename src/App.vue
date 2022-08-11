@@ -7,7 +7,7 @@
 <script>
 import './assets/style/normalize.scss';
 import HeaderComp from './components/Header/HeaderComp.vue';
-import ContactsComp from '@/components/ContactsComp.vue';
+import ContactsComp from '@/components/Contacts/ContactsComp.vue';
 
 export default {
   name: 'App',

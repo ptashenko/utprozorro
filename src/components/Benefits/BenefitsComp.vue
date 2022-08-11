@@ -1,32 +1,24 @@
 <template>
     <section class="benefits">
-        <h2 class="benefits__title">Наші переваги</h2>
+        <h2 class="benefits__title">{{text[0][0].title}}</h2>
         <ul class="benefits__list">
-            <li class="benefits__item">
-                <img class="benefits__icon" src="../assets/svg/price_icon.svg" alt="">
-                <h3 class="benefits__name">Відсутність передплат</h3>
-                <p class="benefits__text">Ви оплачуєте тільки за фактично надані послуги.</p>
-            </li>
-            <li class="benefits__item">
-                <img class="benefits__icon" src="../assets/svg/folder_icon.svg" alt="">
-                <h3 class="benefits__name">Електронні документи</h3>
-                <p class="benefits__text">Більше Вам не потрібно роздруковувати гору паперів, проставляти печатки,
-                    підписувати та сканувати документи. Ми підготуємо Вашу тендерну пропозицію в електронному вигляді та
-                    збережемо Ваш час.</p>
-            </li>
-            <li class="benefits__item">
-                <img class="benefits__icon" src="../assets/svg/bonus_icon.svg" alt="">
-                <h3 class="benefits__name">Гнучкі умови співпраці</h3>
-                <p class="benefits__text">Для постійних та корпоративних клієнтів діють гнучкі умови співпраці та
-                    додаткові бонуси</p>
+            <li class="benefits__item" v-for="(item, i) of text[1]" :key="i">
+                <img class="benefits__icon" :src="require(`../../assets/svg/${item.logo}_icon.svg`)" alt="">
+                <h3 class="benefits__name">{{item.name}}</h3>
+                <p class="benefits__text">{{item.text}}</p>
             </li>
         </ul>
     </section>
 </template>
 
 <script>
+import benefits from './benefits';
 export default {
-
+    computed: {
+        text() {
+            return benefits;
+        }
+    },
 }
 </script>
 

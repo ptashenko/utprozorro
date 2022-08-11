@@ -1,23 +1,22 @@
 <template>
     <section class="services">
-        <h2 class="services__title">Наші послуги</h2>
+        <h2 class="services__title">{{text.title}}</h2>
         <ul class="services__list">
-            <ButtonComp :services="buttonsNames" />
+            <ButtonComp :services="text.buttons" />
         </ul>
-        <a class="services__button" href="#">Замовити наші послуги</a>
+        <a class="services__button" href="#">{{text.buttonOrder}}</a>
     </section>
 </template>
 
 <script>
-import ButtonComp from "./ButtonComp.vue";
+import ButtonComp from "../ButtonComp.vue";
+import service from "./services";
 export default {
     components: { ButtonComp },
-    data() {
-        return {
-            buttonsNames: ["Послуги для учасників", "Послуги в оскарженні вимог/рішень"],
+    computed: {
+        text() {
+            return service;
         }
-    },
-    methods: {
     }
 }
 </script>

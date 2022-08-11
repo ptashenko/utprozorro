@@ -1,36 +1,18 @@
 <template>
   <section class="experience">
     <div class="experience__container">
-      <h2 class="experience__title">Про нас</h2>
+      <h2 class="experience__title">{{text.title}}</h2>
       <div class="experience__top">
         <div class="experience__textWrapper">
-          <p class="experience__text"><span class="experience__text--title">Тендерна агенція «Ptashenko»</span>
-            розпочала
-            свою
-            діяльність у сфері публічних закупівель з 2016 року.
-          </p>
-          <p class="experience__text--fontsize">Наші експерти – провідні фахівці з великим практичним досвідом у сфері
-            публічних
-            закупівель. Ми знаємо всі тонкощі процесу проведенння торгів та готові використовувати свій досвід для
-            досягнення поставлених цілей наших клієнітв.
-          </p>
+          <p class="experience__text"><span
+              class="experience__text--title">{{text.description[0]}}</span>{{text.description[1]}}</p>
+          <p class="experience__text--fontsize">{{text.description[2]}}</p>
         </div>
         <ul class="experience__topList">
-          <li class="experience__topItem">
-            <h2 class="experience__number"><span class="experience__number--symbol">></span> 5 років</h2>
-            <p class="experience__description">досвіду у сфері публічних закупівель</p>
-          </li>
-          <li class="experience__topItem">
-            <h2 class="experience__number"><span class="experience__number--symbol">></span> 120</h2>
-            <p class="experience__description">консультацій щомісячно</p>
-          </li>
-          <li class="experience__topItem">
-            <h2 class="experience__number"><span class="experience__number--symbol">></span> 3,7 тис</h2>
-            <p class="experience__description">підготовлених тендерів</p>
-          </li>
-          <li class="experience__topItem">
-            <h2 class="experience__number"><span class="experience__number--symbol">~</span> 95%</h2>
-            <p class="experience__description">середній коефіцієнт переможних торгів</p>
+          <li class="experience__topItem" v-for="(item,i) of text.experience" :key="i">
+            <h2 class="experience__number"><span class="experience__number--symbol">{{item.symbol}}</span>{{item.count}}
+            </h2>
+            <p class="experience__description">{{item.description}}</p>
           </li>
         </ul>
       </div>
@@ -38,35 +20,25 @@
         <ul class="experience__bottomList">
           <li class="experience__bottomItem">
             <span class="experience__image--wrapper">
-              <img class="experience__image" src="../assets/creator.jpg" alt="">
+              <img class="experience__image" src="../../assets/creator.jpg" alt="">
             </span>
             <div class="experience__textWrapper">
-              <h2 class="experience__name">Пташенко Артем Олегович</h2>
-              <p class="experience__position">Засновник, провідний фахівець агенції</p>
+              <h2 class="experience__name">{{text.founder.name}}</h2>
+              <p class="experience__position">{{text.founder.position}}</p>
               <ul class="experience__achivements">
-                <li class="experience__achivement">
-                  - досвід у сфері публічних закупівель більше 5 років
-                </li>
-                <li class="experience__achivement">
-                  - підготовлено більше 2 тис. тендерних пропозицій
-                </li>
-                <li class="experience__achivement">
-                  - середній коефіцієнт перемог 95% (інші 5% успішно оскаржено в АМКУ)
-                </li>
-                <li class="experience__achivement">
-                  - виграв більше 90 скарг в АМКУ
+                <li class="experience__achivement" v-for="(item, i) of text.founder.exp" :key="i">
+                  - {{item}}
                 </li>
               </ul>
             </div>
           </li>
           <li class="experience__bottomItem experience__bottomItem--reverse">
             <span class="experience__image--wrapperBottom">
-              <img class="experience__image" src="../assets/certificate.jpg" alt="">
+              <img class="experience__image" src="../../assets/certificate.jpg" alt="">
             </span>
             <div class="experience__textWrapper">
-              <h2 class="experience__name">Систематично підвищує знання та кваліфікацію у сфері публічних закупівель
-              </h2>
-              <p class="experience__achivement">Приватна установа "Університет "Київська школа економіки"</p>
+              <h2 class="experience__name">{{text.education.title}}</h2>
+              <p class="experience__achivement">{{text.education.name}}</p>
             </div>
           </li>
         </ul>
@@ -76,16 +48,17 @@
 </template>
 
 <script>
+import exp from './exp';
 export default {
-
+  computed: {
+    text() {
+      return exp;
+    }
+  }
 }
 </script>
 
 <style lang="scss">
-
-
-
-
 .experience {
   background: #fafafa;
   padding: 30px 0;

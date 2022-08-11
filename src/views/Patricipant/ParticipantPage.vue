@@ -13,7 +13,7 @@
       самостійно готувати документи на тендер? Шукаєте фахівців які професійно виконають свою роботу?
     </p>
     <a href="#" class="patricipant__button">Замовити послуги</a>
-    <img class="patricipant__image" src="../assets/books.jpg" alt="Книжки">
+    <img class="patricipant__image" src="../../assets/books.jpg" alt="Книжки">
   </div>
   <div class="wrapper">
     <div class="container">
@@ -55,7 +55,7 @@
   <div class="patricipant patricipant--wider">
     <h2 class="patricipant__subtitle">Пакети послуг</h2>
     <ul class="pricelist">
-      <li class="pricelist__item" v-for="(item, idx) of servicesList.tender" :key="idx">
+      <li class="pricelist__item" v-for="(item, idx) of price.tender" :key="idx">
         <span class="pricelist__wrapper">
           <h3 class="pricelist__name">{{item.title}}</h3>
           <ul class="pricelist__list">
@@ -64,7 +64,8 @@
             </li>
           </ul>
           <p class="pricelist__price">Ціна: <span class="pricelist__price--blue">{{item.price}} грн/шт</span></p>
-          <p class="pricelist__price">Ціна при замовленні від 3шт: <span class="pricelist__price--blue">{{item.priceDiscount}}
+          <p class="pricelist__price">Ціна при замовленні від 3шт: <span
+              class="pricelist__price--blue">{{item.priceDiscount}}
               грн/шт</span>
           </p>
         </span>
@@ -76,7 +77,7 @@
     <ul class="faq">
       <li class="faq__item" v-for="({question, answer}, idx) of faqText" :key="idx">
         <p class="faq__question" @click="showFaqAnswer(idx)">{{ question }}
-          <img :class="{ 'faq__clicked': activeAnswer[idx]}" class="faq__icon" src="../assets/svg/plus.svg" alt="">
+          <img :class="{ 'faq__clicked': activeAnswer[idx]}" class="faq__icon" src="../../assets/svg/plus.svg" alt="">
         </p>
         <p class="faq__answer" v-show="activeAnswer[idx]">{{answer}}
         </p>
@@ -85,15 +86,15 @@
   </div>
   <div class="patricipant">
     <h2 class="patricipant__subtitle patricipant__subtitle--marginBottom">Iнші послуги</h2>
-    <ButtonComp :services="buttonsNames" />
+    <ButtonComp :services="buttonsNames[1]" />
   </div>
 </template>
 
 <script>
-import ButtonComp from "../components/ButtonComp.vue";
-import faq from "../texts/faq";
-import servicesList from "../texts/services"
-import benefits from "../texts/ourBenefits"
+import ButtonComp from "../../components/ButtonComp.vue";
+import faq from "../faq";
+import price from "../priceList"
+import benefits from "../ourBenefits"
 
 export default {
   components: { ButtonComp },
@@ -107,8 +108,8 @@ export default {
     faqText() {
       return faq;
     },
-    servicesList() {
-      return servicesList;
+    price() {
+      return price;
     },
     benefits() {
       return benefits;

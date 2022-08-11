@@ -79,9 +79,6 @@ export default {
       this.$router.push('/')
     }
   },
-  mounted() {
-    console.log(this.headerText);
-  }
 };
 </script>
 

@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import ParticipantPage from '../views/ParticipantPage.vue'
-import ComplaintPage from '../views/ComplaintPage.vue'
-import MainPage from '../views/MainPage.vue'
+import ParticipantPage from '../views/Patricipant/ParticipantPage.vue'
+import ComplaintPage from '../views/Complaints/ComplaintPage.vue'
+import MainPage from '../views/MainPage/MainPage.vue'
 
 const router = createRouter({
   history: createWebHistory(),

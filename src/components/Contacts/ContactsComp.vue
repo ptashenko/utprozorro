@@ -1,63 +1,30 @@
 <template>
     <footer class="footer">
         <div class="footer__container">
-            <h2 class="footer__title">Контакти</h2>
+            <h2 class="footer__title">{{text[0][0].title}}</h2>
             <div class="footer__wrapper">
                 <ul class="footer__contacts">
-                    <li class="footer__item">
-                        <img class="footer__icon" src="../assets/svg/phone.svg" alt="">
-                        <p class="footer__contact">38(050) 574-23-62</p>
-                    </li>
-                    <li class="footer__item">
-                        <img class="footer__icon" src="../assets/svg/email.svg" alt="">
-                        <p class="footer__contact">client.utprozorro@gmail.com</p>
-                    </li>
-                    <li class="footer__item">
-                        <img class="footer__icon" src="../assets/svg/telegram.svg" alt="">
-                        <p class="footer__contact">@aptashenko</p>
-                    </li>
-                    <li class="footer__item">
-                        <img class="footer__icon" src="../assets/svg/schedule.svg" alt="">
-                        <p class="footer__contact">Графік роботи: Пн-Пт, з 9:00 до 19:00</p>
+                    <li class="footer__item" v-for="(item,i) of text[1]" :key="i">
+                        <img class="footer__icon" :src="require(`../../assets/svg/${item.icon}.svg`)" alt="">
+                        <p class="footer__contact">{{ item.text }}</p>
                     </li>
                 </ul>
-                <FormKit type="form" v-model="data" id="myForm" @submit="handleSubmit" submit-label="Відправити">
-                    <h3 class="form__title">Залиште своє запитання</h3>
-                    <div class="form__wrapper">
-                        <FormKit type="text" name="name" validation="?length:2" :validation-messages="{
-                            length: 'Введіть справжнє ім`я'
-                        }" placeholder="Введіть ваше ім'я" />
-                        <FormKit type="text" name="email" validation="email" :validation-messages="{
-                            email: 'Ввеліть корректний емейл'
-                        }" placeholder="Введіть ваш email" />
-                        <FormKit type="tel" name="phone"
-                            :validation="[['required'], ['matches', /^[\(]\d{3}[\)] \d{3}-\d{2}-\d{2}$/]]"
-                            :validation-messages="{
-    matches: 'Введіть номер телефону у форматі (050) 574-23-62', required: 'Номер телефона обязателен!',}"
-                            placeholder="(050) 000-00-00" />
-                        <FormKit type="textarea" text-area name="comment"
-                            placeholder="Залиште коментар або запитання" />
-                    </div>
-                </FormKit>
+                <FormComp />
             </div>
         </div>
     </footer>
 </template>
 
 <script>
-
+import contacts from './contacts';
+import FormComp from '../Form/FormComp.vue';
 export default {
-    data() {
-        return {
-            data: {},
+    components: { FormComp },
+    computed: {
+        text() {
+            return contacts;
         }
     },
-    methods: {
-        handleSubmit() {
-            console.log(this.data);
-            this.$formkit.reset('myForm')
-        }
-    }
 }
 </script>
 

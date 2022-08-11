@@ -2,58 +2,41 @@
   <main class="hero">
     <div class="hero__mobile">
       <h1 class="hero__title">
-        Юридичний супровід
-        <span class="hero__title--bold"> закупівель в Prozorro</span>
-        <span class="hero__title--underline">"під ключ"</span>
+        {{text.title}}
+        <span class="hero__title--bold">{{ text.titleMid }}</span>
+        <span class="hero__title--underline">{{ text.titleEnd }}</span>
       </h1>
       <ul class="hero__benefits">
-        <li class="hero__benefitsItem">- супровід тендерних процедур в Prozorro "під ключ"</li>
-        <li class="hero__benefitsItem">- підготовка тендерної пропозиції "під ключ"</li>
-        <li class="hero__benefitsItem">- оскарження в антимонопольному комітеті України</li>
-        <li class="hero__benefitsItem">- перевірка документів пропозицій конкурентів</li>
+        <li class="hero__benefitsItem" v-for="(item, i) of text.benefits" :key="i">{{item}}</li>
       </ul>
-      <p class="hero__subtitle">Станьте на крок попереду серед інших!</p>
-      <a
-        class="hero__button"
-        href="#"
-        >Отримати консультацію</a
-      >
-      <span class="hero__image--wrapper"
-        ><img
-          class="hero__image"
-          src="../assets/hummer-main.jpg"
-          alt=""
-      /></span>
+      <p class="hero__subtitle">{{text.subtitle}}</p>
+      <a class="hero__button" href="#">{{text.button}}</a>
+      <span class="hero__image--wrapper"><img class="hero__image" src="../../assets/hummer-main.jpg" alt="" /></span>
     </div>
     <div class="hero__desktop">
       <h1 class="hero__title">
-        Юридичний супровід<span class="hero__title--bold"> закупівель в Prozorro</span>
-        <span class="hero__title--underline">"під ключ"</span>
+        {{text.title}}<span class="hero__title--bold">{{text.titleMid}}</span>
+        <span class="hero__title--underline">{{text.titleEnd}}</span>
       </h1>
       <ul class="hero__benefits">
-        <li class="hero__benefitsItem">- супровід тендерних процедур в Prozorro "під ключ"</li>
-        <li class="hero__benefitsItem">- підготовка тендерної пропозиції "під ключ"</li>
-        <li class="hero__benefitsItem">- оскарження в антимонопольному комітеті України</li>
-        <li class="hero__benefitsItem">- перевірка документів пропозицій конкурентів</li>
+        <li class="hero__benefitsItem" v-for="(item,i) of text.benefits" :key="i">{{item}}</li>
       </ul>
-      <p class="hero__subtitle">Станьте на крок попереду серед інших!</p>
-      <a
-        class="hero__button"
-        href="#"
-        >Отримати консультацію</a
-      >
-      <span class="hero__image--wrapper"
-        ><img
-          class="hero__image"
-          src="../assets/hummer-main.jpg"
-          alt=""
-      /></span>
+      <p class="hero__subtitle">{{text.susbitle}}</p>
+      <a class="hero__button" href="#">{{text.button}}</a>
+      <span class="hero__image--wrapper"><img class="hero__image" src="../../assets/hummer-main.jpg" alt="" /></span>
     </div>
   </main>
 </template>
 
 <script>
-export default {};
+import hero from './hero';
+export default {
+  computed: {
+    text() {
+      return hero;
+    }
+  }
+};
 </script>
 
 <style lang="scss">

@@ -14,7 +14,7 @@
       хоча-б одне з цих запитань вам неодмінно потрібна допомога фахівців.
     </p>
     <a href="#" class="complaint__button">Замовити послуги</a>
-    <img class="complaint__image" src="../assets/complaints.jpg" alt="Молоток">
+    <img class="complaint__image" src="../../assets/complaints.jpg" alt="Молоток">
   </div>
   <div class="wrapper">
     <div class="container">
@@ -54,7 +54,7 @@
   <div class="complaint complaint--wider">
     <h2 class="complaint__subtitle">Пакети послуг</h2>
     <ul class="pricelist">
-      <li class="pricelist__item" v-for="(item, idx) of servicesList.complaint" :key="idx">
+      <li class="pricelist__item" v-for="(item, idx) of price.complaint" :key="idx">
         <span class="pricelist__wrapper">
           <h3 class="pricelist__name">{{item.title}}</h3>
           <ul class="pricelist__list">
@@ -76,7 +76,7 @@
     <ul class="faq">
       <li class="faq__item" v-for="({question, answer}, idx) of faqText" :key="idx">
         <p class="faq__question" @click="showFaqAnswer(idx)">{{ question }}
-          <img :class="{ 'faq__clicked': activeAnswer[idx]}" class="faq__icon" src="../assets/svg/plus.svg" alt="">
+          <img :class="{ 'faq__clicked': activeAnswer[idx]}" class="faq__icon" src="../../assets/svg/plus.svg" alt="">
         </p>
         <p class="faq__answer" v-show="activeAnswer[idx]">{{answer}}
         </p>
@@ -85,15 +85,15 @@
   </div>
   <div class="complaint">
     <h2 class="complaint__subtitle complaint__subtitle--marginBottom">Iнші послуги</h2>
-    <ButtonComp :services="buttonsNames" />
+    <ButtonComp :services="buttonsNames[0]" />
   </div>
 </template>
 
 <script>
-import ButtonComp from "../components/ButtonComp.vue";
-import faq from "../texts/faq";
-import servicesList from "../texts/services"
-import benefits from "../texts/ourBenefits"
+import ButtonComp from "../../components/ButtonComp.vue";
+import faq from "../faq";
+import price from "../priceList"
+import benefits from "../ourBenefits"
 
 export default {
   components: { ButtonComp },
@@ -107,8 +107,8 @@ export default {
     faqText() {
       return faq;
     },
-    servicesList() {
-      return servicesList;
+    price() {
+      return price;
     },
     benefits() {
       return benefits;
