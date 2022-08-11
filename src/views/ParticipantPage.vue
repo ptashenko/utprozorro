@@ -128,6 +128,9 @@ export default {
 
 <style lang="scss">
 
+
+
+
 .patricipant {
   max-width: 320px;
   margin: 0 auto;
@@ -348,23 +351,65 @@ export default {
       padding: 20px 0px;
       text-align: center;
     }
+    &__benefits {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
     &__benefit {
+      width: calc((100% - 20px)/2);
       padding: 40px;
+      &:last-child {
+        margin-bottom: 20px;
+      }
     }
     &__benefitText {
       font-size: 16px;
     }
   }
   .pricelist {
+    &__name {
+      font-size: 16px;
+    }
+    &__description {
+      font-size: 15px;
+    }
+    &__price {
+      font-size: 18px;
+      &--blue {
+        font-weight: 700;
+      }
+    }
     &__wrapper {
       display: block;
+      position: relative;
       max-width: 640px;
       margin: 0 auto;
+      &::after {
+        content: '';
+        width: 40px;
+        height: 40px;
+        background: blue;
+        position: absolute;
+        bottom: -34.5px;
+        right: 0;
+      }
     }
   }
 }
 
 @media (min-width: 1200px) {
-  // max-width: 1200px;
+  .patricipant, .container {
+    max-width: 850px;
+    &__title, .patricipant__subtitle {
+      font-size: 36px;
+    }
+    &__description {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    &__image {
+      width: 100%;
+    }
+  }
 }
 </style>
