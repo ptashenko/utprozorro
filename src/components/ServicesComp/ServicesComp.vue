@@ -4,7 +4,7 @@
         <ul class="services__list">
             <ButtonComp :services="text.buttons" />
         </ul>
-        <a class="services__button" href="#">{{text.buttonOrder}}</a>
+        <a class="services__button" @click="openModalWindow">{{text.buttonOrder}}</a>
     </section>
 </template>
 
@@ -16,6 +16,11 @@ export default {
     computed: {
         text() {
             return service;
+        }
+    },
+    methods: {
+        openModalWindow() {
+            this.$emit('openModal');
         }
     }
 }

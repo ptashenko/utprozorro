@@ -33,8 +33,8 @@
         <img @click="mobileMenuOpen()" src="../../assets/svg/cross.svg" alt="Закрыть" class="mobileMenu__close" />
         <ul class="mobileMenu__menuList mobileMenu__menuList--navigation">
           <li class="mobileMenu__menuItem" v-for="(button, indx) of headerText.buttons" :key="indx">
-            <a class="mobileMenu__menuLink" href="#">
-              {{button}}
+            <a class="mobileMenu__menuLink" @click="scrollDown(button.id)">
+              {{button.name}}
             </a>
           </li>
         </ul>
@@ -88,6 +88,9 @@ export default {
       }
     },
     scrollDown(element) {
+      if (this.mobileMenu) {
+        this.mobileMenu = !this.mobileMenu;
+      }
       const el = document.getElementById(element);
       el.scrollIntoView({ behavior: "smooth" });
     }

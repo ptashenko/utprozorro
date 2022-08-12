@@ -10,7 +10,7 @@
         <li class="hero__benefitsItem" v-for="(item, i) of text.benefits" :key="i">{{item}}</li>
       </ul>
       <p class="hero__subtitle">{{text.subtitle}}</p>
-      <a class="hero__button" href="#">{{text.button}}</a>
+      <a class="hero__button" @click="openModalWindow">{{text.button}}</a>
       <span class="hero__image--wrapper"><img class="hero__image" src="../../assets/hummer-main.jpg" alt="" /></span>
     </div>
     <div class="hero__desktop">
@@ -22,7 +22,7 @@
         <li class="hero__benefitsItem" v-for="(item,i) of text.benefits" :key="i">{{item}}</li>
       </ul>
       <p class="hero__subtitle">{{text.susbitle}}</p>
-      <a class="hero__button" href="#">{{text.button}}</a>
+      <a class="hero__button" @click="openModalWindow">{{text.button}}</a>
       <span class="hero__image--wrapper"><img class="hero__image" src="../../assets/hummer-main.jpg" alt="" /></span>
     </div>
   </main>
@@ -35,6 +35,11 @@ export default {
     text() {
       return hero;
     }
+  },
+  methods: {
+    openModalWindow() {
+      this.$emit('openModal');
+    }
   }
 };
 </script>
@@ -42,7 +47,7 @@ export default {
 <style lang="scss" scoped>
 .hero {
   max-width: 320px;
-  padding: 30px 0 100px;
+  padding: 30px 0 140px;
   margin: 0 auto;
   &__title {
     font-size: 28px;
@@ -84,6 +89,7 @@ export default {
     font-size: 14px;
     line-height: 1;
     transition: all 250ms linear;
+    cursor: pointer;
     &:hover {
       background: #000;
       color: #fff;

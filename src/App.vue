@@ -30,8 +30,4 @@ body {
   font-family: Montserrat, sans-serif;
   margin: 0 auto;
 }
-
-#app {
-  padding-top: 10px;
-}
 </style>
