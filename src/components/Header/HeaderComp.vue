@@ -8,16 +8,16 @@
       </li>
       <ul class="header__navigation">
         <li class="header__navigationItem" v-for="(button, indx) of headerText.buttons" :key="indx">
-          <a href="#" class="header__navigationLink">
-            {{button}}
+          <a class="header__navigationLink" @click="scrollDown(button.id)">
+            {{button.name}}
           </a>
         </li>
       </ul>
       <li class="header__item header__item--contacts">
         <ul class="header__contacts">
           <li class="header__item" v-for="(contact,i) of headerText.contacts" :key="i">
-            <a href="#" class="header__link header__link--bold">
-              {{contact}}
+            <a :href="setLinkContacts(contact.name, contact.link)" class="header__link header__link--bold">
+              {{contact.text}}
             </a>
           </li>
           <li class="header__item header__item--margin">Графік роботи: Пн-Пт, з 9:00 до 19:00</li>
@@ -40,12 +40,12 @@
         </ul>
         <ul class="mobileMenu__contactsList">
           <li class="mobileMenu__contactsItem" v-for="(contact,i) of headerText.contacts" :key="i">
-            <a href="tel:0505742362" class="mobileMenu__contactsLink">
-              {{ contact }}
+            <a :href="setLinkContacts(contact.name, contact.link)" class="mobileMenu__contactsLink">
+              {{ contact.text }}
             </a>
           </li>
           <li class="mobileMenu__contactsItem mobileMenu__contactsLink">
-              Графік роботи: Пн-Пт, з 9:00 до 19:00
+            Графік роботи: Пн-Пт, з 9:00 до 19:00
           </li>
         </ul>
       </div>
@@ -77,12 +77,27 @@ export default {
     },
     backToMainPage() {
       this.$router.push('/')
+    },
+    setLinkContacts(val, link) {
+      if (val === 'phone') {
+        return `tel:${link}`
+      } else if (val === 'email') {
+        return `mailto:${link}`
+      } else {
+        return;
+      }
+    },
+    scrollDown(element) {
+      const el = document.getElementById(element);
+      el.scrollIntoView({ behavior: "smooth" });
     }
   },
+  mounted() {
+  }
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @keyframes showOn {
   0% {
     opacity: 0;
@@ -142,6 +157,10 @@ ul {
     &:not(:last-child) {
       margin-right: 80px;
     }
+    transition: all 250ms linear;
+    &:hover {
+      transform: translateY(-5px);
+    }
   }
 
   &__navigationLink {
@@ -149,6 +168,12 @@ ul {
     font-weight: 600;
     text-decoration: none;
     color: #000;
+    transition: all 250ms linear;
+    cursor: pointer;
+    &:hover {
+      color: #fff;
+      text-shadow: 0px 0px 2px rgba(0, 0, 0, 1);
+    }
   }
 
   &__image {

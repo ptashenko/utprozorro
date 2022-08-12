@@ -12,9 +12,11 @@
                 <li class="about__bottomItem about__bottomItem--wrapper">
                     <img class="about__image" src="../../assets/hummer-sub.jpg" alt="">
                 </li>
-                <li class="about__bottomItem" v-for="(item, i) of aboutText[2]" :key="i">
-                    <p class="about__bottomText">{{item.text}}</p>
-                </li>
+                <div>
+                    <li class="about__bottomItem" v-for="(item, i) of aboutText[2]" :key="i">
+                        <p class="about__bottomText">{{item.text}}</p>
+                    </li>
+                </div>
             </ul>
         </div>
     </section>
@@ -36,7 +38,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
 .about {
     background: #fafafa;
@@ -136,13 +138,11 @@ export default {
         &__wrapper {
             margin-top: 20px;
             flex-direction: row;
-            justify-content: space-between;
             align-items: flex-start;
-            width: 75%;
         }
         &__bottomItem {
             &--wrapper {
-                margin: 0;
+                margin: 0 20px 0 0;
             }
         }
         &__bottomText {

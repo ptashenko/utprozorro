@@ -8,14 +8,17 @@ export default [
         {
             icon: 'phone',
             text: '38(050) 574-23-62',
+            link: '0505742362'
         },
         {
             icon: 'email',
             text: 'client.utprozorro@gmail.com',
+            link: 'client.utprozorro@gmail.com',
         },
         {
             icon: 'telegram',
             text: '@aptashenko',
+            link: 'aptashenko',
         },
         {
             icon: 'schedule',

@@ -1,5 +1,5 @@
 <template>
-    <section class="benefits">
+    <section class="benefits" id="benefits">
         <h2 class="benefits__title">{{text[0][0].title}}</h2>
         <ul class="benefits__list">
             <li class="benefits__item" v-for="(item, i) of text[1]" :key="i">
@@ -22,7 +22,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
 
 .benefits {

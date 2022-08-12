@@ -1,12 +1,12 @@
 <template>
-    <footer class="footer">
+    <footer class="footer" id="contacts">
         <div class="footer__container">
             <h2 class="footer__title">{{text[0][0].title}}</h2>
             <div class="footer__wrapper">
                 <ul class="footer__contacts">
                     <li class="footer__item" v-for="(item,i) of text[1]" :key="i">
                         <img class="footer__icon" :src="require(`../../assets/svg/${item.icon}.svg`)" alt="">
-                        <p class="footer__contact">{{ item.text }}</p>
+                        <a :href="link(item.icon, item.link)" class="footer__contact">{{ item.text }}</a>
                     </li>
                 </ul>
                 <FormComp />
@@ -20,18 +20,32 @@ import contacts from './contacts';
 import FormComp from '../Form/FormComp.vue';
 export default {
     components: { FormComp },
+    data() {
+        return {
+        }
+    },
     computed: {
         text() {
             return contacts;
-        }
+        },
     },
+    methods: {
+        link(val, link) {
+            if (val === 'phone') {
+                return `tel:${link}`
+            } else if (val === 'email') {
+                return `mailto:${link}`
+            } else if (val === 'telegram') {
+                return `https://t.me/${link}`
+            } else {
+                return;
+            }
+        }
+    }
 }
 </script>
 
 <style lang="scss">
-
-
-
 .footer {
     background: #fafafa;
     padding: 30px 0;
@@ -82,60 +96,9 @@ export default {
         &__contact {
             margin: 0;
             font-size: 18px;
+            text-decoration: none;
+            color: #000;
         }
-}
-.form {
-    margin-top: 30px;
-    background: #fff;
-    padding: 40px 10px;
-    &__title {
-        font-size: 16px;
-        margin-top: 0;
-        margin-bottom: 40px;
-        text-align: center;
-    }
-    &__wrapper {
-        display: flex;
-        flex-direction: column;
-    }
-    &__label {
-        &:not(:last-child) {
-            margin-bottom: 10px;
-        }
-    }
-    &__input {
-        padding: 10px 5px;
-        width: 100%;
-        border: none;
-        outline: none;
-        border-bottom: 1px solid #000;
-    }
-}
-
-.formkit-wrapper > [type=submit] {
-    border-bottom: none;
-    display: block;
-    width: 270px;
-    text-align: center;
-    margin: 20px auto;
-    text-decoration: none;
-    padding: 20px 40px;
-    border: 1px solid #000;
-    color: #000;
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 1;
-    background: transparent;
-}
-
-.formkit-inner  [text-area] {
-    resize: none;
-}
-
-.formkit-message {
-    font-size: 11px;
-    margin: 5px 0;
-    color: red;
 }
 
 @media (min-width: 767px) {

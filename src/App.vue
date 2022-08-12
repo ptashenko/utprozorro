@@ -20,6 +20,12 @@ export default {
   box-sizing: border-box;
 }
 
+ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
 body {
   font-family: Montserrat, sans-serif;
   margin: 0 auto;

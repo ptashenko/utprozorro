@@ -39,7 +39,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .hero {
   max-width: 320px;
   padding: 30px 0 100px;
@@ -83,6 +83,11 @@ export default {
     color: #000;
     font-size: 14px;
     line-height: 1;
+    transition: all 250ms linear;
+    &:hover {
+      background: #000;
+      color: #fff;
+    }
   }
   &__image {
     display: block;

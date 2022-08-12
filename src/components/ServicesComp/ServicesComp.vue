@@ -1,5 +1,5 @@
 <template>
-    <section class="services">
+    <section class="services" id="services">
         <h2 class="services__title">{{text.title}}</h2>
         <ul class="services__list">
             <ButtonComp :services="text.buttons" />
@@ -22,6 +22,7 @@ export default {
 </script>
 
 <style lang="scss">
+
 
 
 .services {
@@ -75,6 +76,11 @@ export default {
         color: #000;
         font-size: 16px;
         line-height: 1;
+        transition: all 250ms linear;
+        &:hover {
+            background: #000;
+            color: #fff;
+        }
     }
 }
 @media (min-width: 767px) {

@@ -1,5 +1,5 @@
 <template>
-  <section class="experience">
+  <section class="experience" id="about">
     <div class="experience__container">
       <h2 class="experience__title">{{text.title}}</h2>
       <div class="experience__top">
@@ -58,7 +58,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .experience {
   background: #fafafa;
   padding: 30px 0;

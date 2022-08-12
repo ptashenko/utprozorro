@@ -34,6 +34,82 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 
+.form {
+    margin-top: 30px;
+    background: #fff;
+    padding: 40px 10px;
+
+    &__title {
+        font-size: 16px;
+        margin-top: 0;
+        margin-bottom: 40px;
+        text-align: center;
+    }
+
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__label {
+        &:not(:last-child) {
+            margin-bottom: 10px;
+        }
+    }
+
+    &__input {
+        padding: 10px 5px;
+        width: 100%;
+        border: none;
+        outline: none;
+        border-bottom: 1px solid #000;
+    }
+}
+
+.formkit-wrapper>[type=submit] {
+    border-bottom: none;
+    display: block;
+    width: 270px;
+    text-align: center;
+    margin: 20px auto;
+    text-decoration: none;
+    padding: 20px 40px;
+    border: 1px solid #000;
+    color: #000;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1;
+    background: transparent;
+    transition: all 250ms linear;
+    cursor: pointer;
+    &:hover {
+        background: #000;
+        color: #fff;
+    }
+}
+
+.formkit-inner [text-area] {
+    resize: none;
+}
+
+.formkit-message {
+    font-size: 11px;
+    margin: 5px 0;
+    color: red;
+}
+
+@media (min-width: 767px) {
+    .form {
+        padding: 40px 40px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .form {
+        margin: 0;
+        flex-grow: 1;
+    }
+}
 </style>
