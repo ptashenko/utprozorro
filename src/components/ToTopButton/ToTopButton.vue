@@ -61,7 +61,7 @@ export default {
     height: 50px;
     border-radius: 50%;
 
-    background: blue;
+    background: #1550e7;
     color: #fff;
 
     text-align: center;

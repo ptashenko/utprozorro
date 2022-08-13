@@ -2,11 +2,11 @@
   <header class="header">
     <ul class="header__list">
       <li class="header__item">
-        <a href="#" class="header__link">
+        <a href="#" @click="pageMain()" class="header__link">
           <img class="header__image--logo" src="../../assets/svg/logo.svg" alt="logo" @click="backToMainPage()" />
         </a>
       </li>
-      <ul class="header__navigation">
+      <ul class="header__navigation" v-show="page === 'main'">
         <li class="header__navigationItem" v-for="(button, indx) of headerText.buttons" :key="indx">
           <a class="header__navigationLink" @click="scrollDown(button.id)">
             {{button.name}}
@@ -56,6 +56,7 @@
 <script>
 import header from './headerTexts';
 export default {
+  props: ['page'],
   data() {
     return {
       mobileMenu: false,
@@ -93,6 +94,10 @@ export default {
       }
       const el = document.getElementById(element);
       el.scrollIntoView({ behavior: "smooth" });
+    },
+    pageMain() {
+      this.$router.push({ name: 'main' });
+      this.$emit('pageName', 'main');
     }
   },
   mounted() {

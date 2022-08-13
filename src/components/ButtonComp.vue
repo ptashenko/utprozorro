@@ -1,21 +1,42 @@
 <template>
-    <div class="button" v-for="(button, idx) of services" :key="idx">
-        <a class="button__link" :href="idx === 0 ? 'uchasnyky' : 'oskarzhennya'">{{ button }}</a>
-        <p class="button__more">Детальніше</p>
+    <div class="buttonWrapper" v-if="Array.isArray(text)">
+        <div class="button" v-for="item of text" :key="item.id">
+            <a class="button__link" @click="nextPage(item.pageName)">{{ item.name }}</a>
+            <p class="button__more">Детальніше</p>
+        </div>
+    </div>
+    <div class="buttonWrapper" v-else>
+        <div class="button">
+            <a class="button__link" @click="nextPage(text.pageName)">{{ text.name }}</a>
+            <p class="button__more">Детальніше</p>
+        </div>
     </div>
 </template>
 
 <script>
 export default {
-    props: ["services"],
+    props: ["text"],
     data() {
         return {
         }
-    }
+    },
+    methods: {
+        nextPage(page) {
+            this.$emit('toPage', page);
+        }
+    },
 }
 </script>
 
 <style lang="scss">
+
+
+.buttonWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
 .button {
     display: flex;
     flex-direction: column;
@@ -27,6 +48,7 @@ export default {
     background: #1550e7;
     transition: all 250ms linear;
     margin: 0 auto;
+    cursor: pointer;
     &:not(:last-child) {
         margin-bottom: 20px;
     }
@@ -63,6 +85,12 @@ export default {
     &:hover > .button__more::after {
         opacity: 1;
         transform: translateX(5px);
+    }
+}
+
+@media (min-width: 768px) {
+    .buttonWrapper {
+        flex-direction: row;
     }
 }
 

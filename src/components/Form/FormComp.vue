@@ -1,5 +1,5 @@
 <template>
-    <FormKit type="form" id="myForm" @submit="handleSubmit" submit-label="Відправити" :classes="{
+    <FormKit type="form" id="form" @submit="handleSubmit" submit-label="Відправити" :classes="{
     form: 'form',
     }"
     :submit-attrs="{inputClass:'form__button'}" 
@@ -33,8 +33,15 @@ export default {
         }
     },
     methods: {
-        handleSubmit() {
-            this.$formkit.reset("myForm");
+        handleSubmit(order) {
+            const submitBtn = document.querySelector('.form__button');
+            submitBtn.classList.remove('form__button');
+            submitBtn.classList.add('modalForm__send');
+            submitBtn.textContent = 'Дякуємо, відправлено!'
+            this.value = order;
+            setTimeout(() => {
+                this.$formkit.reset("form");
+            }, 1000)
         }
     },
 }

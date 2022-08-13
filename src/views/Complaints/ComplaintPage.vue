@@ -1,4 +1,5 @@
 <template>
+  <ModalOrder :modal="modal" @closeModal="toggleModal" />
   <div class="complaint">
     <ul class="complaint__adress">
       <li class="complaint__adressName">
@@ -13,7 +14,7 @@
       вимоги? Вашу тендерну пропозицію відхилено? Взяли участь у тендері, але програли в аукціоні? Якщо у Вас виникало
       хоча-б одне з цих запитань вам неодмінно потрібна допомога фахівців.
     </p>
-    <a href="#" class="complaint__button">Замовити послуги</a>
+    <a @click="toggleModal()" class="complaint__button">Замовити послуги</a>
     <img class="complaint__image" src="../../assets/complaints.jpg" alt="Молоток">
   </div>
   <div class="wrapper">
@@ -85,7 +86,7 @@
   </div>
   <div class="complaint">
     <h2 class="complaint__subtitle complaint__subtitle--marginBottom">Iнші послуги</h2>
-    <ButtonComp :services="buttonsNames[0]" />
+    <ButtonComp @click="toTenderPage()" :text="services.buttonsNames[0]" />
   </div>
 </template>
 
@@ -94,13 +95,15 @@ import ButtonComp from "../../components/ButtonComp.vue";
 import faq from "../faq";
 import price from "../priceList"
 import benefits from "../ourBenefits"
+import service from "../MainPage/texts/services"
+import ModalOrder from "@/components/Modal/ModalOrder.vue";
 
 export default {
-  components: { ButtonComp },
+  components: { ButtonComp, ModalOrder },
   data() {
     return {
       activeAnswer: [],
-      buttonsNames: ["Послуги в оскарженні вимог/рішень"]
+      modal: false,
     }
   },
   computed: {
@@ -113,19 +116,32 @@ export default {
     benefits() {
       return benefits;
     },
+    services() {
+      return service;
+    },
   },
   methods: {
     showFaqAnswer(index) {
       this.activeAnswer[index] = !this.activeAnswer[index];
     },
+    toggleModal() {
+      this.modal = !this.modal;
+    },
+    toTenderPage() {
+      this.$router.push({ name: 'tender' });
+      this.$emit('pageName', 'tender');
+    },
   },
   mounted() {
+    window.scrollTo(0, 0)
     faq.forEach(el => this.activeAnswer.push(el.active));
+    console.log(this.page)
   }
 }
 </script>
 
 <style lang="scss">
+
 .complaint {
   max-width: 320px;
   margin: 0 auto;
@@ -183,6 +199,12 @@ export default {
     color: #000;
     border: 1px solid #000;
     font-size: 14px;
+    cursor: pointer;
+    transition: all 250ms linear;
+    &:hover {
+      background: #000;
+      color: #fff;
+    }
   }
 
   &__image {
@@ -208,7 +230,7 @@ export default {
         display: block;
         width: 100%;
         height: 5px;
-        background: blue;
+        background: #1550e7;
       }
     }
   }
@@ -258,7 +280,7 @@ export default {
       display: block;
       width: 50px;
       height: 3px;
-      background: blue;
+      background: #1550e7;
       margin: 20px auto;
     }
   }
@@ -316,7 +338,7 @@ export default {
 
     &--blue {
       font-weight: 500;
-      color: blue;
+      color: #1550e7;
     }
   }
 }
@@ -443,7 +465,7 @@ export default {
         content: '';
         width: 40px;
         height: 40px;
-        background: blue;
+        background: #1550e7;
         position: absolute;
         bottom: -34.5px;
         right: 0;

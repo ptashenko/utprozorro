@@ -1,6 +1,6 @@
 <template>
-  <HeaderComp />
-  <router-view></router-view>
+  <HeaderComp :page="page" @pageName="changePageName" />
+  <router-view :page="page" @pageName="changePageName"></router-view>
   <ContactsComp />
 </template>
 
@@ -12,6 +12,16 @@ import ContactsComp from '@/components/Contacts/ContactsComp.vue';
 export default {
   name: 'App',
   components: { HeaderComp, ContactsComp },
+  data() {
+    return {
+      page: 'main',
+    }
+  },
+  methods: {
+    changePageName(name) {
+      this.page = name;
+    }
+  }
 };
 </script>
 

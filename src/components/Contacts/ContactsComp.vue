@@ -76,7 +76,7 @@ export default {
                 left: -60px;
                 width: 40px;
                 height: 5px;
-                background: blue;
+                background: #1550e7;
                 transform: translateY(-50%);
             }
         }

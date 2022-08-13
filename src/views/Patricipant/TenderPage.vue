@@ -1,59 +1,60 @@
 <template>
-  <div class="patricipant">
-    <ul class="patricipant__adress">
-      <li class="patricipant__adressName">
+  <ModalOrder :modal="modal" @closeModal="toggleModal" />
+  <div class="tender">
+    <ul class="tender__adress">
+      <li class="tender__adressName">
         <a href="/">Головна</a>
       </li>
-      <li class="patricipant__adressName">
+      <li class="tender__adressName">
         Послуги для учасників
       </li>
     </ul>
-    <h1 class="patricipant__title">Підготовка учасників до участі у тендерах. Кваліфікована юридична допомога</h1>
-    <p class="patricipant__description">Плануєте брати участь у тендері? Хочете виключити шанси на поразку? Набридло
+    <h1 class="tender__title">Підготовка учасників до участі у тендерах. Кваліфікована юридична допомога</h1>
+    <p class="tender__description">Плануєте брати участь у тендері? Хочете виключити шанси на поразку? Набридло
       самостійно готувати документи на тендер? Шукаєте фахівців які професійно виконають свою роботу?
     </p>
-    <a href="#" class="patricipant__button">Замовити послуги</a>
-    <img class="patricipant__image" src="../../assets/books.jpg" alt="Книжки">
+    <a @click="toggleModal()" class="tender__button">Замовити послуги</a>
+    <img class="tender__image" src="../../assets/books.jpg" alt="Книжки">
   </div>
   <div class="wrapper">
     <div class="container">
-      <h2 class="patricipant__subtitle">
+      <h2 class="tender__subtitle">
         Вирішуємо будь-які завдання, пов'язані з публічними закупівлями
       </h2>
-      <ul class="patricipant__services">
-        <li class="patricipant__service">-перевірка тендерних пропозиції (перевірка на наявність помилок)</li>
-        <li class="patricipant__service">-підготовка тендерної пропозиції під ключ</li>
-        <li class="patricipant__service">-направлення вимог Замовнику закупівлі</li>
-        <li class="patricipant__service">-допомога Замовникам з відповідями на вимоги учасників</li>
-        <li class="patricipant__service">-своєчасне проходження кваліфікації з моменту перемоги у тендері до моменту
+      <ul class="tender__services">
+        <li class="tender__service">-перевірка тендерних пропозиції (перевірка на наявність помилок)</li>
+        <li class="tender__service">-підготовка тендерної пропозиції під ключ</li>
+        <li class="tender__service">-направлення вимог Замовнику закупівлі</li>
+        <li class="tender__service">-допомога Замовникам з відповідями на вимоги учасників</li>
+        <li class="tender__service">-своєчасне проходження кваліфікації з моменту перемоги у тендері до моменту
           підписання договору з Замовником</li>
-        <li class="patricipant__service">-замовлення електронних банківських, страхових, фінансових гарантій.</li>
+        <li class="tender__service">-замовлення електронних банківських, страхових, фінансових гарантій.</li>
       </ul>
     </div>
   </div>
-  <div class="patricipant">
-    <h2 class="patricipant__subtitle patricipant__subtitle--underline">Ми - надійність</h2>
-    <p class="patricipant__text">Знайти кваліфікованих фахівців — завдання не з простих. Більшість «фахівців» зривають
+  <div class="tender">
+    <h2 class="tender__subtitle tender__subtitle--underline">Ми - надійність</h2>
+    <p class="tender__text">Знайти кваліфікованих фахівців — завдання не з простих. Більшість «фахівців» зривають
       строки подачі тендеру, не виконують свої зобов'язання, допускають помилки, що призводить до програшу тендеру, або
       навіть беруть попередню оплату та не виходять на зв'язок. Все вищеперелічене не стосується нас. Обираючи нашу
       агенцію ви обираєте надійність та впевненість у тому, що ваші сподівання будуть повністю виправдані. Наші постійні
       клієнти вже переконались в тому, що це не пусті слова, переконайтесь і Ви.
     </p>
-    <p class="patricipant__text">При співпраці з нами Ви концентруєтесь на розвитку, а всі питання з публічних
+    <p class="tender__text">При співпраці з нами Ви концентруєтесь на розвитку, а всі питання з публічних
       закупівель ми беремо на себе.
     </p>
   </div>
-  <div class="patricipant">
-    <h2 class="patricipant__subtitle">Наші переваги</h2>
-    <ul class="patricipant__benefits">
-      <li class="patricipant__benefit" v-for="(item,indx) of benefits" :key="indx">
-        <h3 class="patricipant__benefitName">{{item.title}}</h3>
-        <p class="patricipant__benefitText">{{item.description}}</p>
+  <div class="tender">
+    <h2 class="tender__subtitle">Наші переваги</h2>
+    <ul class="tender__benefits">
+      <li class="tender__benefit" v-for="(item,indx) of benefits" :key="indx">
+        <h3 class="tender__benefitName">{{item.title}}</h3>
+        <p class="tender__benefitText">{{item.description}}</p>
       </li>
     </ul>
   </div>
-  <div class="patricipant patricipant--wider">
-    <h2 class="patricipant__subtitle">Пакети послуг</h2>
+  <div class="tender tender--wider">
+    <h2 class="tender__subtitle">Пакети послуг</h2>
     <ul class="pricelist">
       <li class="pricelist__item" v-for="(item, idx) of price.tender" :key="idx">
         <span class="pricelist__wrapper">
@@ -72,8 +73,8 @@
       </li>
     </ul>
   </div>
-  <div class="patricipant">
-    <h2 class="patricipant__subtitle">FAQ</h2>
+  <div class="tender">
+    <h2 class="tender__subtitle">FAQ</h2>
     <ul class="faq">
       <li class="faq__item" v-for="({question, answer}, idx) of faqText" :key="idx">
         <p class="faq__question" @click="showFaqAnswer(idx)">{{ question }}
@@ -84,24 +85,28 @@
       </li>
     </ul>
   </div>
-  <div class="patricipant">
-    <h2 class="patricipant__subtitle patricipant__subtitle--marginBottom">Iнші послуги</h2>
-    <ButtonComp :services="buttonsNames[1]" />
+  <div class="tender">
+    <h2 class="tender__subtitle tender__subtitle--marginBottom">Iнші послуги</h2>
+    <ButtonComp @click="toComplaintPage()" :text="services.buttonsNames[1]" />
   </div>
 </template>
 
 <script>
 import ButtonComp from "../../components/ButtonComp.vue";
+import ModalOrder from "@/components/Modal/ModalOrder.vue";
 import faq from "../faq";
 import price from "../priceList"
 import benefits from "../ourBenefits"
+import service from "../MainPage/texts/services"
 
 export default {
-  components: { ButtonComp },
+  name: 'TenderComp',
+  components: { ButtonComp, ModalOrder },
+  props: ['page'],
   data() {
     return {
       activeAnswer: [],
-      buttonsNames: ["Послуги в оскарженні вимог/рішень"]
+      modal: false,
     }
   },
   computed: {
@@ -114,13 +119,24 @@ export default {
     benefits() {
       return benefits;
     },
+    services() {
+      return service;
+    },
   },
   methods: {
     showFaqAnswer(index) {
       this.activeAnswer[index] = !this.activeAnswer[index];
     },
+    toggleModal() {
+      this.modal = !this.modal;
+    },
+    toComplaintPage() {
+      this.$router.push({ name: 'complaint' });
+      this.$emit('pageName', 'complaint');
+    }
   },
   mounted() {
+    window.scrollTo(0, 0)
     faq.forEach(el => this.activeAnswer.push(el.active));
   }
 }
@@ -128,10 +144,7 @@ export default {
 
 <style lang="scss">
 
-
-
-
-.patricipant {
+.tender {
   max-width: 320px;
   margin: 0 auto;
   padding: 30px 0;
@@ -179,6 +192,12 @@ export default {
     color: #000;
     border: 1px solid #000;
     font-size: 14px;
+    cursor: pointer;
+    transition: all 250ms linear;
+    &:hover {
+        background: #000;
+        color: #fff;
+      }
   }
   &__image {
     display: block;
@@ -199,7 +218,7 @@ export default {
         display: block;
         width: 100%;
         height: 5px;
-        background: blue;
+        background: #1550e7;
       }
     }
   }
@@ -240,7 +259,7 @@ export default {
       display: block;
       width: 50px;
       height: 3px;
-      background: blue;
+      background: #1550e7;
       margin: 20px auto;
     }
   }
@@ -289,7 +308,7 @@ export default {
     font-weight: 600;
     &--blue {
       font-weight: 500;
-      color: blue;
+      color: #1550e7;
     }
   }
 }
@@ -335,15 +354,15 @@ export default {
 }
 
 @media (min-width: 767px) {
-  .patricipant, .container {
+  .tender, .container {
     max-width: 640px;
     &--wider {
       max-width: 100%;
     }
-    &__title, .patricipant__subtitle {
+    &__title, .tender__subtitle {
       font-size: 24px;
     }
-    &__description, .patricipant__service, .patricipant__text, .patricipant__benefitName {
+    &__description, .tender__service, .tender__text, .tender__benefitName {
       font-size: 18px;
     }
     &__button {
@@ -388,7 +407,7 @@ export default {
         content: '';
         width: 40px;
         height: 40px;
-        background: blue;
+        background: #1550e7;
         position: absolute;
         bottom: -34.5px;
         right: 0;
@@ -398,9 +417,9 @@ export default {
 }
 
 @media (min-width: 1200px) {
-  .patricipant, .container {
+  .tender, .container {
     max-width: 850px;
-    &__title, .patricipant__subtitle {
+    &__title, .tender__subtitle {
       font-size: 36px;
     }
     &__description {
