@@ -21,9 +21,6 @@ export default {
         }
     },
     methods: {
-        nextPage(page) {
-            this.$emit('toPage', page);
-        }
     },
 }
 </script>

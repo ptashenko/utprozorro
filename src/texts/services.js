@@ -1,6 +1,6 @@
 export default {
     title: 'Наші послуги',
-    buttonOrder: 'Замовити наші послуги',
+    buttonOrder: 'Отримати консультацію',
     buttonsNames: [
         {
             id: 1,

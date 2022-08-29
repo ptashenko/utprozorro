@@ -1,5 +1,4 @@
 <template>
-    <ModalOrder :modal="modal" @closeModal="toggleModal" />
     <main class="hero">
         <div class="hero__mobile">
             <h1 class="hero__title">
@@ -11,8 +10,8 @@
                 <li class="hero__benefitsItem" v-for="(item, i) of heroText.benefits" :key="i">{{item}}</li>
             </ul>
             <p class="hero__subtitle">{{ heroText.subtitle}}</p>
-            <a class="hero__button" @click="toggleModal()">{{ heroText.button}}</a>
-            <span class="hero__image--wrapper"><img class="hero__image" src="../../assets/hummer-main.jpg"
+            <a class="hero__button">{{ heroText.button}}</a>
+            <span class="hero__image--wrapper"><img class="hero__image" src="../assets/hummer-main.jpg"
                     alt="" /></span>
         </div>
         <div class="hero__desktop">
@@ -24,9 +23,9 @@
                 <li class="hero__benefitsItem" v-for="(item,i) of heroText.benefits" :key="i">{{item}}</li>
             </ul>
             <p class="hero__subtitle">{{ heroText.susbitle}}</p>
-            <a class="hero__button" @click="toggleModal()">{{ heroText.button}}</a>
+            <a class="hero__button">{{ heroText.button}}</a>
             <span class="hero__image--wrapper">
-                <img class="hero__image" src="../../assets/hummer-main.jpg" alt="" />
+                <img class="hero__image" src="../assets/hummer-main.jpg" alt="" />
             </span>
         </div>
     </main>
@@ -35,13 +34,13 @@
             <h2 class="about__title">{{aboutText[0][0].title}}</h2>
             <ul class="about__list">
                 <li class="about__item" v-for="(item, i) of aboutText[1]" :key="i">
-                    <img class="about__icon" :src="require(`../../assets/svg/${item.icon}_logo.svg`)" alt="">
+                    <img class="about__icon" :src="require(`../assets/svg/${item.icon}_logo.svg`)" alt="">
                     <p class="about__text">{{item.text}}</p>
                 </li>
             </ul>
             <ul class="about__wrapper">
                 <li class="about__bottomItem about__bottomItem--wrapper">
-                    <img class="about__image" src="../../assets/hummer-sub.jpg" alt="">
+                    <img class="about__image" src="../assets/hummer-sub.jpg" alt="">
                 </li>
                 <div>
                     <li class="about__bottomItem" v-for="(item, i) of aboutText[2]" :key="i">
@@ -54,9 +53,9 @@
     <section class="services" id="services">
         <h2 class="services__title">{{serviceText.title}}</h2>
         <ul class="services__list">
-            <ButtonComp @toPage="toPage" :text="serviceText.buttonsNames" />
+            <ButtonComp :text="serviceText.buttonsNames" />
         </ul>
-        <a class="services__button" @click="toggleModal()">{{ serviceText.buttonOrder}}</a>
+        <a class="services__button">{{ serviceText.buttonOrder}}</a>
     </section>
     <section class="experience" id="about">
         <div class="experience__container">
@@ -81,7 +80,7 @@
                 <ul class="experience__bottomList">
                     <li class="experience__bottomItem">
                         <span class="experience__image--wrapper">
-                            <img class="experience__image" src="../../assets/creator.jpg" alt="">
+                            <img class="experience__image" src="../assets/creator.jpg" alt="">
                         </span>
                         <div class="experience__textWrapper">
                             <h2 class="experience__name">{{ expText.founder.name}}</h2>
@@ -95,7 +94,7 @@
                     </li>
                     <li class="experience__bottomItem experience__bottomItem--reverse">
                         <span class="experience__image--wrapperBottom">
-                            <img class="experience__image" src="../../assets/certificate.jpg" alt="">
+                            <img class="experience__image" src="../assets/certificate.jpg" alt="">
                         </span>
                         <div class="experience__textWrapper">
                             <h2 class="experience__name">{{ expText.education.title}}</h2>
@@ -110,30 +109,31 @@
         <h2 class="benefits__title">{{ benefitsText[0][0].title}}</h2>
         <ul class="benefits__list">
             <li class="benefits__item" v-for="(item, i) of benefitsText[1]" :key="i">
-                <img class="benefits__icon" :src="require(`../../assets/svg/${item.logo}_icon.svg`)" alt="">
+                <img class="benefits__icon" :src="require(`../assets/svg/${item.logo}_icon.svg`)" alt="">
                 <h3 class="benefits__name">{{item.name}}</h3>
                 <p class="benefits__text">{{item.text}}</p>
             </li>
         </ul>
     </section>
     <ToTopButton />
+    <ModalComp v-if="showModal" @close="showModal = false" />
 </template>
 
 <script>
-import hero from './texts/hero';
-import about from './texts/aboutUs';
-import service from "./texts/services";
-import exp from './texts/exp';
-import benefits from './texts/benefits';
+import hero from '../texts/hero';
+import about from '../texts/aboutUs';
+import service from "../texts/services";
+import exp from '../texts/exp';
+import benefits from '../texts/benefits';
 import ButtonComp from "@/components/ButtonComp.vue";
-import ModalOrder from "@/components/Modal/ModalOrder.vue";
 import ToTopButton from '@/components/ToTopButton/ToTopButton.vue';
+import ModalComp from './Modal/ModalComp.vue';
 
 export default {
-    components: { ToTopButton, ButtonComp, ModalOrder },
+    components: { ToTopButton, ButtonComp, ModalComp },
     data() {
         return {
-            modal: false,
+            showModal: false,
         }
     },
     computed: {
@@ -154,13 +154,6 @@ export default {
         },
     },
     methods: {
-        toPage(page) {
-            this.$router.push({ name: page })
-            this.$emit('pageName', page);
-        },
-        toggleModal() {
-            this.modal = !this.modal;
-        },
     },
     mounted() {
     }
@@ -482,7 +475,7 @@ export default {
         padding: 20px 40px;
         border: 1px solid #000;
         color: #000;
-        font-size: 16px;
+        font-size: 15px;
         line-height: 1;
         cursor: pointer;
         transition: all 250ms linear;

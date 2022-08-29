@@ -166,9 +166,6 @@ ul {
       margin-right: 80px;
     }
     transition: all 250ms linear;
-    &:hover {
-      transform: translateY(-5px);
-    }
   }
 
   &__navigationLink {

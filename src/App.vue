@@ -1,6 +1,6 @@
 <template>
   <HeaderComp :page="page" @pageName="changePageName" />
-  <router-view :page="page" @pageName="changePageName"></router-view>
+  <MainPage />
   <ContactsComp />
 </template>
 
@@ -8,10 +8,11 @@
 import './assets/style/normalize.scss';
 import HeaderComp from './components/Header/HeaderComp.vue';
 import ContactsComp from '@/components/Contacts/ContactsComp.vue';
+import MainPage from './components/MainPage.vue';
 
 export default {
   name: 'App',
-  components: { HeaderComp, ContactsComp },
+  components: { HeaderComp, ContactsComp, MainPage },
   data() {
     return {
       page: 'main',
