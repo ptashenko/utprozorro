@@ -1,5 +1,5 @@
 <template>
-    <FormKit type="form" @submit="sendOrder" >
+    <FormKit type="form" >
         <FormKit
             type="radio"
             :options="['Підготовка тендерної пропозиція', 'Оскарження в АМКУ', 'Вимога замовнику']"
@@ -12,7 +12,6 @@
             placeholder="ID тендеру"
             name="tender_ID"
             v-model="tenderID"
-            @input="show"
             />
         <FormKit
             type="number"
@@ -20,11 +19,10 @@
             step="1"
             name="tenderAmount"
             v-model="tenderAmount"
-            @input="show"
             />
         <div class="result">
-            <button>Розрахувати</button>
-            <p>Вартість послуги: <span>{{price}}</span></p>
+            <button @click="calcPrice">Розрахувати</button>
+            <p v-if="price">Вартість послуги: <span>{{price}} грн</span></p>
         </div>
     </FormKit>
 </template>
@@ -40,9 +38,26 @@ export default {
         }
     },
     methods: {
-        sendOrder() {
-            alert('Ваші дані відправлені');
-        },
+        calcPrice(e) {
+            e.preventDefault();
+            switch (this.serviceName) {
+                case 'Підготовка тендерної пропозиція':
+                    if (this.tenderAmount <= 100000) {
+                        this.price = 1200;
+                    } else if (this.tenderAmount > 100000 && this.tenderAmount <= 200000) {
+                        this.price = 2400;
+                    } else if (this.tenderAmount > 200000 && this.tenderAmount <= 3000000) {
+                        this.price = 2900;
+                    } else if (this.tenderAmount > 3000000) {
+                        this.price = 6000;
+                    }
+                    break
+                case 'Оскарження в АМКУ': this.price = 2400;
+                    break
+                case 'Вимога замовнику': this.price = 1000;
+                    break
+            }
+        }
     },
     mounted() {
     }
