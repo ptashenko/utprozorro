@@ -10,7 +10,7 @@
                 <li class="hero__benefitsItem" v-for="(item, i) of heroText.benefits" :key="i">{{item}}</li>
             </ul>
             <p class="hero__subtitle">{{ heroText.subtitle}}</p>
-            <a class="hero__button">{{ heroText.button}}</a>
+            <a class="hero__button" @click="modalToggle()">{{ heroText.button}}</a>
             <span class="hero__image--wrapper"><img class="hero__image" src="../assets/hummer-main.jpg"
                     alt="" /></span>
         </div>
@@ -23,7 +23,7 @@
                 <li class="hero__benefitsItem" v-for="(item,i) of heroText.benefits" :key="i">{{item}}</li>
             </ul>
             <p class="hero__subtitle">{{ heroText.susbitle}}</p>
-            <a class="hero__button">{{ heroText.button}}</a>
+            <a class="hero__button" @click="modalToggle()">{{ heroText.button}}</a>
             <span class="hero__image--wrapper">
                 <img class="hero__image" src="../assets/hummer-main.jpg" alt="" />
             </span>
@@ -53,9 +53,10 @@
     <section class="services" id="services">
         <h2 class="services__title">{{serviceText.title}}</h2>
         <ul class="services__list">
-            <ButtonComp :text="serviceText.buttonsNames" />
+            <ButtonComp v-if="!calcPriceOpen" :text="serviceText.buttonsNames" />
+            <CalcPrice v-else />
         </ul>
-        <a class="services__button">{{ serviceText.buttonOrder}}</a>
+        <a class="services__button" @click="modalToggle()">{{ serviceText.buttonOrder}}</a>
     </section>
     <section class="experience" id="about">
         <div class="experience__container">
@@ -128,12 +129,14 @@ import benefits from '../texts/benefits';
 import ButtonComp from "@/components/ButtonComp.vue";
 import ToTopButton from '@/components/ToTopButton/ToTopButton.vue';
 import ModalComp from './Modal/ModalComp.vue';
+import CalcPrice from './CalcPrice/CalcPrice.vue';
 
 export default {
-    components: { ToTopButton, ButtonComp, ModalComp },
+    components: { ToTopButton, ButtonComp, ModalComp, CalcPrice },
     data() {
         return {
             showModal: false,
+            calcPriceOpen: false,
         }
     },
     computed: {
@@ -154,6 +157,9 @@ export default {
         },
     },
     methods: {
+        modalToggle() {
+            this.showModal = !this.showModal;
+        }
     },
     mounted() {
     }

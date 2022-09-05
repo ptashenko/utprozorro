@@ -1,13 +1,7 @@
 <template>
-    <div class="buttonWrapper" v-if="Array.isArray(text)">
+    <div class="buttonWrapper">
         <div class="button" v-for="item of text" :key="item.id">
-            <a class="button__link" @click="nextPage(item.pageName)">{{ item.name }}</a>
-            <p class="button__more">Детальніше</p>
-        </div>
-    </div>
-    <div class="buttonWrapper" v-else>
-        <div class="button">
-            <a class="button__link" @click="nextPage(text.pageName)">{{ text.name }}</a>
+            <a class="button__link" @click="calcOpen()">{{ item.name }}</a>
             <p class="button__more">Детальніше</p>
         </div>
     </div>
@@ -21,6 +15,9 @@ export default {
         }
     },
     methods: {
+        calcOpen() {
+            
+        }
     },
 }
 </script>
