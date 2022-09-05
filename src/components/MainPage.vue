@@ -53,8 +53,7 @@
     <section class="services" id="services">
         <h2 class="services__title">{{serviceText.title}}</h2>
         <ul class="services__list">
-            <ButtonComp v-if="!calcPriceOpen" :text="serviceText.buttonsNames" />
-            <CalcPrice v-else />
+            <CalcComp />
         </ul>
         <a class="services__button" @click="modalToggle()">{{ serviceText.buttonOrder}}</a>
     </section>
@@ -126,13 +125,12 @@ import about from '../texts/aboutUs';
 import service from "../texts/services";
 import exp from '../texts/exp';
 import benefits from '../texts/benefits';
-import ButtonComp from "@/components/ButtonComp.vue";
+import CalcComp from "@/components/CalcComp.vue";
 import ToTopButton from '@/components/ToTopButton/ToTopButton.vue';
 import ModalComp from './Modal/ModalComp.vue';
-import CalcPrice from './CalcPrice/CalcPrice.vue';
 
 export default {
-    components: { ToTopButton, ButtonComp, ModalComp, CalcPrice },
+    components: { ToTopButton, CalcComp, ModalComp },
     data() {
         return {
             showModal: false,
