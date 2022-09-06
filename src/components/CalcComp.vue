@@ -1,7 +1,10 @@
 <template>
     <FormKit type="form"
     submit-label="Відправити заявку"
+    id="calcPriceForm"
     :classes="{form: '$reset calcForm'}"
+    incomplete-message="Ви не заповнили обов'язкові поля!"
+    @submit="submitOrder"
     :submit-attrs="{
         inputClass: progressStarted === 2 ? 'form__button' : 'hidden',
     }"
@@ -11,6 +14,10 @@
             :options="['Підготовка тендерної пропозиція', 'Оскарження в АМКУ', 'Вимога замовнику']"
             help="Яка послуга Вас цікавить?"
             name="service"
+            validation="required"
+            :validation-messages="{
+            required: 'Оберіть послугу, яка Вас цікавить',
+            }"
             v-model="serviceName"
             :classes="{
                fieldset: '$reset servicesForm',
@@ -22,12 +29,15 @@
             />
         <FormKit
             type="text"
-            placeholder="ID тендеру"
+            placeholder="UA-2020-05-27-001286-b"
+            label="ID тендеру"
             name="tender_ID"
             v-model="tenderID"
             :classes="{
                 outer: '$reset idInput',
-                input: '$reset idInput__input'
+                input: '$reset idInput__input',
+                label: '$reset idInput__label',
+                inner: '$reset idInput__inner'
             }"
             />
         <FormKit
@@ -35,16 +45,20 @@
             placeholder="Сума оголошенного тендеру"
             step="1"
             name="tenderAmount"
+            label="Вартість тендеру"
             v-model="tenderAmount"
             :classes="{
                 outer: '$reset amountInput',
-                input: '$reset amountInput__input'
+                input: '$reset amountInput__input',
+                label: '$reset amountInput__label',
+                inner: '$reset amountInput__inner'
             }"
             />
         <div class="result">
-            <button class="result__button" @click="calcPrice">Розрахувати</button>
+            <button v-if="!progressStarted || progressStarted === 2" class="result__button" @click="calcPrice" @keyup.enter="calcPrice" ref="calcButton">{{progressStarted === 2 ? 'Розрахувати ще раз' : 'Розрахувати вартість'}}</button>
+            <p v-show="progressStarted === 1" class="result__analyze" ref="analyzeText">Аналізуємо дані...</p>
             <div v-show="progressStarted === 1" class="progress" ref="progressBar">{{progress}}%</div>
-            <p v-if="progressStarted === 2" class="result__text">Вартість послуги: <span>{{price}} грн</span></p>
+            <p v-if="progressStarted === 2" class="result__text">Вартість послуги: <span class="result__text--blue">{{price}} грн</span></p>
         </div>
     </FormKit>
 </template>
@@ -55,17 +69,23 @@ export default {
         return {
             serviceName: '',
             tenderID: '',
-            tenderAmount: 0,
+            tenderAmount: '',
             price: null,
             progress: 0,
             progressStarted: null,
+            complete: false,
         }
     },
     methods: {
+        submitOrder(data) {
+            data.service ? this.complete = true : this.complete = false;
+        },
         calcPrice(e) {
             e.preventDefault();
-            this.startProgress();
-            switch (this.serviceName) {
+            this.$formkit.submit('calcPriceForm');
+            if (this.complete) {
+                this.startProgress();
+                switch (this.serviceName) {
                 case 'Підготовка тендерної пропозиція':
                     if (this.tenderAmount <= 100000) {
                         this.price = 1200;
@@ -81,13 +101,28 @@ export default {
                     break
                 case 'Вимога замовнику': this.price = 1000;
                     break
+                }
             }
+        },
+        startTextBlink() {
+            const analyzeText = this.$refs.analyzeText;
+            let blinkCount = 0;
+            let opacityToggle = setInterval(() => {
+                if (blinkCount !== 1) {
+                    blinkCount += 1;
+                } else {
+                    blinkCount = 0;
+                }
+                this.progressStarted === 2 && clearInterval(opacityToggle);
+                analyzeText.style.opacity = blinkCount;
+            }, 1000)
         },
         startProgress() {
             this.progressStarted = 1;
             let count = 0;
             const progressBar = this.$refs.progressBar;
             progressBar.style.padding = '0 5px';
+            this.startTextBlink();
             let progressCount = setInterval(() => {
                 if (count < 100) {
                     count += 1;
@@ -110,6 +145,7 @@ export default {
     display: flex;
     flex-direction: column;
     border-radius: 10px;
+    transition: box-shadow .25s linear;
     &__title {
         font-size: 20px;
         font-weight: 600;
@@ -140,6 +176,12 @@ export default {
         border: 2px groove rgb(192, 192, 192);
         padding: 5px 10px;
     }
+    &__label {
+        font-weight: 600;
+    }
+    &__inner {
+        margin-top: 5px;
+    }
 }
 
 .result {
@@ -152,6 +194,16 @@ export default {
     }
     &__text {
         text-align: center;
+        &--blue {
+            color: #1550e7;
+            font-weight: 600;
+        }
+    }
+    &__analyze {
+        color: #1550e7;
+        font-weight: 600;
+        transition: opacity .5s linear;
+        opacity: 0;
     }
 }
 
