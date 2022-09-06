@@ -1,5 +1,6 @@
 <template>
-    <FormKit type="form" >
+    <FormKit type="form"
+    submit-label="Відправити заявку">
         <FormKit
             type="radio"
             :options="['Підготовка тендерної пропозиція', 'Оскарження в АМКУ', 'Вимога замовнику']"
@@ -64,5 +65,5 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 </style>
