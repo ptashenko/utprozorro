@@ -3,7 +3,7 @@
     submit-label="Відправити заявку"
     :classes="{form: '$reset calcForm'}"
     :submit-attrs="{
-        inputClass: price ? 'form__button' : 'hidden',
+        inputClass: progressStarted === 2 ? 'form__button' : 'hidden',
     }"
     >
         <FormKit
@@ -43,7 +43,8 @@
             />
         <div class="result">
             <button class="result__button" @click="calcPrice">Розрахувати</button>
-            <p v-if="price" class="result__text">Вартість послуги: <span>{{price}} грн</span></p>
+            <div v-show="progressStarted === 1" class="progress" ref="progressBar">{{progress}}%</div>
+            <p v-if="progressStarted === 2" class="result__text">Вартість послуги: <span>{{price}} грн</span></p>
         </div>
     </FormKit>
 </template>
@@ -56,11 +57,14 @@ export default {
             tenderID: '',
             tenderAmount: 0,
             price: null,
+            progress: 0,
+            progressStarted: null,
         }
     },
     methods: {
         calcPrice(e) {
             e.preventDefault();
+            this.startProgress();
             switch (this.serviceName) {
                 case 'Підготовка тендерної пропозиція':
                     if (this.tenderAmount <= 100000) {
@@ -78,6 +82,22 @@ export default {
                 case 'Вимога замовнику': this.price = 1000;
                     break
             }
+        },
+        startProgress() {
+            this.progressStarted = 1;
+            let count = 0;
+            const progressBar = this.$refs.progressBar;
+            progressBar.style.padding = '0 5px';
+            let progressCount = setInterval(() => {
+                if (count < 100) {
+                    count += 1;
+                    this.progress = count;
+                    progressBar.style.width = `${count}%`;
+                } else {
+                    this.progressStarted = 2;
+                    clearInterval(progressCount);
+                }
+            },50)
         }
     },
     mounted() {
@@ -137,5 +157,17 @@ export default {
 
 .hidden {
     display: none;
+}
+
+.progress {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    justify-content: end;
+    width: 0%;
+    height: 30px;
+    background: #1550e7;
+    color: #fff;
+    font-weight: 600;
 }
 </style>
