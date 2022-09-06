@@ -1,7 +1,11 @@
 <template>
     <FormKit type="form"
     submit-label="Відправити заявку"
-    :classes="{form: '$reset calcForm'}">
+    :classes="{form: '$reset calcForm'}"
+    :submit-attrs="{
+        inputClass: price ? 'form__button' : 'hidden',
+    }"
+    >
         <FormKit
             type="radio"
             :options="['Підготовка тендерної пропозиція', 'Оскарження в АМКУ', 'Вимога замовнику']"
@@ -38,8 +42,8 @@
             }"
             />
         <div class="result">
-            <button class="calcBtn" @click="calcPrice">Розрахувати</button>
-            <p v-if="price">Вартість послуги: <span>{{price}} грн</span></p>
+            <button class="result__button" @click="calcPrice">Розрахувати</button>
+            <p v-if="price" class="result__text">Вартість послуги: <span>{{price}} грн</span></p>
         </div>
     </FormKit>
 </template>
@@ -118,11 +122,20 @@ export default {
     }
 }
 
-.calcBtn {
-    display: block;
-    background: transparent;
-    border: 2px groove rgb(192, 192, 192);
-    padding: 5px 10px;
-    margin: 0 auto;
+.result {
+    &__button {
+        display: block;
+        background: transparent;
+        border: 2px groove rgb(192, 192, 192);
+        padding: 5px 10px;
+        margin: 0 auto;
+    }
+    &__text {
+        text-align: center;
+    }
+}
+
+.hidden {
+    display: none;
 }
 </style>

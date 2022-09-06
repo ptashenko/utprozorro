@@ -55,7 +55,6 @@
         <ul class="services__list">
             <CalcComp />
         </ul>
-        <a class="services__button" @click="modalToggle()">{{ serviceText.buttonOrder}}</a>
     </section>
     <section class="experience" id="about">
         <div class="experience__container">
