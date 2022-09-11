@@ -36,9 +36,15 @@ export default {
         handleSubmit(order) {
             const submitBtn = document.querySelector('.form__button');
             submitBtn.classList.remove('form__button');
-            submitBtn.classList.add('modalForm__send');
-            submitBtn.textContent = 'Дякуємо, відправлено!'
-            this.value = order;
+            submitBtn.classList.add('form__send');
+            submitBtn.textContent = 'Дякуємо, відправлено!';
+            const message = `Нова заявка!%0AІ'мя клієнта: ${order.name}%0AНомер телефону: ${order.phone}%0AEmail: ${order.email}%0AПовідомлення: ${order.comment}`
+            fetch(`https://api.telegram.org/bot5606182556:AAFLcO-Oh1wjXJKuR3clpNmKycRSSGQ2biI/sendMessage?chat_id=-566337237&text=${message}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+            })
             setTimeout(() => {
                 this.$formkit.reset("form");
             }, 1000)
@@ -82,25 +88,42 @@ export default {
     }
     &__button {
             border-bottom: none;
-                display: block;
-                width: 270px;
-                text-align: center;
-                margin: 20px auto;
-                text-decoration: none;
-                padding: 20px 40px;
-                border: 1px solid #000;
-                color: #000;
-                font-size: 16px;
-                font-weight: 700;
-                line-height: 1;
-                background: transparent;
-                transition: all 250ms linear;
-                cursor: pointer;
-            
-                &:hover {
-                    background: #000;
-                    color: #fff;
-                }
+            display: block;
+            width: 270px;
+            text-align: center;
+            margin: 20px auto;
+            text-decoration: none;
+            padding: 20px 40px;
+            border: 1px solid #000;
+            color: #000;
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 1;
+            background: transparent;
+            transition: all 250ms linear;
+            cursor: pointer;
+        
+            &:hover {
+                background: #000;
+                color: #fff;
+            }
+    }
+    &__send {
+            border-bottom: none;
+            display: block;
+            width: 270px;
+            text-align: center;
+            margin: 20px auto;
+            text-decoration: none;
+            padding: 20px 40px;
+            border: 1px solid #000;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 1;
+            background: green;
+            transition: all 250ms linear;
+            cursor: pointer;
     }
 }
 
