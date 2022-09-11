@@ -172,7 +172,19 @@ export default {
             orderPrice,
             clientsPhone
         };
-        console.log(data);
+          const formReq = new XMLHttpRequest()
+          formReq.open('POST', '/telegram', true);
+          formReq.onload = function() {
+            if (formReq.status === 200) {
+              alert('success')
+            }
+            if (formReq.status !== 200) {
+              alert('error')
+            }
+        }
+        formReq.setRequestHeader('Content-Type', 'application/json');
+        formReq.send(JSON.stringify(data));
+
       } else {
         e.target[7].value = 'Введіть номер телефону!';
         e.target[7].style.background = 'red';
