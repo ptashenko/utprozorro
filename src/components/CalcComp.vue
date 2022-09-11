@@ -10,7 +10,7 @@
           v-for="(service, i) of serviceName"
           :key="i"
           :class="{ selected: service === selectedService }">
-          {{ service }}
+          <span>{{ service }}</span>
           <input
             type="radio"
             :value="service"
@@ -26,7 +26,7 @@
           placeholder="наприклад UA-2020-05-27-001286-b" />
       </label>
       <label class="form__label"
-        >Вартість тендеру
+        >Загальна вартість тендеру, грн
         <input
           type="number"
           placeholder="наприклад 1 000 000,00"
@@ -61,7 +61,7 @@
         v-show="progressStarted === 1"
         class="progress"
         ref="progressBar">
-        {{ progress }}%
+        {{ progress > 15 ? progress + '%' : '...' }}
       </div>
       <p
         v-if="progressStarted === 2"
@@ -69,6 +69,14 @@
         Дякуємо, вартість послуги:
         <span class="result__text--blue">{{ price }} грн</span>
       </p>
+      <label class="form__label" v-if="progressStarted === 2"
+        >Ваш номер телефону:
+        <input
+          type="phone"
+          placeholder="наприклад 0505742362"
+          v-model="phone"
+        />
+      </label>
     </div>
     <input
       v-if="progressStarted === 2"
@@ -92,6 +100,7 @@ export default {
       tenderID: '',
       tenderAmount: '',
       price: null,
+      phone: '',
       progress: 0,
       progressStarted: null,
     };
@@ -110,7 +119,7 @@ export default {
               this.tenderAmount > 100000 &&
               this.tenderAmount <= 200000
             ) {
-              this.price = 2400;
+              this.price = 2500;
             } else if (
               this.tenderAmount > 200000 &&
               this.tenderAmount <= 3000000
@@ -140,13 +149,35 @@ export default {
       const iD = this.tenderID;
       const tenderAmount = this.tenderAmount;
       const orderPrice = this.price;
-      const data = {
-        serviceName,
-        iD,
-        tenderAmount,
-        orderPrice
-      };
-      console.log(data);
+      const clientsPhone = this.phone.trim().replaceAll('(', '').replaceAll(')', '').replaceAll('-', '').replaceAll(' ', '').replaceAll('+', '').replace('38', '');
+      if (clientsPhone.length === 10) {
+        e.target[7].style.background = 'transparent';
+        e.target[7].style.color = '#000';
+        e.target[7].value = 'Відправляємо...';
+        setTimeout(() => {
+          e.target[7].value = 'Відправлено!';
+          e.target[7].style.background = 'green';
+          e.target[7].style.color = '#fff';
+          setTimeout(() => {
+            this.tenderID = '';
+            this.tenderAmount = '';
+            this.selectedService = '';
+            this.progressStarted = null;
+          },1000)
+        }, 1000)
+          const data = {
+            serviceName,
+            iD,
+            tenderAmount,
+            orderPrice,
+            clientsPhone
+        };
+        console.log(data);
+      } else {
+        e.target[7].value = 'Введіть номер телефону!';
+        e.target[7].style.background = 'red';
+        e.target[7].style.color = '#fff';
+      }
     },
     startTextBlink() {
       const analyzeText = this.$refs.analyzeText;
@@ -207,17 +238,43 @@ export default {
     flex-direction: column;
     margin-bottom: 20px;
     width: 100%;
-    text-align: center;
+    // text-align: center;
     & > label {
+      display: flex;
+      position: relative;
+      flex-direction: row-reverse;
+      align-items: center;
+      width: 100%;
       cursor: pointer;
+      & span {
+        flex-grow: 1;
+        margin-left: 25px;
+      }
       &:not(:last-child) {
-        margin-bottom: 5px;
+        margin-bottom: 10px;
       }
     }
     & > label > input[type='radio'] {
       -webkit-appearance: none;
       -moz-appearance: none;
       appearance: none;
+      outline: none;
+      &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: -5px;
+        width: 20px;
+        height: 20px;
+        background: #fff;
+        transform: translateY(-50%);
+        border: 1px solid rgba(0, 0, 0, 0.199);
+        border-radius: 50%;
+      }
+      &:checked::after {
+        content: '';
+        background: radial-gradient(circle, rgba(21,80,231,1) 21%, rgba(255,255,255,1) 22%, rgba(255,255,255,1) 80%);
+      }
     }
   }
   &__label {
@@ -305,4 +362,5 @@ export default {
   font-size: 12px;
   text-align: center;
 }
+
 </style>
