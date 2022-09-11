@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import telegramBotSend from '@/services/fetchApi'
 export default {
     data() {
         return {
@@ -39,12 +40,7 @@ export default {
             submitBtn.classList.add('form__send');
             submitBtn.textContent = 'Дякуємо, відправлено!';
             const message = `Нова заявка!%0AІ'мя клієнта: ${order.name}%0AНомер телефону: ${order.phone}%0AEmail: ${order.email}%0AПовідомлення: ${order.comment}`
-            fetch(`https://api.telegram.org/bot5606182556:AAFLcO-Oh1wjXJKuR3clpNmKycRSSGQ2biI/sendMessage?chat_id=-566337237&text=${message}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            }
-            })
+            telegramBotSend(message);
             setTimeout(() => {
                 this.$formkit.reset("form");
             }, 1000)

@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import telegramBotSend from '@/services/fetchApi'
 export default {
   data() {
     return {
@@ -65,12 +66,7 @@ export default {
           message: this.message,
         }
         const message = `Нова заявка!%0AІм'я клієнта: ${clientsData.name}%0AКонтактний телефон: ${clientsData.phone}%0AEmail: ${clientsData.email}%0AКоментар: ${clientsData.message}`
-        fetch(`https://api.telegram.org/bot5606182556:AAFLcO-Oh1wjXJKuR3clpNmKycRSSGQ2biI/sendMessage?chat_id=-566337237&text=${message}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          }
-        })
+        telegramBotSend(message);
         setTimeout(() => {
           e.target[4].style.background = 'green';
           e.target[4].style.color = '#fff';

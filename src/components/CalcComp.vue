@@ -30,7 +30,7 @@
         <input
           type="number"
           placeholder="наприклад 1 000 000,00"
-          step="1000"
+          step="1"
           name="tenderAmount"
           v-model="tenderAmount"
           @keyup.enter="calcPrice" />
@@ -87,6 +87,7 @@
 </template>
 
 <script>
+import telegramBotSend from '@/services/fetchApi'
 export default {
   data() {
     return {
@@ -173,12 +174,7 @@ export default {
             clientsPhone
         };
         const message = `Нова заявка!%0AНазва послуги: ${data.serviceName}%0AID тендеру: ${data.iD}%0AСума тендеру: ${data.tenderAmount}%0AЦіна послуги: ${data.orderPrice}%0AНомер телефону: ${data.clientsPhone}`
-        fetch(`https://api.telegram.org/bot5606182556:AAFLcO-Oh1wjXJKuR3clpNmKycRSSGQ2biI/sendMessage?chat_id=-566337237&text=${message}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          }
-        })
+        telegramBotSend(message);
       } else {
         e.target[7].value = 'Введіть номер телефону!';
         e.target[7].style.background = 'red';
