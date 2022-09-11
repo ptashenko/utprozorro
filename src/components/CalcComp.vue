@@ -172,19 +172,13 @@ export default {
             orderPrice,
             clientsPhone
         };
-          const formReq = new XMLHttpRequest()
-          formReq.open('POST', '/telegram', true);
-          formReq.onload = function() {
-            if (formReq.status === 200) {
-              alert('success')
-            }
-            if (formReq.status !== 200) {
-              alert('error')
-            }
-        }
-        formReq.setRequestHeader('Content-Type', 'application/json');
-        formReq.send(JSON.stringify(data));
-
+        const message = `Нова заявка!%0AНазва послуги: ${data.serviceName}%0AID тендеру: ${data.iD}%0AСума тендеру: ${data.tenderAmount}%0AЦіна послуги: ${data.orderPrice}%0AНомер телефону: ${data.clientsPhone}`
+        fetch(`https://api.telegram.org/bot5606182556:AAFLcO-Oh1wjXJKuR3clpNmKycRSSGQ2biI/sendMessage?chat_id=-566337237&text=${message}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        })
       } else {
         e.target[7].value = 'Введіть номер телефону!';
         e.target[7].style.background = 'red';
@@ -241,7 +235,7 @@ export default {
     display: flex;
     flex-direction: column;
     width: 280px;
-    margin: 0 auto 20px;
+    margin: 20px auto;
     justify-content: center;
     align-items: center;
   }
