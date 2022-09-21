@@ -4,7 +4,8 @@ const store = createStore({
     state() {
         return {
             showModal: false,
-            scrollHeight: window.pageYOffset
+            scrollHeight: window.pageYOffset,
+            mobileMenu: false,
         }
     },
     mutations: {
@@ -13,6 +14,13 @@ const store = createStore({
         },
         watchScrollHeight(state) {
             state.scrollHeight = window.pageYOffset;
+        },
+        mobileMenuOpen(state) {
+            state.mobileMenu = !state.mobileMenu
+        },
+        scrollDown(state, el) {
+            state.mobileMenu = !state.mobileMenu;
+            document.getElementById(el).scrollIntoView({behavior: "smooth"})
         }
     }
 })

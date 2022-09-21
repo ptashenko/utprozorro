@@ -3,10 +3,10 @@
     <ul class="header__list">
       <li class="header__item">
         <a href="#" @click="pageMain()" class="header__link">
-          <img class="header__image--logo" src="../../assets/svg/logo.svg" alt="logo" @click="backToMainPage()" />
+          <img class="header__image--logo" src="../../assets/svg/logo.svg" alt="logo" />
         </a>
       </li>
-      <ul class="header__navigation" v-show="page === 'main'">
+      <ul class="header__navigation">
         <li class="header__navigationItem" v-for="(button, indx) of headerText.buttons" :key="indx">
           <a class="header__navigationLink" @click="scrollDown(button.id)">
             {{button.name}}
@@ -24,7 +24,7 @@
         </ul>
       </li>
       <li class="header__item header__item--burger">
-        <img @click="mobileMenuOpen()" v-show="mainPage === '/'" class="header__image--burger"
+        <img @click="mobileMenuOpen()" class="header__image--burger"
           src="../../assets/svg/burger_icons.svg" alt="logo" />
       </li>
     </ul>
@@ -57,12 +57,6 @@
 import header from './headerTexts';
 export default {
   props: ['page'],
-  data() {
-    return {
-      mobileMenu: false,
-      mainPage: window.location.pathname,
-    };
-  },
   computed: {
     headerText() {
       return header;
@@ -70,37 +64,21 @@ export default {
   },
   methods: {
     mobileMenuOpen() {
-      if (this.mobileMenu) {
-        this.mobileMenu = false;
-      } else {
-        this.mobileMenu = true;
-      }
-    },
-    backToMainPage() {
-      this.$router.push('/')
+      this.$store.commit('mobileMenuOpen');
     },
     setLinkContacts(val, link) {
-      if (val === 'phone') {
-        return `tel:${link}`
-      } else if (val === 'email') {
-        return `mailto:${link}`
-      } else {
-        return;
+      switch (val) {
+        case 'phone':
+          return `tel:${link}`;
+        case 'email':
+          return `mailto:${link}`
+        default:
+          break;
       }
     },
     scrollDown(element) {
-      if (this.mobileMenu) {
-        this.mobileMenu = !this.mobileMenu;
-      }
-      const el = document.getElementById(element);
-      el.scrollIntoView({ behavior: "smooth" });
+      this.$store.commit('scrollDown', element);
     },
-    pageMain() {
-      this.$router.push({ name: 'main' });
-      this.$emit('pageName', 'main');
-    }
-  },
-  mounted() {
   }
 };
 </script>
