@@ -1,6 +1,6 @@
 <template>
     <Transition name="slide-fade">
-        <a class="toTop" v-if="scrollHeight > 0" @click="scrollToTop()">^</a>
+        <a class="toTop" v-if="this.$store.state.scrollHeight > 0" @click="scrollToTop()">^</a>
     </Transition>
 </template>
 
@@ -8,11 +8,6 @@
 var throttle = require('lodash.throttle');
 
 export default {
-    data() {
-        return {
-            scrollHeight: window.pageYOffset,
-        }
-    },
     methods: {
         scrollToTop() {
             window.scrollTo({
@@ -20,13 +15,10 @@ export default {
                 behavior: 'smooth',
             })
         },
-        watchScrollHeight() {
-            this.scrollHeight = window.pageYOffset;
-        }
     },
-    mounted() {
+    created() {
         window.addEventListener('scroll', throttle(() => {
-            this.watchScrollHeight();
+            this.$store.commit('watchScrollHeight');
         }, 500))
     }
 }

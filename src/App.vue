@@ -1,5 +1,5 @@
 <template>
-  <HeaderComp :page="page" @pageName="changePageName" />
+  <HeaderComp />
   <MainPage />
   <ContactsComp />
 </template>
@@ -13,16 +13,6 @@ import MainPage from './components/MainPage.vue';
 export default {
   name: 'App',
   components: { HeaderComp, ContactsComp, MainPage },
-  data() {
-    return {
-      page: 'main',
-    }
-  },
-  methods: {
-    changePageName(name) {
-      this.page = name;
-    }
-  }
 };
 </script>
 

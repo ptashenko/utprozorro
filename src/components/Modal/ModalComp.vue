@@ -6,7 +6,7 @@
 
               <div class="modal-header">
                   <h2>Залишити заявку</h2>
-                  <button class="modal-default-button" @click="$emit('close')">X</button>
+                  <button class="modal-default-button" @click="this.$store.state.showModal = false">X</button>
               </div>
 
               <div class="modal-body">
@@ -55,10 +55,12 @@ export default {
   methods: {
     submitOrder(e) {
       e.preventDefault();
+      const buttonStyle = e.target[4].style;
+      const button = e.target[4];
       const prettyPhone = this.phone.trim().replaceAll('(','').replaceAll(')','').replaceAll('-','').replaceAll(' ', '').replaceAll('+', '').replace('38','');
       if (prettyPhone.length === 10) {
         this.validation = true;
-        e.target[4].value = 'Відправляємо...';
+        button.value = 'Відправляємо...';
         const clientsData = {
           name: this.name,
           phone: prettyPhone,
@@ -68,11 +70,11 @@ export default {
         const message = `Нова заявка!%0AІм'я клієнта: ${clientsData.name}%0AКонтактний телефон: ${clientsData.phone}%0AEmail: ${clientsData.email}%0AКоментар: ${clientsData.message}`
         telegramBotSend(message);
         setTimeout(() => {
-          e.target[4].style.background = 'green';
-          e.target[4].style.color = '#fff';
-          e.target[4].value = 'Відправлено!';
+          buttonStyle.background = 'green';
+          buttonStyle.color = '#fff';
+          button.value = 'Відправлено!';
           setTimeout(() => {
-            this.$emit('close')
+            this.$store.state.showModal = false;
           },1500)
         }, 1000)
       } else {

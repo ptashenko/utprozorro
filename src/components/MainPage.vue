@@ -115,7 +115,7 @@
         </ul>
     </section>
     <ToTopButton />
-    <ModalComp v-if="showModal" @close="showModal = false" />
+    <ModalComp v-if="this.$store.state.showModal" />
 </template>
 
 <script>
@@ -130,12 +130,6 @@ import ModalComp from './Modal/ModalComp.vue';
 
 export default {
     components: { ToTopButton, CalcComp, ModalComp },
-    data() {
-        return {
-            showModal: false,
-            calcPriceOpen: false,
-        }
-    },
     computed: {
         heroText() {
             return hero;
@@ -155,11 +149,9 @@ export default {
     },
     methods: {
         modalToggle() {
-            this.showModal = !this.showModal;
+            this.$store.commit('toggleModal');
         }
     },
-    mounted() {
-    }
 }
 </script>
 

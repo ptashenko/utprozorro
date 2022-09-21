@@ -146,19 +146,21 @@ export default {
     },
     submitData(e) {
       e.preventDefault();
+      const sendButton = e.target[7];
+      const { buttonsStyle } = e.target[7].style;
       const serviceName = this.selectedService;
       const iD = this.tenderID;
       const tenderAmount = this.tenderAmount;
       const orderPrice = this.price;
       const clientsPhone = this.phone.trim().replaceAll('(', '').replaceAll(')', '').replaceAll('-', '').replaceAll(' ', '').replaceAll('+', '').replace('38', '');
       if (clientsPhone.length === 10) {
-        e.target[7].style.background = 'transparent';
-        e.target[7].style.color = '#000';
-        e.target[7].value = 'Відправляємо...';
+        buttonsStyle.background = 'transparent';
+        buttonsStyle.color = '#000';
+        sendButton.value = 'Відправляємо...';
         setTimeout(() => {
-          e.target[7].value = 'Відправлено!';
-          e.target[7].style.background = 'green';
-          e.target[7].style.color = '#fff';
+          sendButton.value = 'Відправлено!';
+          buttonsStyle.background = 'green';
+          buttonsStyle.color = '#fff';
           setTimeout(() => {
             this.tenderID = '';
             this.tenderAmount = '';
@@ -176,9 +178,9 @@ export default {
         const message = `Нова заявка!%0AНазва послуги: ${data.serviceName}%0AID тендеру: ${data.iD}%0AСума тендеру: ${data.tenderAmount}%0AЦіна послуги: ${data.orderPrice}%0AНомер телефону: ${data.clientsPhone}`
         telegramBotSend(message);
       } else {
-        e.target[7].value = 'Введіть номер телефону!';
-        e.target[7].style.background = 'red';
-        e.target[7].style.color = '#fff';
+        sendButton.value = 'Введіть номер телефону!';
+        buttonsStyle.background = 'red';
+        buttonsStyle.color = '#fff';
       }
     },
     startTextBlink() {
