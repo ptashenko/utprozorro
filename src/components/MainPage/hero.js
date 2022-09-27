@@ -1,7 +1,5 @@
 export default {
-    title: 'Юридичний супровід',
-    titleMid: ' закупівель в Prozorro',
-    titleEnd: '"під ключ"',
+    title: 'Юридичний супровід <span class="hero__title--bold">закупівель в Prozorro</span><span class="hero__title--underline">"під ключ"</span>',
     subtitle: 'Станьте на крок попереду серед інших!',
     benefits: [
         'супровід тендерних процедур в Prozorro "під ключ"',

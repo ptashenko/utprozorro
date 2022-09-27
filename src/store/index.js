@@ -1,28 +1,11 @@
-import { createStore } from 'vuex';
+import { reactive } from "vue";
+import hero from '../components/MainPage/hero';
+import header from '../components/Header/headerTexts';
 
-const store = createStore({
-    state() {
-        return {
-            showModal: false,
-            scrollHeight: window.pageYOffset,
-            mobileMenu: false,
-        }
-    },
-    mutations: {
-        toggleModal(state) {
-            state.showModal = !state.showModal;
-        },
-        watchScrollHeight(state) {
-            state.scrollHeight = window.pageYOffset;
-        },
-        mobileMenuOpen(state) {
-            state.mobileMenu = !state.mobileMenu
-        },
-        scrollDown(state, el) {
-            state.mobileMenu = !state.mobileMenu;
-            document.getElementById(el).scrollIntoView({behavior: "smooth"})
-        }
-    }
+const state = reactive({
+    showModal: false,
+    texts: { hero, header },
+    mobileMenu: false,
 })
 
-export default store
+export default { state };

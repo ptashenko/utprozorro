@@ -3,14 +3,13 @@
         <div class="modal-mask">
           <div class="modal-wrapper">
             <div class="modal-container">
-
               <div class="modal-header">
                   <h2>Залишити заявку</h2>
-                  <button class="modal-default-button" @click="this.$store.state.showModal = false">X</button>
+                  <button class="modal-default-button">X</button>
               </div>
 
               <div class="modal-body">
-                  <Form class="modalForm" @submit="submitOrder">
+                  <Form class="modalForm" @submit="handleSubmitModal">
                     <label class="modalForm__label">
                       Ваше ім'я:
                       <input class="modalForm__input" type="text" placeholder="Ваше ім'я" v-model="name">
@@ -32,7 +31,7 @@
               </div>
 
               <div class="modal-footer">
-                  <p v-if="!validation" class="modal-footer__failed">Введіть Ваш номер телефону у форматі 0505742362</p>
+                  <p class="modal-footer__failed">Введіть Ваш номер телефону у форматі 0505742362</p>
               </div>
             </div>
           </div>
@@ -41,48 +40,50 @@
 </template>
 
 <script>
-import telegramBotSend from '@/services/fetchApi'
+// import telegramBotSend from '@/services/fetchApi'
 export default {
   data() {
     return {
-      name: '',
-      phone: '',
-      email: '',
-      message: '',
-      validation: true,
+      // name: '',
+      // phone: '',
+      // email: '',
+      // message: '',
+      // validation: true,
     }
   },
   methods: {
-    submitOrder(e) {
-      e.preventDefault();
-      const buttonStyle = e.target[4].style;
-      const button = e.target[4];
-      const prettyPhone = this.phone.trim().replaceAll('(','').replaceAll(')','').replaceAll('-','').replaceAll(' ', '').replaceAll('+', '').replace('38','');
-      if (prettyPhone.length === 10) {
-        this.validation = true;
-        button.value = 'Відправляємо...';
-        const clientsData = {
-          name: this.name,
-          phone: prettyPhone,
-          email: this.email,
-          message: this.message,
-        }
-        const message = `Нова заявка!%0AІм'я клієнта: ${clientsData.name}%0AКонтактний телефон: ${clientsData.phone}%0AEmail: ${clientsData.email}%0AКоментар: ${clientsData.message}`
-        telegramBotSend(message);
-        setTimeout(() => {
-          buttonStyle.background = 'green';
-          buttonStyle.color = '#fff';
-          button.value = 'Відправлено!';
-          setTimeout(() => {
-            this.$store.state.showModal = false;
-          },1500)
-        }, 1000)
-      } else {
-        this.validation = false;
-      }
+    handleSubmitModal(e) {
+      this.$emit('handleSubmit', e)
+    }
+    // submitOrder(e) {
+    //   e.preventDefault();
+    //   const buttonStyle = e.target[4].style;
+    //   const button = e.target[4];
+    //   const prettyPhone = this.phone.trim().replaceAll('(','').replaceAll(')','').replaceAll('-','').replaceAll(' ', '').replaceAll('+', '').replace('38','');
+    //   if (prettyPhone.length === 10) {
+    //     this.validation = true;
+    //     button.value = 'Відправляємо...';
+    //     const clientsData = {
+    //       name: this.name,
+    //       phone: prettyPhone,
+    //       email: this.email,
+    //       message: this.message,
+    //     }
+    //     const message = `Нова заявка!%0AІм'я клієнта: ${clientsData.name}%0AКонтактний телефон: ${clientsData.phone}%0AEmail: ${clientsData.email}%0AКоментар: ${clientsData.message}`
+    //     telegramBotSend(message);
+    //     setTimeout(() => {
+    //       buttonStyle.background = 'green';
+    //       buttonStyle.color = '#fff';
+    //       button.value = 'Відправлено!';
+    //       setTimeout(() => {
+    //         this.$store.state.showModal = false;
+    //       },1500)
+    //     }, 1000)
+    //   } else {
+    //     this.validation = false;
+    //   }
     }
   }
-}
 </script>
 
 <style lang="scss">

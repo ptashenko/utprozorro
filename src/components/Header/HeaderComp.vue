@@ -2,113 +2,57 @@
   <header class="header">
     <ul class="header__list">
       <li class="header__item">
-        <a href="#" @click="pageMain()" class="header__link">
+        <a href="#" class="header__link">
           <img class="header__image--logo" src="../../assets/svg/logo.svg" alt="logo" />
         </a>
       </li>
       <ul class="header__navigation">
-        <li class="header__navigationItem" v-for="(button, indx) of headerText.buttons" :key="indx">
-          <a class="header__navigationLink" @click="scrollDown(button.id)">
-            {{button.name}}
+        <li class="header__navigationItem" v-for="(item, idx) of text.navigation" :key="idx">
+          <a class="header__navigationLink">
+            {{item.name}}
           </a>
         </li>
       </ul>
       <li class="header__item header__item--contacts">
         <ul class="header__contacts">
-          <li class="header__item" v-for="(contact,i) of headerText.contacts" :key="i">
-            <a :href="setLinkContacts(contact.name, contact.link)" class="header__link header__link--bold">
-              {{contact.text}}
+          <li class="header__item" v-for="(item, idx) of text.contacts" :key="idx">
+            <a :href="item.link" class="header__link header__link--bold">
+              {{item.text}}
             </a>
           </li>
           <li class="header__item header__item--margin">Графік роботи: Пн-Пт, з 9:00 до 19:00</li>
         </ul>
       </li>
       <li class="header__item header__item--burger">
-        <img @click="mobileMenuOpen()" class="header__image--burger"
+        <img @click="mobileMenuToggle()" class="header__image--burger"
           src="../../assets/svg/burger_icons.svg" alt="logo" />
       </li>
     </ul>
-    <transition name="slideOn">
-      <div v-if="mobileMenu" class="mobileMenu">
-        <img @click="mobileMenuOpen()" src="../../assets/svg/cross.svg" alt="Закрыть" class="mobileMenu__close" />
-        <ul class="mobileMenu__menuList mobileMenu__menuList--navigation">
-          <li class="mobileMenu__menuItem" v-for="(button, indx) of headerText.buttons" :key="indx">
-            <a class="mobileMenu__menuLink" @click="scrollDown(button.id)">
-              {{button.name}}
-            </a>
-          </li>
-        </ul>
-        <ul class="mobileMenu__contactsList">
-          <li class="mobileMenu__contactsItem" v-for="(contact,i) of headerText.contacts" :key="i">
-            <a :href="setLinkContacts(contact.name, contact.link)" class="mobileMenu__contactsLink">
-              {{ contact.text }}
-            </a>
-          </li>
-          <li class="mobileMenu__contactsItem mobileMenu__contactsLink">
-            Графік роботи: Пн-Пт, з 9:00 до 19:00
-          </li>
-        </ul>
-      </div>
-    </transition>
+    <MobileMenu :text="text" :store="store" @mobileMenuToggle="mobileMenuToggle" />
   </header>
 </template>
 
 <script>
-import header from './headerTexts';
+import { inject } from 'vue';
+import MobileMenu from './MobileMenu/MobileMenu.vue';
 export default {
-  props: ['page'],
-  computed: {
-    headerText() {
-      return header;
+  components: { MobileMenu },
+  setup() {
+    const store = inject("store");
+    const text = store.texts.header;
+    const mobileMenuToggle = () => {
+      store.mobileMenu = !store.mobileMenu;
+    };
+    return { store, text, mobileMenuToggle };
     }
-  },
-  methods: {
-    mobileMenuOpen() {
-      this.$store.commit('mobileMenuOpen');
-    },
-    setLinkContacts(val, link) {
-      switch (val) {
-        case 'phone':
-          return `tel:${link}`;
-        case 'email':
-          return `mailto:${link}`
-        default:
-          break;
-      }
-    },
-    scrollDown(element) {
-      this.$store.commit('scrollDown', element);
-    },
-  }
+    //   scrollDown(element) {
+    //     this.$store.commit('scrollDown', element);
+    //   },
+    // }
 };
 </script>
 
 <style lang="scss" scoped>
-@keyframes showOn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes slide {
-  0% {
-    right: -100%;
-  }
-  100% {
-    right: 0;
-  }
-}
-.slideOn-enter-active {
-  animation: slide 0.5s;
-}
-
-.slideOn-leave-active {
-  animation: slide 0.5s reverse;
-}
-
 ul {
   padding: 0;
   margin: 0;
@@ -202,49 +146,6 @@ ul {
     &--bold {
       font-weight: 500;
     }
-  }
-}
-
-.mobileMenu {
-  padding: 42px 20px;
-  position: fixed;
-  top: 0;
-  right: 0;
-  height: 100vh;
-  width: 100%;
-  box-sizing: border-box;
-  background: #000;
-  display: flex;
-  flex-direction: column;
-  max-width: 600px;
-  z-index: 10;
-  &__close {
-    right: 15px;
-    top: 15px;
-    position: absolute;
-    width: 18px;
-    height: 18px;
-  }
-  &__menuList {
-    &--navigation {
-      flex-grow: 1;
-    }
-  }
-  &__menuItem {
-    &:not(:last-child) {
-      margin-bottom: 15px;
-    }
-  }
-  &__menuLink {
-    font-size: 18px;
-    text-decoration: none;
-    color: #fff;
-    font-weight: 500;
-  }
-  &__contactsLink {
-    font-size: 13px;
-    color: #fff;
-    text-decoration: none;
   }
 }
 </style>

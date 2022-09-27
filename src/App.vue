@@ -1,18 +1,38 @@
 <template>
   <HeaderComp />
-  <MainPage />
+  <MainPage @toggleModal="toggleModal" />
+  <!-- <AboutPage />
+  <BenefitsPage />
+  <ExperiencePage />
+  <ServicesPage />
   <ContactsComp />
+  <ToTopButton/> -->
+  <ModalComp v-if="store.state.showModal" /> 
 </template>
 
 <script>
 import './assets/style/normalize.scss';
 import HeaderComp from './components/Header/HeaderComp.vue';
-import ContactsComp from '@/components/Contacts/ContactsComp.vue';
-import MainPage from './components/MainPage.vue';
+// import ContactsComp from '@/components/Contacts/ContactsComp.vue';
+import MainPage from './components/MainPage/MainPage.vue';
+// import AboutPage from './components/About/AboutPage.vue';
+// import BenefitsPage from './components/BenefitsPage/BenefitsPage.vue';
+// import ExperiencePage from './components/Experience/ExperiencePage.vue';
+// import ServicesPage from './components/ServicesPage/ServicesPage.vue';
+// import ToTopButton from './components/ToTopButton/ToTopButton.vue';
+// import ModalComp from './components/Modal/ModalComp.vue';
+import store from '@/store';
+import { provide } from 'vue';
 
 export default {
   name: 'App',
-  components: { HeaderComp, ContactsComp, MainPage },
+  // components: { HeaderComp, ContactsComp, MainPage, AboutPage, BenefitsPage, ExperiencePage, ServicesPage, ToTopButton, ModalComp },
+  components: { HeaderComp, MainPage },
+  setup() {
+    provide('store', store.state);
+
+    return { store };
+  }
 };
 </script>
 

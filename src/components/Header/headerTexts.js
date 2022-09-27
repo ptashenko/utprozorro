@@ -1,4 +1,4 @@
-const refs = {
+export default {
     navigation: {
         aboutUs: {
             name: 'Про нас',
@@ -19,22 +19,12 @@ const refs = {
     },
     contacts: {
         phone: {
-            name: 'phone',
             text: '38(050) 574-23-62',
-            link: '0505742362'
+            link: 'tel:0505742362'
         },
         email: {
-            name: 'email',
             text: 'client.utprozorron@gmail.com',
-            link: 'client.utprozorron@gmail.com'
+            link: 'mailto:client.utprozorron@gmail.com'
         },
     }
-}
-
-const { aboutUs, services, benefits, contacts } = refs.navigation;
-const { phone, email } = refs.contacts;
-
-export default {
-    buttons: [aboutUs, services, benefits, contacts],
-    contacts: [phone, email],
 }
