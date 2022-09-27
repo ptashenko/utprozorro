@@ -7,7 +7,7 @@
   <ServicesPage />
   <ContactsComp />
   <ToTopButton/> -->
-  <ModalComp v-if="store.state.showModal" /> 
+  <ModalComp v-if="store.state.showModal" @toggleModal="toggleModal" @handleSubmit="handleSubmit" /> 
 </template>
 
 <script>
@@ -20,18 +20,26 @@ import MainPage from './components/MainPage/MainPage.vue';
 // import ExperiencePage from './components/Experience/ExperiencePage.vue';
 // import ServicesPage from './components/ServicesPage/ServicesPage.vue';
 // import ToTopButton from './components/ToTopButton/ToTopButton.vue';
-// import ModalComp from './components/Modal/ModalComp.vue';
+import ModalComp from './components/Modal/ModalComp.vue';
 import store from '@/store';
 import { provide } from 'vue';
 
 export default {
   name: 'App',
   // components: { HeaderComp, ContactsComp, MainPage, AboutPage, BenefitsPage, ExperiencePage, ServicesPage, ToTopButton, ModalComp },
-  components: { HeaderComp, MainPage },
+  components: { HeaderComp, MainPage, ModalComp },
   setup() {
     provide('store', store.state);
 
-    return { store };
+    const toggleModal = () => {
+      store.state.showModal = !store.state.showModal;
+    }
+
+    const handleSubmit = () => {
+      console.log('submit');
+    }
+
+    return { store, toggleModal, handleSubmit };
   }
 };
 </script>

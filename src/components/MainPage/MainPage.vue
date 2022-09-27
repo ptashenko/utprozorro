@@ -7,7 +7,7 @@
                 <li class="hero__benefitsItem" v-for="(item, i) of text.benefits" :key="i">{{item}}</li>
             </ul>
             <p class="hero__subtitle">{{text.subtitle}}</p>
-            <a class="hero__button">{{text.button}}</a>
+            <a class="hero__button" @click="openModal">{{text.button}}</a>
             <span class="hero__image--wrapper">
                 <img class="hero__image" src="../../assets/hummer-main.jpg" alt="" />
             </span>
@@ -18,11 +18,12 @@
 <script>
 import { inject } from 'vue';
 export default {
-    setup() {
+    setup(_, context) {
         const text = inject('store').texts.hero;
-        
         const heroClass = window.innerWidth >= 1199 ? 'hero__desktop' : 'hero__mobile';
-        return { text, heroClass }
+        const openModal = () => context.emit('toggleModal');
+        
+        return { text, heroClass, openModal }
     }
 }
 </script>

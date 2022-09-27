@@ -1,15 +1,15 @@
 <template>
     <transition name="modal">
-        <div class="modal-mask">
-          <div class="modal-wrapper">
-            <div class="modal-container">
+        <div class="modal-mask" >
+          <div class="modal-wrapper" @click="handleModal">
+            <div class="modal-container" >
               <div class="modal-header">
                   <h2>Залишити заявку</h2>
-                  <button class="modal-default-button">X</button>
+                  <button class="modal-default-button" @click="handleModal">X</button>
               </div>
 
               <div class="modal-body">
-                  <Form class="modalForm" @submit="handleSubmitModal">
+                  <Form class="modalForm" @submit="handeSubmitModal">
                     <label class="modalForm__label">
                       Ваше ім'я:
                       <input class="modalForm__input" type="text" placeholder="Ваше ім'я" v-model="name">
@@ -42,47 +42,57 @@
 <script>
 // import telegramBotSend from '@/services/fetchApi'
 export default {
-  data() {
-    return {
-      // name: '',
-      // phone: '',
-      // email: '',
-      // message: '',
-      // validation: true,
-    }
-  },
-  methods: {
-    handleSubmitModal(e) {
-      this.$emit('handleSubmit', e)
-    }
-    // submitOrder(e) {
-    //   e.preventDefault();
-    //   const buttonStyle = e.target[4].style;
-    //   const button = e.target[4];
-    //   const prettyPhone = this.phone.trim().replaceAll('(','').replaceAll(')','').replaceAll('-','').replaceAll(' ', '').replaceAll('+', '').replace('38','');
-    //   if (prettyPhone.length === 10) {
-    //     this.validation = true;
-    //     button.value = 'Відправляємо...';
-    //     const clientsData = {
-    //       name: this.name,
-    //       phone: prettyPhone,
-    //       email: this.email,
-    //       message: this.message,
-    //     }
-    //     const message = `Нова заявка!%0AІм'я клієнта: ${clientsData.name}%0AКонтактний телефон: ${clientsData.phone}%0AEmail: ${clientsData.email}%0AКоментар: ${clientsData.message}`
-    //     telegramBotSend(message);
-    //     setTimeout(() => {
-    //       buttonStyle.background = 'green';
-    //       buttonStyle.color = '#fff';
-    //       button.value = 'Відправлено!';
-    //       setTimeout(() => {
-    //         this.$store.state.showModal = false;
-    //       },1500)
-    //     }, 1000)
-    //   } else {
-    //     this.validation = false;
-    //   }
-    }
+  setup(_, {emit}) {
+    const handleModal = (e) => e.target === e.currentTarget && emit('toggleModal');
+    const handeSubmitModal = (e) => {
+      e.preventDefault();
+      console.log(e);
+      emit('handleSubmit');
+    }    
+
+    return { handleModal, handeSubmitModal }
+  }
+  // data() {
+  //   return {
+  //     // name: '',
+  //     // phone: '',
+  //     // email: '',
+  //     // message: '',
+  //     // validation: true,
+  //   }
+  // },
+  // methods: {
+  //   handleSubmitModal(e) {
+  //     this.$emit('handleSubmit', e)
+  //   }
+  //   // submitOrder(e) {
+  //   //   e.preventDefault();
+  //   //   const buttonStyle = e.target[4].style;
+  //   //   const button = e.target[4];
+  //   //   const prettyPhone = this.phone.trim().replaceAll('(','').replaceAll(')','').replaceAll('-','').replaceAll(' ', '').replaceAll('+', '').replace('38','');
+  //   //   if (prettyPhone.length === 10) {
+  //   //     this.validation = true;
+  //   //     button.value = 'Відправляємо...';
+  //   //     const clientsData = {
+  //   //       name: this.name,
+  //   //       phone: prettyPhone,
+  //   //       email: this.email,
+  //   //       message: this.message,
+  //   //     }
+  //   //     const message = `Нова заявка!%0AІм'я клієнта: ${clientsData.name}%0AКонтактний телефон: ${clientsData.phone}%0AEmail: ${clientsData.email}%0AКоментар: ${clientsData.message}`
+  //   //     telegramBotSend(message);
+  //   //     setTimeout(() => {
+  //   //       buttonStyle.background = 'green';
+  //   //       buttonStyle.color = '#fff';
+  //   //       button.value = 'Відправлено!';
+  //   //       setTimeout(() => {
+  //   //         this.$store.state.showModal = false;
+  //   //       },1500)
+  //   //     }, 1000)
+  //   //   } else {
+  //   //     this.validation = false;
+  //   //   }
+  //   }
   }
 </script>
 
