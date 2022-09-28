@@ -35,8 +35,8 @@ export default {
       store.state.showModal = !store.state.showModal;
     }
 
-    const handleSubmit = () => {
-      console.log('submit');
+    const handleSubmit = (data) => {
+      console.log(data);
     }
 
     return { store, toggleModal, handleSubmit };

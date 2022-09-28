@@ -12,19 +12,19 @@
                   <Form class="modalForm" @submit="handeSubmitModal">
                     <label class="modalForm__label">
                       Ваше ім'я:
-                      <input class="modalForm__input" type="text" placeholder="Ваше ім'я" v-model="name">
+                      <input class="modalForm__input" name="name" type="text" placeholder="Ваше ім'я">
                     </label>
                     <label class="modalForm__label">
                       Номер телефону:
-                      <input class="modalForm__input" type="tel" placeholder="Ваш телефон" v-model="phone">
+                      <input class="modalForm__input" name="phone" type="tel" placeholder="Ваш телефон">
                     </label>
                     <label class="modalForm__label">
                       Email:
-                      <input class="modalForm__input" type="email" placeholder="Ваш email" v-model="email">
+                      <input class="modalForm__input" name="email" type="email" placeholder="Ваш email">
                     </label>
                     <label class="modalForm__label">
                       Ваше запитання (за наявності)
-                      <textarea maxlength="320" class="modalForm__textarea" cols="30" rows="5" v-model="message"></textarea>
+                      <textarea name="message" maxlength="320" class="modalForm__textarea" cols="30" rows="5"></textarea>
                     </label>
                     <input type="submit" value="Відправити" class="modalForm__submit">
                   </Form>
@@ -46,53 +46,19 @@ export default {
     const handleModal = (e) => e.target === e.currentTarget && emit('toggleModal');
     const handeSubmitModal = (e) => {
       e.preventDefault();
-      console.log(e);
-      emit('handleSubmit');
+      const form = e.target;
+      const orderEntries = new Map();
+      for (let input of form) {
+        if (input.type !== 'submit') {
+          orderEntries.set(input.name, input.value);
+        } 
+      }
+      const order = Object.fromEntries(orderEntries);
+      emit('handleSubmit', order);
     }    
 
     return { handleModal, handeSubmitModal }
   }
-  // data() {
-  //   return {
-  //     // name: '',
-  //     // phone: '',
-  //     // email: '',
-  //     // message: '',
-  //     // validation: true,
-  //   }
-  // },
-  // methods: {
-  //   handleSubmitModal(e) {
-  //     this.$emit('handleSubmit', e)
-  //   }
-  //   // submitOrder(e) {
-  //   //   e.preventDefault();
-  //   //   const buttonStyle = e.target[4].style;
-  //   //   const button = e.target[4];
-  //   //   const prettyPhone = this.phone.trim().replaceAll('(','').replaceAll(')','').replaceAll('-','').replaceAll(' ', '').replaceAll('+', '').replace('38','');
-  //   //   if (prettyPhone.length === 10) {
-  //   //     this.validation = true;
-  //   //     button.value = 'Відправляємо...';
-  //   //     const clientsData = {
-  //   //       name: this.name,
-  //   //       phone: prettyPhone,
-  //   //       email: this.email,
-  //   //       message: this.message,
-  //   //     }
-  //   //     const message = `Нова заявка!%0AІм'я клієнта: ${clientsData.name}%0AКонтактний телефон: ${clientsData.phone}%0AEmail: ${clientsData.email}%0AКоментар: ${clientsData.message}`
-  //   //     telegramBotSend(message);
-  //   //     setTimeout(() => {
-  //   //       buttonStyle.background = 'green';
-  //   //       buttonStyle.color = '#fff';
-  //   //       button.value = 'Відправлено!';
-  //   //       setTimeout(() => {
-  //   //         this.$store.state.showModal = false;
-  //   //       },1500)
-  //   //     }, 1000)
-  //   //   } else {
-  //   //     this.validation = false;
-  //   //   }
-  //   }
   }
 </script>
 
