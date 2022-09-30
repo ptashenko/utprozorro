@@ -1,370 +1,207 @@
 <template>
-  <Form
-    class="form"
-    @submit="submitData"
-    id="calcForm">
-    <h1 class="form__title">Розрахувати вартість послуг</h1>
-    <div class="form__body">
-      <div class="form__radio">
-        <label
-          v-for="(service, i) of serviceName"
-          :key="i"
-          :class="{ selected: service === selectedService }">
-          <span>{{ service }}</span>
-          <input
-            type="radio"
-            :value="service"
-            v-model="selectedService"
-            ref="radioInput" />
-        </label>
-      </div>
-      <label class="form__label"
-        >ID тендеру
-        <input
-          type="text"
-          v-model="tenderID"
-          placeholder="наприклад UA-2020-05-27-001286-b" />
+  <Form class="calcForm" id="calcForm" @submit="submitOrder">
+    <ul class="calcForm__list">
+      <label :class="[{'checked': picked === service.name },'calcForm__label','calcForm__label-radio']" v-for="(service,i) of servicesList" :key="i">{{service.name}}
+        <input type="radio" :value="service.name" name="service" class="calcForm__item" v-model="picked" />
       </label>
-      <label class="form__label"
-        >Загальна вартість тендеру, грн
-        <input
-          type="number"
-          placeholder="наприклад 1 000 000,00"
-          step="1"
-          name="tenderAmount"
-          v-model="tenderAmount"
-          @keyup.enter="calcPrice" />
+    </ul>
+    <label class="calcForm__label">ID тендеру 
+      <input type="text" name="tender" placeholder="ID тендеру" class="calcForm__input" />
+    </label>
+    <label class="calcForm__label">Сума тендеру, грн
+      <input type="text" name="amount" placeholder="Загальна вартість закупівлі" class="calcForm__input" v-model="amount" />
+    </label>
+    <a type="button" :disabled="price" :class="[{'disabledButton': price}, 'calcForm__button']" @click="countOrder">Розрахувати</a>
+    <div class="calcForm__footer" v-if="price && progressBar === 100">
+      <p>Вартість тендеру: {{price}},00 грн</p>
+      <label>
+        <input type="tel" name="phone" placeholder="Ваш телефон" class="calcForm__input">
       </label>
+      <button class="calcForm__button">Відправити замовлення</button>
     </div>
-    <div class="result">
-      <button
-        v-if="!progressStarted || progressStarted === 2"
-        class="result__button"
-        @click="calcPrice"
-        ref="calcButton">
-        {{
-          progressStarted === 2 ? 'Розрахувати ще раз' : 'Розрахувати вартість'
-        }}
-      </button>
-      <p
-        v-if="warning"
-        class="warning">
-        Ви повинні вибрати послугу яка вас цікавить та вказати вартість тендеру
-      </p>
-      <p
-        v-show="progressStarted === 1"
-        class="result__analyze"
-        ref="analyzeText">
-        Аналізуємо дані...
-      </p>
-      <div
-        v-show="progressStarted === 1"
-        class="progress"
-        ref="progressBar">
-        {{ progress > 15 ? progress + '%' : '...' }}
-      </div>
-      <p
-        v-if="progressStarted === 2"
-        class="result__text">
-        Дякуємо, вартість послуги:
-        <span class="result__text--blue">{{ price }} грн</span>
-      </p>
-      <label class="form__label" v-if="progressStarted === 2"
-        >Ваш номер телефону:
-        <input
-          type="phone"
-          placeholder="наприклад 0505742362"
-          v-model="phone"
-        />
-      </label>
-    </div>
-    <input
-      v-if="progressStarted === 2"
-      type="submit"
-      value="Замовити послугу"
-      class="form__submit" />
   </Form>
+  <div class="progress" v-show="progressBar > 0">
+    <div class="progress__bar" :style="{width: progressBar + '%'}">{{progressBar > 30 ? progressBar + '%' : ''}}</div>
+  </div>
 </template>
 
 <script>
-import telegramBotSend from '@/services/fetchApi'
+import { inject, ref } from '@vue/runtime-core';
 export default {
-  data() {
-    return {
-      serviceName: [
-        'Участь у тендері',
-        'Оскарження в АМКУ',
-        'Вимога на тендер',
-      ],
-      warning: false,
-      selectedService: '',
-      tenderID: '',
-      tenderAmount: '',
-      price: null,
-      phone: '',
-      progress: 0,
-      progressStarted: null,
-    };
-  },
-  methods: {
-    calcPrice(e) {
-      e.preventDefault();
-      if (this.selectedService.length > 0 && this.tenderAmount > 0) {
-        this.warning = false;
-        this.startProgress();
-        switch (this.selectedService) {
-          case 'Участь у тендері':
-            if (this.tenderAmount <= 100000) {
-              this.price = 1200;
-            } else if (
-              this.tenderAmount > 100000 &&
-              this.tenderAmount <= 200000
-            ) {
-              this.price = 2500;
-            } else if (
-              this.tenderAmount > 200000 &&
-              this.tenderAmount <= 3000000
-            ) {
-              this.price = 2900;
-            } else if (this.tenderAmount > 3000000) {
-              this.price = 6000;
-            }
-            break;
-          case 'Оскарження в АМКУ':
-            this.price = 2400;
-            break;
-          case 'Вимога на тендер':
-            this.price = 1000;
-            break;
-          default:
-            this.price = 0;
-            break;
-        }
-      } else {
-        this.warning = true;
+  setup() {
+    const servicesList = inject('store').servicesList;
+    const calc = inject('calcService');
+    const gatherData = inject('formDataGather');
+    const picked = ref('');
+    const price = ref(null);
+    const progressBar = ref(0);
+    const amount = ref(null);
+
+    const calcPrice = (order, price) => {
+      if (order.value <= servicesList[0].price[0].level) {
+        price.value = servicesList[0].price[0].amount
+      } else if (order.value > servicesList[0].price[0].level && order.amount <= servicesList[0].price[1].level) {
+        price.value = servicesList[0].price[1].amount
+      } else if (order.value > servicesList[0].price[1].level && order.amount <= servicesList[0].price[2].level) {
+        price.value = servicesList[0].price[2].amount
+      } else if (order.value >= servicesList[0].price[3].level) {
+        price.value = servicesList[0].price[3].amount
       }
-    },
-    submitData(e) {
+    }
+
+    const secondCalc = (pickedService) => {
+      price.value = pickedService.value === servicesList[1].name ? servicesList[1].price : servicesList[2].price; 
+    }
+
+    const startLoading = () => {
+      let i = setInterval(() => {
+        if (progressBar.value < 100) {
+          progressBar.value++
+        } else {
+          clearInterval(i);
+        }
+      },20)
+    }
+
+    const countOrder = () => {
+        startLoading();
+        picked.value === servicesList[0].name ? calcPrice(amount, price) : secondCalc(picked);
+    }
+
+    const submitOrder = (e) => {
       e.preventDefault();
-      const sendButton = e.target[7];
-      const { buttonsStyle } = e.target[7].style;
-      const serviceName = this.selectedService;
-      const iD = this.tenderID;
-      const tenderAmount = this.tenderAmount;
-      const orderPrice = this.price;
-      const clientsPhone = this.phone.trim().replaceAll('(', '').replaceAll(')', '').replaceAll('-', '').replaceAll(' ', '').replaceAll('+', '').replace('38', '');
-      if (clientsPhone.length === 10) {
-        buttonsStyle.background = 'transparent';
-        buttonsStyle.color = '#000';
-        sendButton.value = 'Відправляємо...';
-        setTimeout(() => {
-          sendButton.value = 'Відправлено!';
-          buttonsStyle.background = 'green';
-          buttonsStyle.color = '#fff';
-          setTimeout(() => {
-            this.tenderID = '';
-            this.tenderAmount = '';
-            this.selectedService = '';
-            this.progressStarted = null;
-          },1000)
-        }, 1000)
-          const data = {
-            serviceName,
-            iD,
-            tenderAmount,
-            orderPrice,
-            clientsPhone
-        };
-        const message = `Нова заявка!%0AНазва послуги: ${data.serviceName}%0AID тендеру: ${data.iD}%0AСума тендеру: ${data.tenderAmount}%0AЦіна послуги: ${data.orderPrice}%0AНомер телефону: ${data.clientsPhone}`
-        telegramBotSend(message);
-      } else {
-        sendButton.value = 'Введіть номер телефону!';
-        buttonsStyle.background = 'red';
-        buttonsStyle.color = '#fff';
-      }
-    },
-    startTextBlink() {
-      const analyzeText = this.$refs.analyzeText;
-      let blinkCount = 0;
-      let opacityToggle = setInterval(() => {
-        if (blinkCount !== 1) {
-          blinkCount += 1;
-        } else {
-          blinkCount = 0;
-        }
-        this.progressStarted === 2 && clearInterval(opacityToggle);
-        analyzeText.style.opacity = blinkCount;
-      }, 1000);
-    },
-    startProgress() {
-      this.progressStarted = 1;
-      let count = 0;
-      const progressBar = this.$refs.progressBar;
-      progressBar.style.padding = '0 5px';
-      this.startTextBlink();
-      let progressCount = setInterval(() => {
-        if (count < 100) {
-          count += 1;
-          this.progress = count;
-          progressBar.style.width = `${count}%`;
-        } else {
-          this.progressStarted = 2;
-          clearInterval(progressCount);
-        }
-      }, 50);
-    },
-  },
+      const order = gatherData(e.target);
+      order.service = picked.value;
+      calc(e.target);
+    }
+    
+
+    return { amount, countOrder, servicesList, submitOrder, picked, price, progressBar }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-.form {
+.calcForm {
+  width: 100%;
   display: flex;
   flex-direction: column;
   margin: 0;
   padding: 0;
-  &__title {
-    font-size: 20px;
-    font-weight: 600;
-    text-align: center;
-    margin-bottom: 10px;
-  }
-  &__body {
+  &__list {
     display: flex;
-    flex-direction: column;
-    width: 280px;
-    margin: 20px auto;
-    justify-content: center;
-    align-items: center;
-  }
-  &__radio {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-    width: 100%;
-    // text-align: center;
-    & > label {
-      display: flex;
-      position: relative;
-      flex-direction: row-reverse;
-      align-items: center;
-      width: 100%;
-      cursor: pointer;
-      & span {
-        flex-grow: 1;
-        margin-left: 25px;
-      }
-      &:not(:last-child) {
-        margin-bottom: 10px;
-      }
-    }
-    & > label > input[type='radio'] {
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      outline: none;
-      &::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: -5px;
-        width: 20px;
-        height: 20px;
-        background: #fff;
-        transform: translateY(-50%);
-        border: 1px solid rgba(0, 0, 0, 0.199);
-        border-radius: 50%;
-      }
-      &:checked::after {
-        content: '';
-        background: radial-gradient(circle, rgba(21,80,231,1) 21%, rgba(255,255,255,1) 22%, rgba(255,255,255,1) 80%);
-      }
-    }
+    justify-content: space-between;
   }
   &__label {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    & input {
-      padding: 10px 10px;
-      border: none;
-      background: #edf2ff;
-      border-radius: 10px;
-      margin-top: 10px;
-      &::placeholder {
-        color: rgba(0, 0, 0, 0.171);
-      }
-    }
-  }
-  &__submit {
-    display: block;
-    width: 100%;
-    max-width: 300px;
-    padding: 15px 20px;
-    margin: 20px auto 0;
-    background: transparent;
-    color: #000;
-    border: 1px solid #000;
-    cursor: pointer;
-    transition: all 250ms linear;
-
-    &:hover {
-      background: #000;
+    margin-bottom: 20px;
+    transition: all .25ms linear;
+    &-radio {
+      display: flex;
+      padding: 10px;
+      justify-content: center;
+      align-items: center;
+      width: 90px;
+      height: 90px;
+      background: #1550e7;
       color: #fff;
+      text-align: center;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all .25s linear;
+      
+      &:hover,
+        &:checked {
+          transform: scale(1.2);
+          transition: all .25s linear;
+        }
     }
   }
-}
-
-.result {
-  &__button {
-    display: block;
-    background: transparent;
-    border: 2px groove rgb(192, 192, 192);
-    padding: 5px 10px;
-    margin: 0 auto;
+  &__item {
+    appearance: none;
+  }
+  &__input {
+    margin-top: 5px;
+    width: 100%;
+    border: none;
     border-radius: 10px;
+    padding: 10px 15px;
+    background: rgba(128, 128, 128, 0.158);
   }
-  &__text {
+  &__button {
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: none;
+    background: #1550e7;
+    color: #fff;
     text-align: center;
-    &--blue {
-      color: #1550e7;
-      font-weight: 600;
+    cursor: pointer;
+    &:hover, &:active {
+      box-shadow: inset 0px 0px 29px -10px rgba(0, 0, 0, 0.75);
     }
   }
-  &__analyze {
-    color: #1550e7;
-    font-weight: 600;
-    transition: opacity 0.5s linear;
-    opacity: 0;
+  &__footer {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
   }
 }
 
-.hidden {
-  display: none;
+.checked {
+  transform: scale(1.2);
+  border-radius: 10px;
+  transition: all .25s linear;
+  background: #0032af;
 }
 
 .progress {
-  display: flex;
-  align-items: center;
   margin-top: 10px;
-  justify-content: end;
-  width: 0%;
-  height: 30px;
-  background: #1550e7;
-  color: #fff;
-  font-weight: 600;
+  width: 100%;
+  height: 25px;
+  background: rgba(128, 128, 128, 0.137);
+  &__bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #1550e7;
+    height: 100%;
+    transition: all .25s ease;
+    color: #fff;
+  }
 }
 
-.selected {
-  color: #1550e7;
-  font-weight: 600;
-  transition: color 0.25s linear;
+.disabledButton {
+  background: #1551e764;
+  pointer-events: none;
+  cursor: auto;
+      &:hover,
+        &:active {
+          box-shadow: unset;
+        }
 }
 
-.warning {
-  color: red;
-  font-size: 12px;
-  text-align: center;
+@media (min-width: 1200px) {
+  .calcForm {
+    &__label {
+      &-radio {
+        width: 200px;
+        height: 200px;
+        font-size: 16px;
+      }
+    }
+  }
 }
-
+@media (min-width: 767px) {
+  .calcForm {
+    &__label {
+      &-radio {
+        width: 120px;
+        height: 120px;
+        font-size: 14px;
+      }
+    }
+  }
+}
 </style>

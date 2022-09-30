@@ -4,8 +4,8 @@
   <AboutPage />
   <BenefitsPage />
   <ExperiencePage />
-  <!--<ServicesPage />
-  <ContactsComp /> -->
+  <ServicesPage />
+  <ContactsComp />
   <ToTopButton/>
   <ModalComp v-if="store.state.showModal" @toggleModal="toggleModal" @handleSubmit="handleSubmit" /> 
 </template>
@@ -13,12 +13,12 @@
 <script>
 import './assets/style/normalize.scss';
 import HeaderComp from './components/Header/HeaderComp.vue';
-// import ContactsComp from '@/components/Contacts/ContactsComp.vue';
+import ContactsComp from '@/components/Contacts/ContactsComp.vue';
 import MainPage from './components/MainPage/MainPage.vue';
 import AboutPage from './components/About/AboutPage.vue';
 import BenefitsPage from './components/BenefitsPage/BenefitsPage.vue';
 import ExperiencePage from './components/Experience/ExperiencePage.vue';
-// import ServicesPage from './components/ServicesPage/ServicesPage.vue';
+import ServicesPage from './components/ServicesPage/ServicesPage.vue';
 import ToTopButton from './components/ToTopButton/ToTopButton.vue';
 import ModalComp from './components/Modal/ModalComp.vue';
 import store from '@/store';
@@ -26,7 +26,7 @@ import { onMounted, provide } from 'vue';
 const throttle = require('lodash.throttle');
 export default {
   name: 'App',
-  components: { HeaderComp, MainPage, ModalComp, ToTopButton, AboutPage, BenefitsPage, ExperiencePage },
+  components: { HeaderComp, MainPage, ModalComp, ToTopButton, AboutPage, BenefitsPage, ExperiencePage, ServicesPage, ContactsComp },
   setup() {
     provide('store', store.state);
 
@@ -37,6 +37,26 @@ export default {
     const handleSubmit = (data) => {
       console.log(data);
     }
+
+    const gatherFormData = (linkTarget) => {
+      const form = linkTarget;
+      const orderEntries = new Map();
+      for (let input of form) {
+        if (input.type !== 'submit') {
+          orderEntries.set(input.name, input.value);
+        }
+      }
+      const order = Object.fromEntries(orderEntries);
+      return order;
+    }
+
+    provide('formDataGather', gatherFormData)
+
+    const calcService = (e) => {
+      console.log(e, 'sended')
+    }
+
+    provide('calcService', calcService);
 
     const windowScrollHeight = onMounted(() => {
       window.addEventListener('scroll', throttle(() => {

@@ -1,12 +1,12 @@
 <template>
     <footer class="footer" id="contacts">
         <div class="footer__container">
-            <h2 class="footer__title">{{text[0][0].title}}</h2>
+            <h2 class="footer__title">{{text.title}}</h2>
             <div class="footer__wrapper">
                 <ul class="footer__contacts">
-                    <li class="footer__item" v-for="(item,i) of text[1]" :key="i">
+                    <li class="footer__item" v-for="(item,i) of text.contacts" :key="i">
                         <img class="footer__icon" :src="require(`../../assets/svg/${item.icon}.svg`)" alt="">
-                        <a :href="link(item.icon, item.link)" class="footer__contact">{{ item.text }}</a>
+                        <a :href="item.link" class="footer__contact">{{ item.text }}</a>
                     </li>
                 </ul>
                 <FormComp />
@@ -16,32 +16,37 @@
 </template>
 
 <script>
-import contacts from './contacts';
+import { inject } from '@vue/runtime-core';
 import FormComp from '../Form/FormComp.vue';
 export default {
     components: { FormComp },
-    data() {
-        return {
-        }
-    },
-    computed: {
-        text() {
-            return contacts;
-        },
-    },
-    methods: {
-        link(val, link) {
-            if (val === 'phone') {
-                return `tel:${link}`
-            } else if (val === 'email') {
-                return `mailto:${link}`
-            } else if (val === 'telegram') {
-                return `https://t.me/${link}`
-            } else {
-                return;
-            }
-        }
+    setup() {
+        const text = inject('store').texts.contacts;
+
+        return {text}
     }
+    // data() {
+    //     return {
+    //     }
+    // },
+    // computed: {
+    //     text() {
+    //         return contacts;
+    //     },
+    // },
+    // methods: {
+    //     link(val, link) {
+    //         if (val === 'phone') {
+    //             return `tel:${link}`
+    //         } else if (val === 'email') {
+    //             return `mailto:${link}`
+    //         } else if (val === 'telegram') {
+    //             return `https://t.me/${link}`
+    //         } else {
+    //             return;
+    //         }
+    //     }
+    // }
 }
 </script>
 

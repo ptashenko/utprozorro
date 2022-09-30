@@ -89,13 +89,16 @@ export default {
         &__title {
             margin: 0 0 0 60px;
         }
+        &__list {
+            max-width: 440px;
+        }
     }
 }
 
 @media (min-width: 1200px) {
 .services {
         &__list {
-            flex-direction: row;
+            max-width: 800px;
         }
     }
 }

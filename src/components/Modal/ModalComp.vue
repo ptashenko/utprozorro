@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { computed, ref } from "vue";
+import { computed, inject, ref } from "vue";
 export default {
   setup(_, { emit }) {
     let success = ref(false);
@@ -52,18 +52,14 @@ export default {
       return success.value ? 'modal-footer__success' : 'modalForm__submit';
     });
     const handleModal = (e) => e.target === e.currentTarget && emit('toggleModal');
+
+    const gatherData = inject('formDataGather');
+    
     const handeSubmitModal = (e) => {
       e.preventDefault();
       if (e.target[1].value.length >= 10) {
         validMessage.value = '';
-        const form = e.target;
-        const orderEntries = new Map();
-        for (let input of form) {
-          if (input.type !== 'submit') {
-            orderEntries.set(input.name, input.value);
-          }
-        }
-        const order = Object.fromEntries(orderEntries);
+        const order = gatherData(e.target);
         success.value = true;
         emit('handleSubmit', order);
         setTimeout(() => {
