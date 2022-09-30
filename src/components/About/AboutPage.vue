@@ -1,9 +1,9 @@
 <template>
     <section class="about">
         <div class="about__container">
-            <h2 class="about__title">{{aboutText[0][0].title}}</h2>
+            <h2 class="about__title">{{text.title}}</h2>
             <ul class="about__list">
-                <li class="about__item" v-for="(item, i) of aboutText[1]" :key="i">
+                <li class="about__item" v-for="(item, i) of text.reasons" :key="i">
                     <img class="about__icon" :src="require(`../../assets/svg/${item.icon}_logo.svg`)" alt="">
                     <p class="about__text">{{item.text}}</p>
                 </li>
@@ -13,8 +13,7 @@
                     <img class="about__image" src="../../assets/hummer-sub.jpg" alt="">
                 </li>
                 <div>
-                    <li class="about__bottomItem" v-for="(item, i) of aboutText[2]" :key="i">
-                        <p class="about__bottomText">{{item.text}}</p>
+                    <li class="about__bottomItem" v-html="text.text">
                     </li>
                 </div>
             </ul>
@@ -23,12 +22,11 @@
 </template>
 
 <script>
-import about from '../../texts/aboutUs';
+import { inject } from '@vue/runtime-core'
 export default {
-    computed: {
-        aboutText() {
-            return about;
-        },
+    setup() {
+        const text = inject('store').texts.about;
+        return { text }
     }
 }
 </script>

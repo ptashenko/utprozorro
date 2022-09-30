@@ -1,12 +1,12 @@
 <template>
   <HeaderComp />
   <MainPage @toggleModal="toggleModal" />
-  <!-- <AboutPage />
+  <AboutPage />
   <BenefitsPage />
   <ExperiencePage />
-  <ServicesPage />
-  <ContactsComp />
-  <ToTopButton/> -->
+  <!--<ServicesPage />
+  <ContactsComp /> -->
+  <ToTopButton/>
   <ModalComp v-if="store.state.showModal" @toggleModal="toggleModal" @handleSubmit="handleSubmit" /> 
 </template>
 
@@ -15,19 +15,18 @@ import './assets/style/normalize.scss';
 import HeaderComp from './components/Header/HeaderComp.vue';
 // import ContactsComp from '@/components/Contacts/ContactsComp.vue';
 import MainPage from './components/MainPage/MainPage.vue';
-// import AboutPage from './components/About/AboutPage.vue';
-// import BenefitsPage from './components/BenefitsPage/BenefitsPage.vue';
-// import ExperiencePage from './components/Experience/ExperiencePage.vue';
+import AboutPage from './components/About/AboutPage.vue';
+import BenefitsPage from './components/BenefitsPage/BenefitsPage.vue';
+import ExperiencePage from './components/Experience/ExperiencePage.vue';
 // import ServicesPage from './components/ServicesPage/ServicesPage.vue';
-// import ToTopButton from './components/ToTopButton/ToTopButton.vue';
+import ToTopButton from './components/ToTopButton/ToTopButton.vue';
 import ModalComp from './components/Modal/ModalComp.vue';
 import store from '@/store';
-import { provide } from 'vue';
-
+import { onMounted, provide } from 'vue';
+const throttle = require('lodash.throttle');
 export default {
   name: 'App',
-  // components: { HeaderComp, ContactsComp, MainPage, AboutPage, BenefitsPage, ExperiencePage, ServicesPage, ToTopButton, ModalComp },
-  components: { HeaderComp, MainPage, ModalComp },
+  components: { HeaderComp, MainPage, ModalComp, ToTopButton, AboutPage, BenefitsPage, ExperiencePage },
   setup() {
     provide('store', store.state);
 
@@ -39,7 +38,13 @@ export default {
       console.log(data);
     }
 
-    return { store, toggleModal, handleSubmit };
+    const windowScrollHeight = onMounted(() => {
+      window.addEventListener('scroll', throttle(() => {
+        store.state.currentScroll = window.pageYOffset;
+      }))
+    })
+
+    return { store, toggleModal, handleSubmit, windowScrollHeight };
   }
 };
 </script>

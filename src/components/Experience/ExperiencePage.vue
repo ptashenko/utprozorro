@@ -1,16 +1,12 @@
 <template>
     <section class="experience">
         <div class="experience__container">
-            <h2 class="experience__title">{{ expText.title}}</h2>
+            <h2 class="experience__title">{{ text.title}}</h2>
             <div class="experience__top">
-                <div class="experience__textWrapper">
-                    <p class="experience__text"><span class="experience__text--title">{{
-                    expText.description[0]}}</span>{{ expText.description[1]}}
-                    </p>
-                    <p class="experience__text--fontsize">{{ expText.description[2]}}</p>
+                <div class="experience__textWrapper" v-html="text.description">
                 </div>
                 <ul class="experience__topList">
-                    <li class="experience__topItem" v-for="(item,i) of expText.experience" :key="i">
+                    <li class="experience__topItem" v-for="(item,i) of text.experience" :key="i">
                         <h2 class="experience__number"><span
                                 class="experience__number--symbol">{{item.symbol}}</span>{{item.count}}
                         </h2>
@@ -25,10 +21,10 @@
                             <img class="experience__image" src="../../assets/creator.jpg" alt="">
                         </span>
                         <div class="experience__textWrapper">
-                            <h2 class="experience__name">{{ expText.founder.name}}</h2>
-                            <p class="experience__position">{{ expText.founder.position}}</p>
+                            <h2 class="experience__name">{{ text.founder.name}}</h2>
+                            <p class="experience__position">{{ text.founder.position}}</p>
                             <ul class="experience__achivements">
-                                <li class="experience__achivement" v-for="(item, i) of expText.founder.exp" :key="i">
+                                <li class="experience__achivement" v-for="(item, i) of text.founder.exp" :key="i">
                                     - {{item}}
                                 </li>
                             </ul>
@@ -39,8 +35,8 @@
                             <img class="experience__image" src="../../assets/certificate.jpg" alt="">
                         </span>
                         <div class="experience__textWrapper">
-                            <h2 class="experience__name">{{ expText.education.title}}</h2>
-                            <p class="experience__achivement">{{ expText.education.name}}</p>
+                            <h2 class="experience__name">{{ text.education.title}}</h2>
+                            <p class="experience__achivement">{{ text.education.name}}</p>
                         </div>
                     </li>
                 </ul>
@@ -50,12 +46,12 @@
 </template>
 
 <script>
-import exp from '../../texts/exp';
+import { inject } from '@vue/runtime-core';
+
 export default {
-    computed: {
-        expText() {
-            return exp;
-        },
+    setup() {
+        const text = inject('store').texts.exp;
+        return { text };
     }
 }
 </script>

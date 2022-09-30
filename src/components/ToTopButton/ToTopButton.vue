@@ -1,27 +1,22 @@
 <template>
     <Transition name="slide-fade">
-        <a class="toTop" v-if="this.$store.state.scrollHeight > 0" @click="scrollToTop()">^</a>
+        <a class="toTop" v-if="store.currentScroll > 0" @click="scrollToTop()">^</a>
     </Transition>
 </template>
 
 <script>
-var throttle = require('lodash.throttle');
-
+import { inject } from 'vue';
 export default {
-    methods: {
-        scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth',
-            })
-        },
-    },
-    created() {
-        window.addEventListener('scroll', throttle(() => {
-            this.$store.commit('watchScrollHeight');
-        }, 500))
+    setup() {
+        const store = inject('store');
+        
+        const scrollToTop = () => {
+            window.scrollTo({ top: 0, behavior: 'smooth', })
+        };
+        return { scrollToTop, store }
     }
 }
+
 </script>
 
 <style lang="scss">

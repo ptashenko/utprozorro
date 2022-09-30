@@ -1,8 +1,8 @@
 <template>
     <section class="benefits">
-        <h2 class="benefits__title">{{ benefitsText[0][0].title}}</h2>
+        <h2 class="benefits__title">{{ text.title}}</h2>
         <ul class="benefits__list">
-            <li class="benefits__item" v-for="(item, i) of benefitsText[1]" :key="i">
+            <li class="benefits__item" v-for="(item, i) of text.benefits" :key="i">
                 <img class="benefits__icon" :src="require(`../../assets/svg/${item.logo}_icon.svg`)" alt="">
                 <h3 class="benefits__name">{{item.name}}</h3>
                 <p class="benefits__text">{{item.text}}</p>
@@ -12,14 +12,13 @@
 </template>
 
 <script>
-import benefits from '../../texts/benefits';
-
+import { inject } from '@vue/runtime-core'
 export default {
-    computed: {
-        benefitsText() {
-            return benefits;
-        },
+    setup() {
+        const text = inject('store').texts.benefits;
+        return {text}
     }
+
 }
 </script>
 

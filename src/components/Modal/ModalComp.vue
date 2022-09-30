@@ -26,12 +26,12 @@
                       Ваше запитання (за наявності)
                       <textarea name="message" maxlength="320" class="modalForm__textarea" cols="30" rows="5"></textarea>
                     </label>
-                    <input type="submit" value="Відправити" class="modalForm__submit">
+                    <input type="submit" :disabled="success" :value="buttonValue" :class="success ? 'modal-footer__success' : 'modalForm__submit'">
                   </Form>
               </div>
 
-              <div class="modal-footer">
-                  <p class="modal-footer__failed">Введіть Ваш номер телефону у форматі 0505742362</p>
+              <div class="modal-footer" v-show="validMessage">
+                  <p class="modal-footer__failed">{{validMessage}}</p>
               </div>
             </div>
           </div>
@@ -40,24 +40,41 @@
 </template>
 
 <script>
-// import telegramBotSend from '@/services/fetchApi'
+import { computed, ref } from "vue";
 export default {
-  setup(_, {emit}) {
+  setup(_, { emit }) {
+    let success = ref(false);
+    let validMessage = ref('');
+    const buttonValue = computed(() => {
+      return success.value ? 'Заявку відправлено' : 'Відправити';
+    });
+    const buttonClass = computed(() => {
+      return success.value ? 'modal-footer__success' : 'modalForm__submit';
+    });
     const handleModal = (e) => e.target === e.currentTarget && emit('toggleModal');
     const handeSubmitModal = (e) => {
       e.preventDefault();
-      const form = e.target;
-      const orderEntries = new Map();
-      for (let input of form) {
-        if (input.type !== 'submit') {
-          orderEntries.set(input.name, input.value);
-        } 
+      if (e.target[1].value.length >= 10) {
+        validMessage.value = '';
+        const form = e.target;
+        const orderEntries = new Map();
+        for (let input of form) {
+          if (input.type !== 'submit') {
+            orderEntries.set(input.name, input.value);
+          }
+        }
+        const order = Object.fromEntries(orderEntries);
+        success.value = true;
+        emit('handleSubmit', order);
+        setTimeout(() => {
+          emit('toggleModal');
+        },2500)
+      } else {
+        validMessage.value = 'Введіть Ваш номер телефону у форматі 0505742362';
       }
-      const order = Object.fromEntries(orderEntries);
-      emit('handleSubmit', order);
     }    
 
-    return { handleModal, handeSubmitModal }
+    return { handleModal, handeSubmitModal, validMessage, success, buttonValue, buttonClass }
   }
   }
 </script>
@@ -156,6 +173,7 @@ export default {
     margin: 0 auto;
     padding: 10px;
     border-radius: 15px;
+    transition: all .25s linear;
   }
   &__failed {
     background: red;
@@ -200,5 +218,4 @@ export default {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
-
 </style>
