@@ -23,6 +23,7 @@ import ToTopButton from './components/ToTopButton/ToTopButton.vue';
 import ModalComp from './components/Modal/ModalComp.vue';
 import store from '@/store';
 import { onMounted, provide } from 'vue';
+import sendToTelegram from './services/fetchApi'
 const throttle = require('lodash.throttle');
 export default {
   name: 'App',
@@ -52,8 +53,8 @@ export default {
 
     provide('formDataGather', gatherFormData)
 
-    const calcService = (e) => {
-      console.log(e, 'sended')
+    const calcService = (order) => {
+      sendToTelegram(order);
     }
 
     provide('calcService', calcService);

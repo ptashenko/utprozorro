@@ -12,21 +12,25 @@
       <input type="text" name="amount" placeholder="Загальна вартість закупівлі" class="calcForm__input" v-model="amount" />
     </label>
     <a type="button" :disabled="price" :class="[{'disabledButton': price}, 'calcForm__button']" @click="countOrder">Розрахувати</a>
+    <div v-for="(error,i) of errors" :key="i">
+      <p v-if="error.status" class="errors">{{error.name}}</p>
+    </div>
     <div class="calcForm__footer" v-if="price && progressBar === 100">
       <p>Вартість тендеру: {{price}},00 грн</p>
       <label>
-        <input type="tel" name="phone" placeholder="Ваш телефон" class="calcForm__input">
+        <input type="tel" name="phone" placeholder="Ваш телефон" class="calcForm__input" v-model="phone" v-mask="'(000)-000-00-00'">
       </label>
-      <button class="calcForm__button">Відправити замовлення</button>
+      <button :class="['calcForm__button', {'calcForm__submit': orderSended }]">{{buttonMessage}}</button>
     </div>
   </Form>
-  <div class="progress" v-show="progressBar > 0">
+  <div class="progress" v-show="progressBar > 0 && progressBar !== 100">
     <div class="progress__bar" :style="{width: progressBar + '%'}">{{progressBar > 30 ? progressBar + '%' : ''}}</div>
   </div>
 </template>
 
 <script>
-import { inject, ref } from '@vue/runtime-core';
+import { computed, inject, reactive, ref } from '@vue/runtime-core';
+import '../assets/style/animations.css';
 export default {
   setup() {
     const servicesList = inject('store').servicesList;
@@ -34,8 +38,11 @@ export default {
     const gatherData = inject('formDataGather');
     const picked = ref('');
     const price = ref(null);
+    const phone = ref(null);
     const progressBar = ref(0);
-    const amount = ref(null);
+    const amount = ref('');
+    const errors = reactive([]);
+    const orderSended = ref(null)
 
     const calcPrice = (order, price) => {
       if (order.value <= servicesList[0].price[0].level) {
@@ -63,20 +70,75 @@ export default {
       },20)
     }
 
+    const orderValidation = (opOne, opTwo) => {
+      if (!opOne.value) {
+          errors.push({ name: 'Виберіть послугу', status: true, });
+        return false;
+      } else {
+        errors.map(err => err.status = false);
+      }
+      if (!opTwo.value) {
+        errors.push({ name: 'Введіть оголошену вартість тендеру', status: true });
+        return false;
+      } else {
+        errors.map(error => error.status = false);
+      }
+
+      return true;
+    }
+
     const countOrder = () => {
-        startLoading();
-        picked.value === servicesList[0].name ? calcPrice(amount, price) : secondCalc(picked);
+      orderValidation(picked, amount);
+      if (errors.every(item => !item.status)) {
+        if (/^[0-9]+$/.test(amount.value)) {
+          startLoading();
+          picked.value === servicesList[0].name ? calcPrice(amount, price) : secondCalc(picked);
+        } else {
+          errors.push({ name: 'Сума тендеру повинна містити тільки цифри без пробілів', status: true });
+        }
+      }
+    }
+
+    const buttonMessage = computed(() => {
+      if (orderSended.value === null) {
+        return 'Відправити заявку'
+      } else if (orderSended.value === true) {
+        return 'Відправляємо'
+      } else if (orderSended.value === false) {
+        return 'Ваша заявка отримана!'
+      }
+    })
+
+    const resetForm = () => {
+      orderSended.value = true;
+      setTimeout(() => {
+        orderSended.value = false;
+        setTimeout(() => {
+          picked.value = '';
+          amount.value = null;
+          price.value = null;
+          progressBar.value = 0;
+          orderSended.value = null;
+        }, 1000)
+      },1000)
     }
 
     const submitOrder = (e) => {
       e.preventDefault();
-      const order = gatherData(e.target);
-      order.service = picked.value;
-      calc(e.target);
+      if (phone.value && phone.value.length === 15) {
+        const order = gatherData(e.target);
+        order.service = picked.value;
+        errors.forEach(error => error.status = false);
+        resetForm();
+        const message = `Нова заявка!%0AПослуга: ${picked.value}%0AID тендеру: ${e.target[3].value}%0AКонтактний телефон: ${phone.value}`;
+        calc(message);
+      } else {
+        errors.push({ name: 'Введіть правильний номер телефону', status: true });
+      }
     }
     
 
-    return { amount, countOrder, servicesList, submitOrder, picked, price, progressBar }
+    return { amount, countOrder, servicesList, submitOrder, picked, price, progressBar, errors, phone, orderSended, buttonMessage }
   }
 };
 </script>
@@ -88,6 +150,7 @@ export default {
   flex-direction: column;
   margin: 0;
   padding: 0;
+  transition: all .25s linear;
   &__list {
     display: flex;
     justify-content: space-between;
@@ -142,10 +205,25 @@ export default {
       box-shadow: inset 0px 0px 29px -10px rgba(0, 0, 0, 0.75);
     }
   }
+  &__submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .25s linear;
+        &::before {
+          content: '';
+          border: 12px solid;
+          margin-right: 10px;
+          border-color: rgba(255, 255, 255, 0.15) rgba(255, 255, 255, 0.25) rgba(255, 255, 255, 0.35) rgba(255, 255, 255, 0.5);
+          border-radius: 50%;
+          display: inline-block;
+          box-sizing: border-box;
+          animation: animloader 1s linear infinite;
+        }
+  }
   &__footer {
     display: flex;
     flex-direction: column;
-    margin-top: 20px;
   }
 }
 
@@ -182,6 +260,18 @@ export default {
         }
 }
 
+@media (min-width: 767px) {
+  .calcForm {
+    &__label {
+      &-radio {
+        width: 120px;
+        height: 120px;
+        font-size: 14px;
+      }
+    }
+  }
+}
+
 @media (min-width: 1200px) {
   .calcForm {
     &__label {
@@ -193,15 +283,10 @@ export default {
     }
   }
 }
-@media (min-width: 767px) {
-  .calcForm {
-    &__label {
-      &-radio {
-        width: 120px;
-        height: 120px;
-        font-size: 14px;
-      }
-    }
-  }
+
+.errors {
+  margin: 5px;
+  color: red;
+  font-size: 10px;
 }
 </style>

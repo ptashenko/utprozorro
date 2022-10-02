@@ -25,28 +25,6 @@ export default {
 
         return {text}
     }
-    // data() {
-    //     return {
-    //     }
-    // },
-    // computed: {
-    //     text() {
-    //         return contacts;
-    //     },
-    // },
-    // methods: {
-    //     link(val, link) {
-    //         if (val === 'phone') {
-    //             return `tel:${link}`
-    //         } else if (val === 'email') {
-    //             return `mailto:${link}`
-    //         } else if (val === 'telegram') {
-    //             return `https://t.me/${link}`
-    //         } else {
-    //             return;
-    //         }
-    //     }
-    // }
 }
 </script>
 

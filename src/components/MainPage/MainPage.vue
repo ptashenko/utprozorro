@@ -9,7 +9,7 @@
             <p class="hero__subtitle">{{text.subtitle}}</p>
             <a class="hero__button" @click="openModal">{{text.button}}</a>
             <span class="hero__image--wrapper">
-                <img class="hero__image" src="../../assets/hummer-main.jpg" alt="" />
+                <img class="hero__image" src="../../assets/images/hummer-main.jpg" alt="" />
             </span>
         </div>
     </main>

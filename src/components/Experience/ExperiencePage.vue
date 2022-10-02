@@ -18,7 +18,7 @@
                 <ul class="experience__bottomList">
                     <li class="experience__bottomItem">
                         <span class="experience__image--wrapper">
-                            <img class="experience__image" src="../../assets/creator.jpg" alt="">
+                            <img class="experience__image" src="../../assets/images/creator.jpg" alt="">
                         </span>
                         <div class="experience__textWrapper">
                             <h2 class="experience__name">{{ text.founder.name}}</h2>
@@ -32,7 +32,7 @@
                     </li>
                     <li class="experience__bottomItem experience__bottomItem--reverse">
                         <span class="experience__image--wrapperBottom">
-                            <img class="experience__image" src="../../assets/certificate.jpg" alt="">
+                            <img class="experience__image" src="../../assets/images/certificate.jpg" alt="">
                         </span>
                         <div class="experience__textWrapper">
                             <h2 class="experience__name">{{ text.education.title}}</h2>

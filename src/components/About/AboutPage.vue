@@ -10,7 +10,7 @@
             </ul>
             <ul class="about__wrapper">
                 <li class="about__bottomItem about__bottomItem--wrapper">
-                    <img class="about__image" src="../../assets/hummer-sub.jpg" alt="">
+                    <img class="about__image" src="../../assets/images/hummer-sub.jpg" alt="">
                 </li>
                 <div>
                     <li class="about__bottomItem" v-html="text.text">
