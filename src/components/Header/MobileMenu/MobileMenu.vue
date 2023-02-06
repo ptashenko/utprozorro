@@ -1,16 +1,35 @@
+<script setup>
+import { defineProps } from 'vue'
+
+const props = defineProps({
+    headerLinks: {
+        type: Array,
+    },
+    headerContacts: {
+        type: Object,
+    }
+})
+
+</script>
+
 <template>
     <transition name="slideOn">
-        <div v-if="store.mobileMenu" class="mobileMenu">
-            <img @click="mobileMenuToggle" src="../../../assets/svg/cross.svg" alt="Закрыть" class="mobileMenu__close" />
+        <div class="mobileMenu">
+            <img 
+                src="../../../assets/svg/cross.svg" 
+                alt="Закрыть" 
+                class="mobileMenu__close"
+                @click="$emit('close')"
+            />
             <ul class="mobileMenu__menuList mobileMenu__menuList--navigation">
-                <li class="mobileMenu__menuItem" v-for="(item, idx) of text.navigation" :key="idx">
-                    <a class="mobileMenu__menuLink">
+                <li class="mobileMenu__menuItem" v-for="(item, idx) of props.headerLinks" :key="idx">
+                    <a :href="item.hash" class="mobileMenu__menuLink">
                         {{item.name}}
                     </a>
                 </li>
             </ul>
             <ul class="mobileMenu__contactsList">
-                <li class="mobileMenu__contactsItem" v-for="(item, idx) of text.contacts" :key="idx">
+                <li class="mobileMenu__contactsItem" v-for="(item, idx) of props.headerContacts" :key="idx">
                     <a :href="item.link" class="mobileMenu__contactsLink">
                         {{item.text}}
                     </a>
@@ -22,18 +41,6 @@
         </div>
     </transition>
 </template>
-
-<script>
-export default {
-    props: ['text', 'store'],
-    setup(_, context) {
-        const mobileMenuToggle = () => {
-            context.emit('mobileMenuToggle');
-        }
-        return { mobileMenuToggle }
-    }
-}
-</script>
 
 <style lang="scss">
 @keyframes showOn {

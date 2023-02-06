@@ -1,12 +1,15 @@
 <template>
     <section class="experience">
         <div class="experience__container">
-            <h2 class="experience__title">{{ text.title}}</h2>
+            <h2 class="experience__title">
+                Про нас
+            </h2>
             <div class="experience__top">
-                <div class="experience__textWrapper" v-html="text.description">
+                <div class="experience__textWrapper">
+                    <p class="experience__text"><span class="experience__text--title">Тендерна агенція «Ptashenko»</span> розпочала свою діяльність у сфері публічних закупівель з 2016 року.</p><p class="experience__text--fontsize">Наші експерти – провідні фахівці з великим практичним досвідом у сфері публічних закупівель. Ми знаємо всі тонкощі процесу проведенння торгів та готові використовувати свій досвід для досягнення поставлених цілей наших клієнітв.</p>
                 </div>
                 <ul class="experience__topList">
-                    <li class="experience__topItem" v-for="(item,i) of text.experience" :key="i">
+                    <li class="experience__topItem" v-for="(item,i) of experience" :key="i">
                         <h2 class="experience__number"><span
                                 class="experience__number--symbol">{{item.symbol}}</span>{{item.count}}
                         </h2>
@@ -21,10 +24,10 @@
                             <img class="experience__image" src="../../assets/images/creator.jpg" alt="">
                         </span>
                         <div class="experience__textWrapper">
-                            <h2 class="experience__name">{{ text.founder.name}}</h2>
-                            <p class="experience__position">{{ text.founder.position}}</p>
+                            <h2 class="experience__name">{{ founder.name}}</h2>
+                            <p class="experience__position">{{ founder.position}}</p>
                             <ul class="experience__achivements">
-                                <li class="experience__achivement" v-for="(item, i) of text.founder.exp" :key="i">
+                                <li class="experience__achivement" v-for="(item, i) of founder.exp" :key="i">
                                     - {{item}}
                                 </li>
                             </ul>
@@ -35,8 +38,12 @@
                             <img class="experience__image" src="../../assets/images/certificate.jpg" alt="">
                         </span>
                         <div class="experience__textWrapper">
-                            <h2 class="experience__name">{{ text.education.title}}</h2>
-                            <p class="experience__achivement">{{ text.education.name}}</p>
+                            <h2 class="experience__name">
+                                Систематично підвищує знання та кваліфікацію у сфері публічних закупівель
+                            </h2>
+                            <p class="experience__achivement">
+                                Приватна установа "Університет "Київська школа економіки"
+                            </p>
                         </div>
                     </li>
                 </ul>
@@ -45,15 +52,39 @@
     </section>
 </template>
 
-<script>
-import { inject } from '@vue/runtime-core';
-
-export default {
-    setup() {
-        const text = inject('store').texts.exp;
-        return { text };
+<script setup>
+    const experience= [
+        {
+            count: ' 5 років',
+            description: 'досвіду у сфері публічних закупівель',
+            symbol: '>'
+        },
+        {
+            count: ' 120',
+            description: 'консультацій щомісячно',
+            symbol: '>'
+        },
+        {
+            count: ' 3,7 тис',
+            description: 'підготовлених тендерів',
+            symbol: '>'
+        },
+        {
+            count: ' 95%',
+            description: 'середній коефіцієнт переможних торгів',
+            symbol: '~'
+        },
+    ];
+    const founder = {
+        name: 'Пташенко Артем Олегович',
+        position: 'Засновник, провідний фахівець агенції',
+        exp: [
+            'досвід у сфері публічних закупівель більше 5 років',
+            'підготовлено більше 2 тис. тендерних пропозицій',
+            'середній коефіцієнт перемог 95% (інші 5% успішно оскаржено в АМКУ)',
+            'виграв більше 90 скарг в АМКУ'
+        ]
     }
-}
 </script>
 
 <style lang="scss">

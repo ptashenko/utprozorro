@@ -1,13 +1,18 @@
 <template>
     <main class="hero">
         <div :class="heroClass">
-            <h1 class="hero__title" v-html="text.title">
+            <h1 class="hero__title">
+                Юридичний супровід <span class="hero__title--bold">закупівель в Prozorro</span><span class="hero__title--underline">"під ключ"</span>
             </h1>
             <ul class="hero__benefits">
-                <li class="hero__benefitsItem" v-for="(item, i) of text.benefits" :key="i">{{item}}</li>
+                <li class="hero__benefitsItem" v-for="(item, i) of benefits" :key="i">{{item}}</li>
             </ul>
-            <p class="hero__subtitle">{{text.subtitle}}</p>
-            <a class="hero__button" @click="openModal">{{text.button}}</a>
+            <p class="hero__subtitle">
+                Станьте на крок попереду серед інших!
+            </p>
+            <a class="hero__button" @click="$emit('openModal')">
+                Отримати консультацію
+            </a>
             <span class="hero__image--wrapper">
                 <img class="hero__image" src="../../assets/images/hummer-main.jpg" alt="" />
             </span>
@@ -15,17 +20,14 @@
     </main>
 </template>
 
-<script>
-import { inject } from 'vue';
-export default {
-    setup(_, context) {
-        const text = inject('store').texts.hero;
-        const heroClass = window.innerWidth >= 1199 ? 'hero__desktop' : 'hero__mobile';
-        const openModal = () => context.emit('toggleModal');
-        
-        return { text, heroClass, openModal }
-    }
-}
+<script setup>
+  const heroClass = window.innerWidth >= 1199 ? 'hero__desktop' : 'hero__mobile';
+  const benefits = [
+    'супровід тендерних процедур в Prozorro "під ключ"',
+    'підготовка тендерної пропозиції "під ключ"',
+    'оскарження в антимонопольному комітеті України',
+    'перевірка документів пропозицій конкурентів',
+  ];
 </script>
 
 <style lang="scss">

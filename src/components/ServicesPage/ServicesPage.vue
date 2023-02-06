@@ -1,6 +1,8 @@
 <template>
     <section class="services">
-        <h2 class="services__title">{{text.title}}</h2>
+        <h2 class="services__title">
+            Наші послуги
+        </h2>
         <ul class="services__list">
             <CalcComp />
         </ul>
@@ -9,12 +11,9 @@
 
 <script>
 import CalcComp from "@/components/CalcComp.vue";
-import { inject } from '@vue/runtime-core';
 export default {
-    components: { CalcComp },
-    setup() {
-        const text = inject('store').texts.services;
-        return {text}
+    components: {
+        CalcComp
     }
 }
 </script>

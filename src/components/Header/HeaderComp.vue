@@ -1,3 +1,51 @@
+<script>
+import MobileMenu from './MobileMenu/MobileMenu.vue';
+export default {
+  components: { MobileMenu },
+};
+</script>
+
+<script setup>
+import { ref } from 'vue';
+
+const mobileMenu = ref(false)
+
+const mobileMenuToggle = () => {
+  mobileMenu.value = !mobileMenu.value
+}
+
+const headerLinks = [
+  {
+    name: 'Про нас',
+    hash: '#about',
+  },
+  {
+    name: 'Послуги',
+    hash: '#services',
+  },
+  {
+    name: 'Наші переваги',
+    hash: '#benefits',
+  },
+  {
+    name: 'Контакти',
+    hash: '#contacts',
+  },
+];
+
+const headerContacts = {
+    phone: {
+              text: '38(050) 574-23-62',
+              link: 'tel:0505742362'
+          },
+    email: {
+        text: 'client.utprozorron@gmail.com',
+        link: 'mailto:client.utprozorron@gmail.com'
+    },
+}
+</script>
+
+
 <template>
   <header class="header">
     <ul class="header__list">
@@ -7,15 +55,15 @@
         </a>
       </li>
       <ul class="header__navigation">
-        <li class="header__navigationItem" v-for="(item, idx) of text.navigation" :key="idx">
-          <a class="header__navigationLink">
+        <li class="header__navigationItem" v-for="(item, idx) of headerLinks" :key="idx">
+          <a :href="item.hash" class="header__navigationLink">
             {{item.name}}
           </a>
         </li>
       </ul>
       <li class="header__item header__item--contacts">
         <ul class="header__contacts">
-          <li class="header__item" v-for="(item, idx) of text.contacts" :key="idx">
+          <li class="header__item" v-for="(item, idx) of headerContacts" :key="idx">
             <a :href="item.link" class="header__link header__link--bold">
               {{item.text}}
             </a>
@@ -28,29 +76,14 @@
           src="../../assets/svg/burger_icons.svg" alt="logo" />
       </li>
     </ul>
-    <MobileMenu :text="text" :store="store" @mobileMenuToggle="mobileMenuToggle" />
+    <MobileMenu
+      v-if="mobileMenu"
+      :headerLinks="headerLinks" 
+      :headerContacts="headerContacts"
+      @close="mobileMenuToggle" 
+    />
   </header>
 </template>
-
-<script>
-import { inject } from 'vue';
-import MobileMenu from './MobileMenu/MobileMenu.vue';
-export default {
-  components: { MobileMenu },
-  setup() {
-    const store = inject("store");
-    const text = store.texts.header;
-    const mobileMenuToggle = () => {
-      store.mobileMenu = !store.mobileMenu;
-    };
-    return { store, text, mobileMenuToggle };
-    }
-    //   scrollDown(element) {
-    //     this.$store.commit('scrollDown', element);
-    //   },
-    // }
-};
-</script>
 
 <style lang="scss" scoped>
 ul {

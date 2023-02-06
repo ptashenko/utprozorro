@@ -17,10 +17,10 @@
             <FormKit type="text" name="email" validation="email" :validation-messages="{
                 email: 'Ввеліть корректний емейл'
             }" placeholder="Введіть ваш email" />
-            <FormKit type="tel" name="phone" :validation="[['required'], ['matches', /^\d{3} \d{3} \d{2} \d{2}$/]]"
+            <FormKit type="tel" name="phone" :validation="[['required'], ['matches', /^\d{3}\d{3}\d{2}\d{2}$/]]"
                 :validation-messages="{
-                    matches: 'Введіть номер телефону у форматі 050 574 23 62', required: 'Номер телефона обязателен!',
-                }" placeholder="050 000 00 00" />
+                    matches: 'Введіть номер телефону у форматі 0505241332', required: 'Номер телефона обязателен!',
+                }" placeholder="0505241332" />
             <FormKit type="textarea" text-area name="comment" placeholder="Залиште коментар або запитання" />
         </div>
     </FormKit>

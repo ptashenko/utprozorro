@@ -1,146 +1,146 @@
 <template>
   <Form class="calcForm" id="calcForm" @submit="submitOrder">
     <ul class="calcForm__list">
-      <label :class="[{'checked': picked === service.name },'calcForm__label','calcForm__label-radio']" v-for="(service,i) of servicesList" :key="i">{{service.name}}
-        <input type="radio" :value="service.name" name="service" class="calcForm__item" v-model="picked" />
+      <label :class="[{'checked': checkedService.name === service.name },'calcForm__label','calcForm__label-radio']" v-for="(service,i) of servicesList" :key="i">{{service.name}}
+        <input 
+          type="radio" 
+          :value="service"
+          name="service" 
+          class="calcForm__item" 
+          v-model="checkedService"
+        />
       </label>
     </ul>
     <label class="calcForm__label">ID тендеру 
-      <input type="text" name="tender" placeholder="ID тендеру" class="calcForm__input" />
+      <input type="text" name="tender" placeholder="ID тендеру" class="calcForm__input" v-model="tenderName" />
     </label>
     <label class="calcForm__label">Сума тендеру, грн
-      <input type="text" name="amount" placeholder="Загальна вартість закупівлі" class="calcForm__input" v-model="amount" />
+      <input type="text" name="amount" placeholder="Загальна вартість закупівлі" class="calcForm__input" v-model="tenderAmount" />
     </label>
-    <a type="button" :disabled="price" :class="[{'disabledButton': price}, 'calcForm__button']" @click="countOrder">Розрахувати</a>
-    <div v-for="(error,i) of errors" :key="i">
-      <p v-if="error.status" class="errors">{{error.name}}</p>
-    </div>
-    <div class="calcForm__footer" v-if="price && progressBar === 100">
+    <button v-if="!loading" class="calcForm__button" @click.prevent="countOrder">Розрахувати</button>
+    <RadialProgressBar
+      v-if="loading && loading !== 100"
+      :diameter="75"
+      :total-steps="100"
+      :completed-steps="loading"
+      start-color="#1550e7"
+      stop-color="#000"
+      style="margin: 0 auto"
+    >
+    {{ loading }}%
+    </RadialProgressBar>
+    <div class="calcForm__footer" v-if="loading === 100 && price && !orderSended">
       <p>Вартість тендеру: {{price}},00 грн</p>
       <label>
-        <input type="tel" name="phone" placeholder="Ваш телефон" class="calcForm__input" v-model="phone" v-mask="'(000)-000-00-00'">
+        <input type="tel" name="phone" placeholder="Ваш телефон" class="calcForm__input" v-model="usersNumber" v-mask="'(000)-000-00-00'">
       </label>
-      <button :class="['calcForm__button', {'calcForm__submit': orderSended }]">{{buttonMessage}}</button>
+      <button class="calcForm__button" @click.prevent="sendOrder">Замовити</button>
     </div>
   </Form>
-  <div class="progress" v-show="progressBar > 0 && progressBar !== 100">
-    <div class="progress__bar" :style="{width: progressBar + '%'}">{{progressBar > 30 ? progressBar + '%' : ''}}</div>
-  </div>
 </template>
 
-<script>
-import { computed, inject, reactive, ref } from '@vue/runtime-core';
-import '../assets/style/animations.css';
-export default {
-  setup() {
-    const servicesList = inject('store').servicesList;
-    const calc = inject('calcService');
-    const gatherData = inject('formDataGather');
-    const picked = ref('');
-    const price = ref(null);
-    const phone = ref(null);
-    const progressBar = ref(0);
-    const amount = ref('');
-    const errors = reactive([]);
-    const orderSended = ref(null)
+<script setup>
+import {ref} from 'vue'
+import Swal from 'sweetalert2'
+const tenderName = ref(null);
+const tenderAmount = ref(null);
+const price = ref(null)
+const loading = ref(0)
+const usersNumber = ref(null)
+// import telegramBotSend from '@/services/fetchApi'
 
-    const calcPrice = (order, price) => {
-      if (order.value <= servicesList[0].price[0].level) {
-        price.value = servicesList[0].price[0].amount
-      } else if (order.value > servicesList[0].price[0].level && order.amount <= servicesList[0].price[1].level) {
-        price.value = servicesList[0].price[1].amount
-      } else if (order.value > servicesList[0].price[1].level && order.amount <= servicesList[0].price[2].level) {
-        price.value = servicesList[0].price[2].amount
-      } else if (order.value >= servicesList[0].price[3].level) {
-        price.value = servicesList[0].price[3].amount
-      }
+const checkedService = ref(
+  {
+    name: '',
+  },
+)
+
+const orderSended = ref(false)
+
+const servicesList = [
+    {
+        name: 'Участь у тендері',
+        firstLevel: 100000,
+        secondLevel: 200000,
+        thirdLevel: 3000000,
+    },
+    {
+        name: 'Оскарження в АМКУ',
+    },
+    {
+        name: 'Вимога на тендер',
     }
+]
 
-    const secondCalc = (pickedService) => {
-      price.value = pickedService.value === servicesList[1].name ? servicesList[1].price : servicesList[2].price; 
-    }
-
-    const startLoading = () => {
-      let i = setInterval(() => {
-        if (progressBar.value < 100) {
-          progressBar.value++
-        } else {
-          clearInterval(i);
-        }
-      },20)
-    }
-
-    const orderValidation = (opOne, opTwo) => {
-      if (!opOne.value) {
-          errors.push({ name: 'Виберіть послугу', status: true, });
-        return false;
-      } else {
-        errors.map(err => err.status = false);
-      }
-      if (!opTwo.value) {
-        errors.push({ name: 'Введіть оголошену вартість тендеру', status: true });
-        return false;
-      } else {
-        errors.map(error => error.status = false);
-      }
-
-      return true;
-    }
-
-    const countOrder = () => {
-      orderValidation(picked, amount);
-      if (errors.every(item => !item.status)) {
-        if (/^[0-9]+$/.test(amount.value)) {
-          startLoading();
-          picked.value === servicesList[0].name ? calcPrice(amount, price) : secondCalc(picked);
-        } else {
-          errors.push({ name: 'Сума тендеру повинна містити тільки цифри без пробілів', status: true });
-        }
-      }
-    }
-
-    const buttonMessage = computed(() => {
-      if (orderSended.value === null) {
-        return 'Відправити заявку'
-      } else if (orderSended.value === true) {
-        return 'Відправляємо'
-      } else if (orderSended.value === false) {
-        return 'Ваша заявка отримана!'
-      }
+const countOrder = () => {
+  if (!tenderAmount.value && checkedService.value) {
+    Swal.fire({
+      title: 'Помилка!',
+      text: 'Ви не ввели обов\'язкові дані',
+      icon: 'error',
+      confirmButtonText: 'ОК',
     })
 
-    const resetForm = () => {
-      orderSended.value = true;
-      setTimeout(() => {
-        orderSended.value = false;
-        setTimeout(() => {
-          picked.value = '';
-          amount.value = null;
-          price.value = null;
-          progressBar.value = 0;
-          orderSended.value = null;
-        }, 1000)
-      },1000)
-    }
-
-    const submitOrder = (e) => {
-      e.preventDefault();
-      if (phone.value && phone.value.length === 15) {
-        const order = gatherData(e.target);
-        order.service = picked.value;
-        errors.forEach(error => error.status = false);
-        resetForm();
-        const message = `Нова заявка!%0AПослуга: ${picked.value}%0AID тендеру: ${e.target[3].value}%0AКонтактний телефон: ${phone.value}`;
-        calc(message);
-      } else {
-        errors.push({ name: 'Введіть правильний номер телефону', status: true });
-      }
-    }
-    
-
-    return { amount, countOrder, servicesList, submitOrder, picked, price, progressBar, errors, phone, orderSended, buttonMessage }
+    return
   }
-};
+  const load = setInterval(()=>{
+    if (loading.value !== 100) {
+      loading.value++
+    } else {
+      clearInterval(load)
+    }
+  }, 15)
+  if (checkedService.value.name === 'Участь у тендері') {
+    if (tenderAmount.value <= checkedService.value.firstLevel) {
+      price.value = 1200;
+    }
+    if (tenderAmount.value > checkedService.value.firstLevel && tenderAmount.value <= checkedService.value.secondLevel) {
+      price.value = 1600;
+    }
+    if (tenderAmount.value > checkedService.value.secondLevel && tenderAmount.value <= checkedService.value.thirdLevel) {
+      price.value = 2900;
+    }
+    if (tenderAmount.value > checkedService.value.thirdLevel) {
+      price.value = 6000
+    }
+  } else if (checkedService.value.name === 'Оскарження в АМКУ') {
+    price.value = 3500
+  } else if (checkedService.value.name === 'Вимога на тендер') {
+    price.value = 1500
+  }
+}
+
+const sendOrder = () => {
+  if (!usersNumber.value) {
+    Swal.fire({
+      title: 'Помилка!',
+      text: 'Введіть ваш номер телефону',
+      icon: 'error',
+      confirmButtonText: 'ОК',
+    })
+
+    return
+  }
+  
+  const message = `Нова заявка!%0AНомер телефону: ${usersNumber.value}%0AТендер: ${tenderName.value}`
+  // telegramBotSend(message)
+  orderSended.value = true
+  Swal.fire(
+    'Дякуємо!',
+    `Ми отримали Ваше змовлення по тендеру ${tenderName.value || ''} і зв'яжемось з Вами у найближчий час!`,
+    'success'
+  )
+}
+
+</script>
+
+<script>
+import RadialProgressBar from 'vue-radial-progress'
+export default {
+  components: {
+    RadialProgressBar
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -167,7 +167,7 @@ export default {
       align-items: center;
       width: 90px;
       height: 90px;
-      background: #1550e7;
+      background: #1551e783;
       color: #fff;
       text-align: center;
       font-size: 12px;
@@ -176,6 +176,7 @@ export default {
       
       &:hover,
         &:checked {
+          background: #1550e7;
           transform: scale(1.2);
           transition: all .25s linear;
         }

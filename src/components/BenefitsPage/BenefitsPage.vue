@@ -1,8 +1,10 @@
 <template>
     <section class="benefits">
-        <h2 class="benefits__title">{{ text.title}}</h2>
+        <h2 class="benefits__title">
+            Наші переваги
+        </h2>
         <ul class="benefits__list">
-            <li class="benefits__item" v-for="(item, i) of text.benefits" :key="i">
+            <li class="benefits__item" v-for="(item, i) of benefits" :key="i">
                 <img class="benefits__icon" :src="require(`../../assets/svg/${item.logo}_icon.svg`)" alt="">
                 <h3 class="benefits__name">{{item.name}}</h3>
                 <p class="benefits__text">{{item.text}}</p>
@@ -11,15 +13,24 @@
     </section>
 </template>
 
-<script>
-import { inject } from '@vue/runtime-core'
-export default {
-    setup() {
-        const text = inject('store').texts.benefits;
-        return {text}
-    }
-
-}
+<script setup>
+    const benefits = [
+        {
+            logo: 'price',
+            name: 'Відсутність передплат',
+            text: 'Ви оплачуєте тільки за фактично надані послуги.',
+        },
+        {
+            logo: 'folder',
+            name: 'Електронні документи',
+            text: 'Більше Вам не потрібно роздруковувати гору паперів, проставляти печатки, підписувати та сканувати документи. Ми підготуємо Вашу тендерну пропозицію в електронному вигляді та збережемо Ваш час.',
+        },
+        {
+            logo: 'bonus',
+            name: 'Гнучкі умови співпраці',
+            text: 'Для постійних та корпоративних клієнтів діють гнучкі умови співпраці та додаткові бонуси'
+        }
+    ]
 </script>
 
 <style lang="scss">

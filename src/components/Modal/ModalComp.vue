@@ -39,7 +39,20 @@
     </transition>
 </template>
 
-<script>
+<script setup>
+import { defineEmits } from 'vue';
+
+const emit = defineEmits({})
+
+
+const handleModal = (e) => {
+  if (e.target === e.currentTarget) {
+    emit('toggleModal')
+  }
+}
+</script>
+
+<!-- <script>
 import { computed, inject, ref } from "vue";
 export default {
   setup(_, { emit }) {
@@ -73,7 +86,7 @@ export default {
     return { handleModal, handeSubmitModal, validMessage, success, buttonValue, buttonClass }
   }
   }
-</script>
+</script> -->
 
 <style lang="scss">
 .modal-mask {

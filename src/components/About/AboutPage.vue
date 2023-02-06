@@ -1,9 +1,11 @@
 <template>
     <section class="about">
         <div class="about__container">
-            <h2 class="about__title">{{text.title}}</h2>
+            <h2 class="about__title">
+                В яких випадках ми можемо бути корисними для Вас?
+            </h2>
             <ul class="about__list">
-                <li class="about__item" v-for="(item, i) of text.reasons" :key="i">
+                <li class="about__item" v-for="(item, i) of reasonsList" :key="i">
                     <img class="about__icon" :src="require(`../../assets/svg/${item.icon}_logo.svg`)" alt="">
                     <p class="about__text">{{item.text}}</p>
                 </li>
@@ -13,7 +15,8 @@
                     <img class="about__image" src="../../assets/images/hummer-sub.jpg" alt="">
                 </li>
                 <div>
-                    <li class="about__bottomItem" v-html="text.text">
+                    <li class="about__bottomItem">
+                        <p class="about__bottomText">Організований тендерний відділ з чітким регламентом роботи, налаштованою взаємодією з іншими відділами компанії, співробітниками, здатними готувати переможні тендерні пропозиції, проводити процедури закупівель без порушень та здатними взаємодіяти з АМКУ.</p><p class="about__bottomText">Завдяки досвіду в організації успішної тендерної агенції, здатної обробляти близько 150 тендерів різної складності за місяць, маємо можливість запропонувати Вам послугу з організації кваліфікованого тендерного відділу Вашої компанії як з "нуля" так і підвищення ефективності вже існуючого відділу.</p>
                     </li>
                 </div>
             </ul>
@@ -21,14 +24,33 @@
     </section>
 </template>
 
-<script>
-import { inject } from '@vue/runtime-core'
-export default {
-    setup() {
-        const text = inject('store').texts.about;
-        return { text }
-    }
-}
+<script setup>
+    const reasonsList = [
+        {
+            icon: 'deny',
+            text: 'Замовники часто відхиляють Ваші пропозиції'
+        },
+        {
+            icon: 'money_lose',
+            text: 'Ваша пропозиція програє по ціні'
+        },
+        {
+            icon: 'idea',
+            text: 'Ви тільки плануєте почати роботу в Prozorro'
+        },
+        {
+            icon: 'time',
+            text: 'Не вистачає часу для оформлення документів на тендери'
+        },
+        {
+            icon: 'docs',
+            text: 'Необхідно підготувати "ідеальний" пакет документів'
+        },
+        {
+            icon: 'increase',
+            text: 'Необхідно провести процедуру закупівлі без помилок, згідно законодавства'
+        },
+    ]
 </script>
 
 <style lang="scss">
