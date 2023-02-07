@@ -1,5 +1,5 @@
 <template>
-    <section class="benefits">
+    <section class="benefits" id="benefits">
         <h2 class="benefits__title">
             Наші переваги
         </h2>

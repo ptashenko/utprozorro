@@ -40,6 +40,7 @@
 </template>
 
 <script setup>
+import telegramBotSend from '@/services/fetchApi'
 import {ref} from 'vue'
 import Swal from 'sweetalert2'
 const tenderName = ref(null);
@@ -47,7 +48,6 @@ const tenderAmount = ref(null);
 const price = ref(null)
 const loading = ref(0)
 const usersNumber = ref(null)
-// import telegramBotSend from '@/services/fetchApi'
 
 const checkedService = ref(
   {
@@ -123,7 +123,7 @@ const sendOrder = () => {
   }
   
   const message = `Нова заявка!%0AНомер телефону: ${usersNumber.value}%0AТендер: ${tenderName.value}`
-  // telegramBotSend(message)
+  telegramBotSend(message)
   orderSended.value = true
   Swal.fire(
     'Дякуємо!',

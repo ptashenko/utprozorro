@@ -48,34 +48,36 @@ const headerContacts = {
 
 <template>
   <header class="header">
-    <ul class="header__list">
-      <li class="header__item">
-        <a href="#" class="header__link">
-          <img class="header__image--logo" src="../../assets/svg/logo.svg" alt="logo" />
-        </a>
-      </li>
-      <ul class="header__navigation">
-        <li class="header__navigationItem" v-for="(item, idx) of headerLinks" :key="idx">
-          <a :href="item.hash" class="header__navigationLink">
-            {{item.name}}
+    <div class="container">
+      <ul class="header__list">
+        <li class="header__item">
+          <a href="#" class="header__link">
+            <img class="header__image--logo" src="../../assets/svg/logo.svg" alt="logo" />
           </a>
         </li>
-      </ul>
-      <li class="header__item header__item--contacts">
-        <ul class="header__contacts">
-          <li class="header__item" v-for="(item, idx) of headerContacts" :key="idx">
-            <a :href="item.link" class="header__link header__link--bold">
-              {{item.text}}
+        <ul class="header__navigation">
+          <li class="header__navigationItem" v-for="(item, idx) of headerLinks" :key="idx">
+            <a :href="item.hash" class="header__navigationLink">
+              {{item.name}}
             </a>
           </li>
-          <li class="header__item header__item--margin">Графік роботи: Пн-Пт, з 9:00 до 19:00</li>
         </ul>
-      </li>
-      <li class="header__item header__item--burger">
-        <img @click="mobileMenuToggle()" class="header__image--burger"
-          src="../../assets/svg/burger_icons.svg" alt="logo" />
-      </li>
-    </ul>
+        <li class="header__item header__item--contacts">
+          <ul class="header__contacts">
+            <li class="header__item" v-for="(item, idx) of headerContacts" :key="idx">
+              <a :href="item.link" class="header__link header__link--bold">
+                {{item.text}}
+              </a>
+            </li>
+            <li class="header__item header__item--margin">Графік роботи: Пн-Пт, з 9:00 до 19:00</li>
+          </ul>
+        </li>
+        <li class="header__item header__item--burger">
+          <img @click="mobileMenuToggle()" class="header__image--burger"
+            src="../../assets/svg/burger_icons.svg" alt="logo" />
+        </li>
+      </ul>
+    </div>
     <MobileMenu
       v-if="mobileMenu"
       :headerLinks="headerLinks" 
@@ -92,18 +94,28 @@ ul {
   list-style: none;
 }
 .header {
-  max-width: 320px;
+  position: sticky;
+  top: 0;
+  left: 0;
+  background: #fff;
+  z-index: 999;
   padding-top: 5px;
-  margin: 0 auto;
-  @media (max-width: 475px) {
+  width: 100%;
+
+  .container {
     max-width: 320px;
-  }
-  @media (min-width: 767px) {
+    margin: 0 auto;
+    @media (max-width: 475px) {
+    max-width: 320px;
+    }
+    @media (min-width: 767px) {
     max-width: 640px;
-  }
-  @media (min-width: 1200px) {
+    }
+    @media (min-width: 1200px) {
     max-width: 1200px;
+    }
   }
+
   &__list {
     display: flex;
     justify-content: space-between;

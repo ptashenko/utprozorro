@@ -35,6 +35,7 @@ export default {
     },
     methods: {
         handleSubmit(order) {
+            console.log(order)
             const submitBtn = document.querySelector('.form__button');
             submitBtn.classList.remove('form__button');
             submitBtn.classList.add('form__send');
