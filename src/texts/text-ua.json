@@ -1,0 +1,33 @@
+{
+  "headerSection": {
+    "headerLinks": [
+      {
+        "name": "Про нас",
+        "hash": "#about"
+      },
+      {
+        "name": "Послуги",
+        "hash": "#services"
+      },
+      {
+        "name": "Наші переваги",
+        "hash": "#benefits"
+      },
+      {
+        "name": "Контакти",
+        "hash": "#contacts"
+      }
+    ],
+    "headerContacts": {
+      "phone": {
+        "text": "38(050) 574-23-62",
+        "link": "tel:0505742362"
+      },
+      "email": {
+        "text": "client.utprozorron@gmail.com",
+        "link": "mailto:client.utprozorron@gmail.com"
+      }
+    },
+    "headerSchedule": "Графік роботи: Пн-Пт, з 9:00 до 19:00"
+  }
+}

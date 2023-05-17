@@ -1,15 +1,12 @@
-<script setup>
-import { defineProps } from 'vue'
-
-const props = defineProps({
-    headerLinks: {
-        type: Array,
-    },
-    headerContacts: {
-        type: Object,
-    }
-})
-
+<script>
+export default {
+  props: {
+    headerSection: {}
+  },
+  mounted() {
+    console.log(this.headerSection);
+  },
+};
 </script>
 
 <template>
@@ -22,20 +19,20 @@ const props = defineProps({
                 @click="$emit('close')"
             />
             <ul class="mobileMenu__menuList mobileMenu__menuList--navigation">
-                <li class="mobileMenu__menuItem" v-for="(item, idx) of props.headerLinks" :key="idx">
+                <li class="mobileMenu__menuItem" v-for="(item, idx) of headerSection.headerLinks" :key="idx">
                     <a :href="item.hash" class="mobileMenu__menuLink">
                         {{item.name}}
                     </a>
                 </li>
             </ul>
             <ul class="mobileMenu__contactsList">
-                <li class="mobileMenu__contactsItem" v-for="(item, idx) of props.headerContacts" :key="idx">
+                <li class="mobileMenu__contactsItem" v-for="(item, idx) of headerSection.headerContacts" :key="idx">
                     <a :href="item.link" class="mobileMenu__contactsLink">
-                        {{item.text}}
+                        {{ item.text }}
                     </a>
                 </li>
                 <li class="mobileMenu__contactsItem mobileMenu__contactsLink">
-                    Графік роботи: Пн-Пт, з 9:00 до 19:00
+                  {{ headerSection.headerSchedule }}
                 </li>
             </ul>
         </div>

@@ -1,11 +1,3 @@
-<script setup>
-import { ref } from 'vue'
-  const callOrder = ref(false)
-  const togglecallOrder = () => {
-    callOrder.value = !callOrder.value
-  }
-</script>
-
 <script>
 import './assets/style/normalize.scss';
 import HeaderComp from './components/Header/HeaderComp.vue';
@@ -17,9 +9,16 @@ import ExperiencePage from './components/Experience/ExperiencePage.vue';
 import ServicesList from './components/ServicesList/ServicesList.vue';
 // import ToTopButton from './components/ToTopButton/ToTopButton.vue';
 import ModalComp from './components/Modal/ModalComp.vue';
+import textMixin from './texts/textMixin.js';
 
 export default {
   name: 'App',
+  data() {
+    return {
+      callOrder: false,
+    }
+  },
+  mixins: [textMixin],
   components: { 
     HeaderComp, 
     MainPage, 
@@ -30,11 +29,16 @@ export default {
     ContactsComp,
     ServicesList
   },
+  methods: {
+    togglecallOrder() {
+      this.callOrder = !this.callOrder;
+    }
+  }
 };
 </script>
 
 <template>
-  <HeaderComp />
+  <HeaderComp :headerSection="headerSection"/>
   <MainPage 
     @openModal="togglecallOrder"
   />
