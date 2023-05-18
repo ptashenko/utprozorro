@@ -1,50 +1,17 @@
 <script>
 import MobileMenu from './MobileMenu/MobileMenu.vue';
+
 export default {
-  components: { MobileMenu },
-};
-</script>
-
-<script setup>
-import { ref } from 'vue';
-
-const mobileMenu = ref(false)
-
-const mobileMenuToggle = () => {
-  mobileMenu.value = !mobileMenu.value
-}
-
-const headerLinks = [
-  {
-    name: 'Про нас',
-    hash: '#about',
+  components: {
+    MobileMenu
   },
-  {
-    name: 'Послуги',
-    hash: '#services',
+  data() {
+    return {
+      mobileMenu: false,
+    }
   },
-  {
-    name: 'Наші переваги',
-    hash: '#benefits',
-  },
-  {
-    name: 'Контакти',
-    hash: '#contacts',
-  },
-];
-
-const headerContacts = {
-    phone: {
-              text: '38(050) 574-23-62',
-              link: 'tel:0505742362'
-          },
-    email: {
-        text: 'client.utprozorron@gmail.com',
-        link: 'mailto:client.utprozorron@gmail.com'
-    },
 }
 </script>
-
 
 <template>
   <header class="header">
@@ -56,34 +23,29 @@ const headerContacts = {
           </a>
         </li>
         <ul class="header__navigation">
-          <li class="header__navigationItem" v-for="(item, idx) of headerLinks" :key="idx">
+          <li class="header__navigationItem" v-for="(item, idx) of headerSection.headerLinks" :key="idx">
             <a :href="item.hash" class="header__navigationLink">
-              {{item.name}}
+              {{ item.name }}
             </a>
           </li>
         </ul>
         <li class="header__item header__item--contacts">
           <ul class="header__contacts">
-            <li class="header__item" v-for="(item, idx) of headerContacts" :key="idx">
+            <li class="header__item" v-for="(item, idx) of headerSection.headerContacts" :key="idx">
               <a :href="item.link" class="header__link header__link--bold">
-                {{item.text}}
+                {{ item.text }}
               </a>
             </li>
-            <li class="header__item header__item--margin">Графік роботи: Пн-Пт, з 9:00 до 19:00</li>
+            <li class="header__item header__item--margin">{{ headerSection.headerSchedule }}</li>
           </ul>
         </li>
         <li class="header__item header__item--burger">
-          <img @click="mobileMenuToggle()" class="header__image--burger"
-            src="../../assets/svg/burger_icons.svg" alt="logo" />
+          <img @click="mobileMenuToggle()" class="header__image--burger" src="../../assets/svg/burger_icons.svg"
+            alt="logo" />
         </li>
       </ul>
     </div>
-    <MobileMenu
-      v-if="mobileMenu"
-      :headerLinks="headerLinks" 
-      :headerContacts="headerContacts"
-      @close="mobileMenuToggle" 
-    />
+    <MobileMenu v-if="mobileMenu" @close="mobileMenuToggle" />
   </header>
 </template>
 
@@ -93,6 +55,7 @@ ul {
   margin: 0;
   list-style: none;
 }
+
 .header {
   position: sticky;
   top: 0;
@@ -105,14 +68,17 @@ ul {
   .container {
     max-width: 320px;
     margin: 0 auto;
+
     @media (max-width: 475px) {
-    max-width: 320px;
+      max-width: 320px;
     }
+
     @media (min-width: 767px) {
-    max-width: 640px;
+      max-width: 640px;
     }
+
     @media (min-width: 1200px) {
-    max-width: 1200px;
+      max-width: 1200px;
     }
   }
 
@@ -121,8 +87,10 @@ ul {
     justify-content: space-between;
     align-items: center;
   }
+
   &__navigation {
     display: flex;
+
     @media (max-width: 1200px) {
       display: none;
     }
@@ -132,6 +100,7 @@ ul {
     &:not(:last-child) {
       margin-right: 80px;
     }
+
     transition: all 250ms linear;
   }
 
@@ -142,6 +111,7 @@ ul {
     color: #000;
     transition: all 250ms linear;
     cursor: pointer;
+
     &:hover {
       color: #fff;
       text-shadow: 0px 0px 2px rgba(0, 0, 0, 1);
@@ -154,17 +124,21 @@ ul {
       height: 50px;
     }
   }
+
   &__item {
     &--contacts {
       display: none;
+
       @media (min-width: 640px) {
         display: block;
       }
     }
+
     &--margin {
       position: relative;
       margin-top: 5px;
       font-size: 14px;
+
       &::before {
         content: '';
         position: absolute;
@@ -178,19 +152,21 @@ ul {
         animation: showOn 1s linear infinite alternate;
       }
     }
+
     &--burger {
       @media (min-width: 1200px) {
         display: none;
       }
     }
   }
+
   &__link {
     color: #000;
     text-decoration: none;
     font-size: 14px;
+
     &--bold {
       font-weight: 500;
     }
   }
-}
-</style>
+}</style>

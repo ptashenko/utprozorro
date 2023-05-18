@@ -1,11 +1,3 @@
-<script setup>
-import { ref } from 'vue'
-  const callOrder = ref(false)
-  const togglecallOrder = () => {
-    callOrder.value = !callOrder.value
-  }
-</script>
-
 <script>
 import './assets/style/normalize.scss';
 import HeaderComp from './components/Header/HeaderComp.vue';
@@ -20,35 +12,38 @@ import ModalComp from './components/Modal/ModalComp.vue';
 
 export default {
   name: 'App',
-  components: { 
-    HeaderComp, 
-    MainPage, 
-    ModalComp, 
-    AboutPage, 
-    BenefitsPage, 
-    ExperiencePage, 
+  data() {
+    return {
+      callOrder: false,
+    }
+  },
+  components: {
+    HeaderComp,
+    MainPage,
+    ModalComp,
+    AboutPage,
+    BenefitsPage,
+    ExperiencePage,
     ContactsComp,
     ServicesList
   },
+  methods: {
+    togglecallOrder() {
+      this.callOrder = !this.callOrder;
+    }
+  }
 };
 </script>
 
 <template>
   <HeaderComp />
-  <MainPage 
-    @openModal="togglecallOrder"
-  />
+  <MainPage @openModal="togglecallOrder" />
   <AboutPage />
   <BenefitsPage />
   <ExperiencePage />
-  <ServicesList 
-    @openModal="togglecallOrder"
-  />
+  <ServicesList @openModal="togglecallOrder" />
   <ContactsComp />
-  <ModalComp 
-    v-if="callOrder"
-    @toggleModal="togglecallOrder"
-  /> 
+  <ModalComp v-if="callOrder" @toggleModal="togglecallOrder" />
 </template>
 
 <style lang="scss">
@@ -66,5 +61,4 @@ body {
   font-family: Montserrat, sans-serif;
   margin: 0 auto;
 }
-
 </style>
