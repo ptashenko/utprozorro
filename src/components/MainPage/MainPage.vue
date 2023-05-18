@@ -2,16 +2,16 @@
     <main class="hero">
         <div :class="heroClass">
             <h1 class="hero__title">
-                Юридичний супровід <span class="hero__title--bold">закупівель в Prozorro</span><span class="hero__title--underline">"під ключ"</span>
+                {{ mainPageSection.titles[0] }} <span class="hero__title--bold">{{ mainPageSection.titles[1] }}</span><span class="hero__title--underline">{{ mainPageSection.titles[2] }}</span>
             </h1>
             <ul class="hero__benefits">
-                <li class="hero__benefitsItem" v-for="(item, i) of benefits" :key="i">{{item}}</li>
+                <li class="hero__benefitsItem" v-for="(item, i) of mainPageSection.benefits" :key="i">{{ item }}</li>
             </ul>
             <p class="hero__subtitle">
-                Станьте на крок попереду серед інших!
+              {{ mainPageSection.subtitle }}
             </p>
             <a class="hero__button" @click="$emit('openModal')">
-                Отримати консультацію
+              {{ mainPageSection.button }}
             </a>
             <span class="hero__image--wrapper">
                 <img class="hero__image" src="../../assets/images/hummer-main.jpg" alt="" />
@@ -20,14 +20,17 @@
     </main>
 </template>
 
-<script setup>
-  const heroClass = window.innerWidth >= 1199 ? 'hero__desktop' : 'hero__mobile';
-  const benefits = [
-    'супровід тендерних процедур в Prozorro "під ключ"',
-    'підготовка тендерної пропозиції "під ключ"',
-    'оскарження в антимонопольному комітеті України',
-    'перевірка документів пропозицій конкурентів',
-  ];
+<script>
+export default {
+  data() {
+    return {
+      heroClass: '',
+    }
+  },
+  mounted() {
+    this.heroClass = window.innerWidth >= 1199 ? 'hero__desktop' : 'hero__mobile';
+  }
+};
 </script>
 
 <style lang="scss">

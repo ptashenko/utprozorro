@@ -6,17 +6,19 @@
 
 <script>
 import { inject } from 'vue';
-export default {
-    setup() {
-        const store = inject('store');
-        
-        const scrollToTop = () => {
-            window.scrollTo({ top: 0, behavior: 'smooth', })
-        };
-        return { scrollToTop, store }
-    }
-}
 
+export default {
+  data() {
+    return {
+      store: inject('store'),
+    }
+  },
+  methods: {
+    scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+};
 </script>
 
 <style lang="scss">

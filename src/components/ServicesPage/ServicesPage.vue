@@ -1,7 +1,7 @@
 <template>
     <section class="services">
         <h2 class="services__title">
-            Наші послуги
+          {{ servicesPageSection.title }}
         </h2>
         <ul class="services__list">
             <CalcComp />

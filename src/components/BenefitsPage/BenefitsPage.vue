@@ -1,36 +1,19 @@
 <template>
     <section class="benefits" id="benefits">
         <h2 class="benefits__title">
-            Наші переваги
+            {{ benefitsPageSection.title }}
         </h2>
         <ul class="benefits__list">
-            <li class="benefits__item" v-for="(item, i) of benefits" :key="i">
+            <li class="benefits__item" v-for="(item, i) of benefitsPageSection.benefits" :key="i">
                 <img class="benefits__icon" :src="require(`../../assets/svg/${item.logo}_icon.svg`)" alt="">
-                <h3 class="benefits__name">{{item.name}}</h3>
-                <p class="benefits__text">{{item.text}}</p>
+                <h3 class="benefits__name">{{ item.name }}</h3>
+                <p class="benefits__text">{{ item.text }}</p>
             </li>
         </ul>
     </section>
 </template>
 
-<script setup>
-    const benefits = [
-        {
-            logo: 'price',
-            name: 'Відсутність передплат',
-            text: 'Ви оплачуєте тільки за фактично надані послуги.',
-        },
-        {
-            logo: 'folder',
-            name: 'Електронні документи',
-            text: 'Більше Вам не потрібно роздруковувати гору паперів, проставляти печатки, підписувати та сканувати документи. Ми підготуємо Вашу тендерну пропозицію в електронному вигляді та збережемо Ваш час.',
-        },
-        {
-            logo: 'bonus',
-            name: 'Гнучкі умови співпраці',
-            text: 'Для постійних та корпоративних клієнтів діють гнучкі умови співпраці та додаткові бонуси'
-        }
-    ]
+<script>
 </script>
 
 <style lang="scss">

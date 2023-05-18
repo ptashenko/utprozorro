@@ -2,10 +2,10 @@
     <section class="about" id="about">
         <div class="about__container">
             <h2 class="about__title">
-                В яких випадках ми можемо бути корисними для Вас?
+                {{ aboutPageSection.title }}
             </h2>
             <ul class="about__list">
-                <li class="about__item" v-for="(item, i) of reasonsList" :key="i">
+                <li class="about__item" v-for="(item, i) of aboutPageSection.list" :key="i">
                     <img class="about__icon" :src="require(`../../assets/svg/${item.icon}_logo.svg`)" alt="">
                     <p class="about__text">{{item.text}}</p>
                 </li>
@@ -16,7 +16,7 @@
                 </li>
                 <div>
                     <li class="about__bottomItem">
-                        <p class="about__bottomText">Організований тендерний відділ з чітким регламентом роботи, налаштованою взаємодією з іншими відділами компанії, співробітниками, здатними готувати переможні тендерні пропозиції, проводити процедури закупівель без порушень та здатними взаємодіяти з АМКУ.</p><p class="about__bottomText">Завдяки досвіду в організації успішної тендерної агенції, здатної обробляти близько 150 тендерів різної складності за місяць, маємо можливість запропонувати Вам послугу з організації кваліфікованого тендерного відділу Вашої компанії як з "нуля" так і підвищення ефективності вже існуючого відділу.</p>
+                        <p class="about__bottomText">{{ aboutPageSection.bottom[0] }}</p><p class="about__bottomText">{{ aboutPageSection.bottom[1] }}</p>
                     </li>
                 </div>
             </ul>
@@ -24,33 +24,7 @@
     </section>
 </template>
 
-<script setup>
-    const reasonsList = [
-        {
-            icon: 'deny',
-            text: 'Замовники часто відхиляють Ваші пропозиції'
-        },
-        {
-            icon: 'money_lose',
-            text: 'Ваша пропозиція програє по ціні'
-        },
-        {
-            icon: 'idea',
-            text: 'Ви тільки плануєте почати роботу в Prozorro'
-        },
-        {
-            icon: 'time',
-            text: 'Не вистачає часу для оформлення документів на тендери'
-        },
-        {
-            icon: 'docs',
-            text: 'Необхідно підготувати "ідеальний" пакет документів'
-        },
-        {
-            icon: 'increase',
-            text: 'Необхідно провести процедуру закупівлі без помилок, згідно законодавства'
-        },
-    ]
+<script>
 </script>
 
 <style lang="scss">

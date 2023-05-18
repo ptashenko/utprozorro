@@ -2,11 +2,11 @@
     <footer class="footer" id="contacts">
         <div class="footer__container">
             <h2 class="footer__title">
-                Контакти
+                {{  contactsSection.title }}
             </h2>
             <div class="footer__wrapper">
                 <ul class="footer__contacts">
-                    <li class="footer__item" v-for="(item,i) of contacts" :key="i">
+                    <li class="footer__item" v-for="(item,i) of contactsSection.contacts" :key="i">
                         <img class="footer__icon" :src="require(`../../assets/svg/${item.icon}.svg`)" alt="">
                         <a :href="item.link" class="footer__contact">{{ item.text }}</a>
                     </li>
@@ -17,34 +17,13 @@
     </footer>
 </template>
 
-<script setup>
-const contacts = {
-    phone: {
-        icon: 'phone',
-        text: '38(050) 574-23-62',
-        link: 'tel:0505742362'
-    },
-    email: {
-        icon: 'email',
-        text: 'client.utprozorro@gmail.com',
-        link: 'mailto:client.utprozorro@gmail.com',
-    },
-    telegram: {
-        icon: 'telegram',
-        text: '@aptashenko',
-        link: 'https://t.me/aptashenko',
-    },
-    schedule: {
-        icon: 'schedule',
-        text: 'Графік роботи: Пн-Пт, з 9:00 до 19:00',
-    }
-}
+<script>
 </script>
 
 <script>
 import FormComp from '../Form/FormComp.vue';
 export default {
-    components: { FormComp },
+  components: { FormComp },
 }
 </script>
 

@@ -1,8 +1,5 @@
 <script>
 export default {
-  props: {
-    headerSection: {}
-  },
   mounted() {
     console.log(this.headerSection);
   },

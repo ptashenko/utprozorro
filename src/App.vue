@@ -9,7 +9,6 @@ import ExperiencePage from './components/Experience/ExperiencePage.vue';
 import ServicesList from './components/ServicesList/ServicesList.vue';
 // import ToTopButton from './components/ToTopButton/ToTopButton.vue';
 import ModalComp from './components/Modal/ModalComp.vue';
-import textMixin from './texts/textMixin.js';
 
 export default {
   name: 'App',
@@ -18,7 +17,6 @@ export default {
       callOrder: false,
     }
   },
-  mixins: [textMixin],
   components: { 
     HeaderComp, 
     MainPage, 
@@ -38,7 +36,7 @@ export default {
 </script>
 
 <template>
-  <HeaderComp :headerSection="headerSection"/>
+  <HeaderComp />
   <MainPage 
     @openModal="togglecallOrder"
   />

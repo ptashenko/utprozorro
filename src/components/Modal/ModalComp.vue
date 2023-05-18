@@ -4,26 +4,26 @@
           <div class="modal-wrapper" @click="handleModal">
             <div class="modal-container" >
               <div class="modal-header">
-                  <h2>Залишити заявку</h2>
+                  <h2>{{ modalSection.header }}</h2>
                   <button class="modal-default-button" @click="handleModal">X</button>
               </div>
 
               <div class="modal-body">
                   <Form class="modalForm" @submit.prevent="handleSubmit">
                     <label class="modalForm__label">
-                      Ваше ім'я:
+                      {{ modalSection.labels[0] }}
                       <input class="modalForm__input" name="name" type="text" v-model="name" placeholder="Ваше ім'я">
                     </label>
                     <label class="modalForm__label">
-                      Номер телефону:
+                      {{ modalSection.labels[1] }}
                       <input class="modalForm__input" name="phone" type="tel" v-model="number" placeholder="Ваш телефон">
                     </label>
                     <label class="modalForm__label">
-                      Email:
+                      {{ modalSection.labels[2] }}
                       <input class="modalForm__input" name="email" type="email" v-model="mail" placeholder="Ваш email">
                     </label>
                     <label class="modalForm__label">
-                      Ваше запитання (за наявності)
+                      {{ modalSection.labels[3] }}
                       <textarea name="message" maxlength="320" class="modalForm__textarea" v-model="question" cols="30" rows="5"></textarea>
                     </label>
                     <input type="submit" :disabled="success" :value="buttonValue" :class="success ? 'modal-footer__success' : 'modalForm__submit'">
@@ -31,7 +31,7 @@
               </div>
 
               <div class="modal-footer" v-show="validMessage">
-                  <p class="modal-footer__failed">{{validMessage}}</p>
+                  <p class="modal-footer__failed">{{ validMessage }}</p>
               </div>
             </div>
           </div>
@@ -39,35 +39,38 @@
     </transition>
 </template>
 
-<script setup>
-import { defineEmits, ref } from 'vue';
+<script>
 import telegramBotSend from '@/services/fetchApi'
 import Swal from 'sweetalert2'
 
-const name = ref(null)
-const number = ref(null)
-const mail = ref(null)
-const question = ref(null)
-
-const emit = defineEmits({})
-
-const handleSubmit = () => {
-  const message = `Нова заявка!%0AІм'я: ${name.value}%0AНомер телефону: ${number.value}%0AEmail: ${mail.value}%0AКоментар: ${question.value}`;
-  telegramBotSend(message)
-  Swal.fire({
-      title: 'Дякуємо!',
-      text: 'Ми зв\'яжемось з Вами у найближчий час!',
-      icon: 'success',
-      confirmButtonText: 'Добре',
-    }).then(emit('toggleModal'))
-}
-
-
-const handleModal = (e) => {
-  if (e.target === e.currentTarget) {
-    emit('toggleModal')
-  }
-}
+export default {
+  data() {
+    return {
+      name: null,
+      number: null,
+      mail: null,
+      question: null,
+    };
+  },
+  methods: {
+    handleSubmit() {
+      const message = `Нова заявка!%0AІм'я: ${this.name}%0AНомер телефону: ${this.number}%0AEmail: ${this.mail}%0AКоментар: ${this.question}`;
+      telegramBotSend(message);
+      Swal.fire({
+        title: 'Дякуємо!',
+        text: 'Ми зв\'яжемось з Вами у найближчий час!',
+        icon: 'success',
+        confirmButtonText: 'Добре',
+      }).then(() => this.$emit('toggleModal'));
+    },
+    handleModal(e) {
+      if (e.target === e.currentTarget) {
+        this.$emit('toggleModal');
+      }
+    },
+  },
+  emits: ['toggleModal'],
+};
 </script>
 
 <!-- <script>

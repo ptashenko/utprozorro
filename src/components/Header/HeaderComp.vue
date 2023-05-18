@@ -5,9 +5,6 @@ export default {
   components: {
     MobileMenu
   },
-  props: {
-    headerSection: {}
-  },
   data() {
     return {
       mobileMenu: false,
@@ -50,7 +47,6 @@ export default {
     </div>
     <MobileMenu
       v-if="mobileMenu"
-      :headerSection="headerSection"
       @close="mobileMenuToggle" 
     />
   </header>
