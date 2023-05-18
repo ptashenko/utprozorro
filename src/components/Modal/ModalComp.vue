@@ -1,42 +1,44 @@
 <template>
-    <transition name="modal">
-        <div class="modal-mask" >
-          <div class="modal-wrapper" @click="handleModal">
-            <div class="modal-container" >
-              <div class="modal-header">
-                  <h2>{{ modalSection.header }}</h2>
-                  <button class="modal-default-button" @click="handleModal">X</button>
-              </div>
+  <transition name="modal">
+    <div class="modal-mask">
+      <div class="modal-wrapper" @click="handleModal">
+        <div class="modal-container">
+          <div class="modal-header">
+            <h2>{{ modalSection.header }}</h2>
+            <button class="modal-default-button" @click="handleModal">X</button>
+          </div>
 
-              <div class="modal-body">
-                  <Form class="modalForm" @submit.prevent="handleSubmit">
-                    <label class="modalForm__label">
-                      {{ modalSection.labels[0] }}
-                      <input class="modalForm__input" name="name" type="text" v-model="name" placeholder="Ваше ім'я">
-                    </label>
-                    <label class="modalForm__label">
-                      {{ modalSection.labels[1] }}
-                      <input class="modalForm__input" name="phone" type="tel" v-model="number" placeholder="Ваш телефон">
-                    </label>
-                    <label class="modalForm__label">
-                      {{ modalSection.labels[2] }}
-                      <input class="modalForm__input" name="email" type="email" v-model="mail" placeholder="Ваш email">
-                    </label>
-                    <label class="modalForm__label">
-                      {{ modalSection.labels[3] }}
-                      <textarea name="message" maxlength="320" class="modalForm__textarea" v-model="question" cols="30" rows="5"></textarea>
-                    </label>
-                    <input type="submit" :disabled="success" :value="buttonValue" :class="success ? 'modal-footer__success' : 'modalForm__submit'">
-                  </Form>
-              </div>
+          <div class="modal-body">
+            <Form class="modalForm" @submit.prevent="handleSubmit">
+              <label class="modalForm__label">
+                {{ modalSection.labels[0] }}
+                <input class="modalForm__input" name="name" type="text" v-model="name" placeholder="Ваше ім'я">
+              </label>
+              <label class="modalForm__label">
+                {{ modalSection.labels[1] }}
+                <input class="modalForm__input" name="phone" type="tel" v-model="number" placeholder="Ваш телефон">
+              </label>
+              <label class="modalForm__label">
+                {{ modalSection.labels[2] }}
+                <input class="modalForm__input" name="email" type="email" v-model="mail" placeholder="Ваш email">
+              </label>
+              <label class="modalForm__label">
+                {{ modalSection.labels[3] }}
+                <textarea name="message" maxlength="320" class="modalForm__textarea" v-model="question" cols="30"
+                  rows="5"></textarea>
+              </label>
+              <input type="submit" :disabled="success" :value="buttonValue"
+                :class="success ? 'modal-footer__success' : 'modalForm__submit'">
+            </Form>
+          </div>
 
-              <div class="modal-footer" v-show="validMessage">
-                  <p class="modal-footer__failed">{{ validMessage }}</p>
-              </div>
-            </div>
+          <div class="modal-footer" v-show="validMessage">
+            <p class="modal-footer__failed">{{ validMessage }}</p>
           </div>
         </div>
-    </transition>
+      </div>
+    </div>
+  </transition>
 </template>
 
 <script>
@@ -124,10 +126,11 @@ export default {
 
 .modal-header {
   display: flex;
-    & h2 {
-      text-align: center;
-      flex-grow: 1;
-    }
+
+  & h2 {
+    text-align: center;
+    flex-grow: 1;
+  }
 }
 
 .modal-wrapper {
@@ -150,32 +153,37 @@ export default {
 .modalForm {
   display: flex;
   flex-direction: column;
+
   &__label {
     display: flex;
     flex-direction: column;
+
     &:not(:last-child) {
       margin-bottom: 20px;
     }
   }
+
   &__input {
     margin-top: 10px;
     border: none;
     outline: none;
     padding: 10px;
-    background: rgba(8,0, 255, 0.04);
+    background: rgba(8, 0, 255, 0.04);
     border-radius: 15px;
   }
+
   &__textarea {
     resize: none;
     margin-top: 10px;
     border: none;
     outline: none;
     padding: 10px;
-    background: rgba(8,0, 255, 0.04);
+    background: rgba(8, 0, 255, 0.04);
     border-radius: 15px;
   }
+
   &__submit {
-        display: block;
+    display: block;
     width: 100%;
     max-width: 300px;
     padding: 15px 20px;
@@ -196,6 +204,7 @@ export default {
 .modal-footer {
   text-align: center;
   pointer-events: none;
+
   &__success {
     background: green;
     color: white;
@@ -205,6 +214,7 @@ export default {
     border-radius: 15px;
     transition: all .25s linear;
   }
+
   &__failed {
     background: red;
     color: white;
@@ -229,6 +239,7 @@ export default {
   border-radius: 50%;
   cursor: pointer;
   transition: all .25s linear;
+
   &:hover {
     background: #000;
     color: #fff;
@@ -247,5 +258,4 @@ export default {
 .modal-leave-active .modal-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
-}
-</style>
+}</style>

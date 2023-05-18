@@ -17,13 +17,13 @@ export default {
       callOrder: false,
     }
   },
-  components: { 
-    HeaderComp, 
-    MainPage, 
-    ModalComp, 
-    AboutPage, 
-    BenefitsPage, 
-    ExperiencePage, 
+  components: {
+    HeaderComp,
+    MainPage,
+    ModalComp,
+    AboutPage,
+    BenefitsPage,
+    ExperiencePage,
     ContactsComp,
     ServicesList
   },
@@ -37,20 +37,13 @@ export default {
 
 <template>
   <HeaderComp />
-  <MainPage 
-    @openModal="togglecallOrder"
-  />
+  <MainPage @openModal="togglecallOrder" />
   <AboutPage />
   <BenefitsPage />
   <ExperiencePage />
-  <ServicesList 
-    @openModal="togglecallOrder"
-  />
+  <ServicesList @openModal="togglecallOrder" />
   <ContactsComp />
-  <ModalComp 
-    v-if="callOrder"
-    @toggleModal="togglecallOrder"
-  /> 
+  <ModalComp v-if="callOrder" @toggleModal="togglecallOrder" />
 </template>
 
 <style lang="scss">
@@ -68,5 +61,4 @@ body {
   font-family: Montserrat, sans-serif;
   margin: 0 auto;
 }
-
 </style>

@@ -11,7 +11,9 @@ export default {
       servicesPageSection: texts.servicesPageSection,
       servicesListSection: texts.servicesListSection,
       contactsSection: texts.contactsSection,
-      modalSection: texts.modalSection
+      modalSection: texts.modalSection,
+      formSection: texts.formSection,
+      calcFormSection: texts.calcFormSection
     };
   },
 }

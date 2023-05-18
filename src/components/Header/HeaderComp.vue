@@ -40,15 +40,12 @@ export default {
           </ul>
         </li>
         <li class="header__item header__item--burger">
-          <img @click="mobileMenuToggle()" class="header__image--burger"
-            src="../../assets/svg/burger_icons.svg" alt="logo" />
+          <img @click="mobileMenuToggle()" class="header__image--burger" src="../../assets/svg/burger_icons.svg"
+            alt="logo" />
         </li>
       </ul>
     </div>
-    <MobileMenu
-      v-if="mobileMenu"
-      @close="mobileMenuToggle" 
-    />
+    <MobileMenu v-if="mobileMenu" @close="mobileMenuToggle" />
   </header>
 </template>
 
@@ -58,6 +55,7 @@ ul {
   margin: 0;
   list-style: none;
 }
+
 .header {
   position: sticky;
   top: 0;
@@ -70,14 +68,17 @@ ul {
   .container {
     max-width: 320px;
     margin: 0 auto;
+
     @media (max-width: 475px) {
-    max-width: 320px;
+      max-width: 320px;
     }
+
     @media (min-width: 767px) {
-    max-width: 640px;
+      max-width: 640px;
     }
+
     @media (min-width: 1200px) {
-    max-width: 1200px;
+      max-width: 1200px;
     }
   }
 
@@ -86,8 +87,10 @@ ul {
     justify-content: space-between;
     align-items: center;
   }
+
   &__navigation {
     display: flex;
+
     @media (max-width: 1200px) {
       display: none;
     }
@@ -97,6 +100,7 @@ ul {
     &:not(:last-child) {
       margin-right: 80px;
     }
+
     transition: all 250ms linear;
   }
 
@@ -107,6 +111,7 @@ ul {
     color: #000;
     transition: all 250ms linear;
     cursor: pointer;
+
     &:hover {
       color: #fff;
       text-shadow: 0px 0px 2px rgba(0, 0, 0, 1);
@@ -119,17 +124,21 @@ ul {
       height: 50px;
     }
   }
+
   &__item {
     &--contacts {
       display: none;
+
       @media (min-width: 640px) {
         display: block;
       }
     }
+
     &--margin {
       position: relative;
       margin-top: 5px;
       font-size: 14px;
+
       &::before {
         content: '';
         position: absolute;
@@ -143,19 +152,21 @@ ul {
         animation: showOn 1s linear infinite alternate;
       }
     }
+
     &--burger {
       @media (min-width: 1200px) {
         display: none;
       }
     }
   }
+
   &__link {
     color: #000;
     text-decoration: none;
     font-size: 14px;
+
     &--bold {
       font-weight: 500;
     }
   }
-}
-</style>
+}</style>
