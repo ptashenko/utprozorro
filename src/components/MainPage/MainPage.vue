@@ -23,16 +23,14 @@
 
 <script>
 export default {
-  data() {
-    return {
-      heroClass: '',
+  computed: {
+    heroClass() {
+      return window.innerWidth >= 1199 ? 'hero__desktop' : 'hero__mobile';
     }
-  },
-  computed() {
-    this.heroClass = window.innerWidth >= 1199 ? 'hero__desktop' : 'hero__mobile';
   }
 };
 </script>
+
 
 <style lang="scss">
 .hero {
