@@ -4,7 +4,7 @@
 <template>
   <transition name="slideOn">
     <div class="mobileMenu">
-      <img src="../../../assets/svg/cross.svg" alt="Закрыть" class="mobileMenu__close" @click="$emit('close')" />
+      <img src="../../../../assets/svg/cross.svg" alt="Закрыть" class="mobileMenu__close" @click="$emit('close')" />
       <ul class="mobileMenu__menuList mobileMenu__menuList--navigation">
         <li class="mobileMenu__menuItem" v-for="(item, idx) of headerSection.headerLinks" :key="idx">
           <a :href="item.hash" class="mobileMenu__menuLink">

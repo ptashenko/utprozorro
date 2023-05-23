@@ -1,12 +1,12 @@
 <script>
 import './assets/style/normalize.scss';
-import HeaderComp from './components/Header/HeaderComp.vue';
-import ContactsComp from '@/components/Contacts/ContactsComp.vue';
-import MainPage from '@/components/MainPage/MainPage.vue';
-import AboutPage from './components/About/AboutPage.vue';
-import BenefitsPage from './components/BenefitsPage/BenefitsPage.vue';
-import ExperiencePage from './components/Experience/ExperiencePage.vue';
-import ServicesList from './components/ServicesList/ServicesList.vue';
+import HeaderComp from './components/views/Header/HeaderComp.vue';
+import ContactsComp from '@/components/views/Contacts/ContactsComp.vue';
+import MainPage from '@/components/views/MainPage/MainPage.vue';
+import AboutPage from './components/views/About/AboutPage.vue';
+import BenefitsPage from './components//views/BenefitsPage/BenefitsPage.vue';
+import ExperiencePage from './components/views/Experience/ExperiencePage.vue';
+import ServicesList from './components/views/ServicesList/ServicesList.vue';
 // import ToTopButton from './components/ToTopButton/ToTopButton.vue';
 import ModalComp from './components/Modal/ModalComp.vue';
 
