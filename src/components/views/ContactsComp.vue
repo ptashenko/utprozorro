@@ -7,7 +7,7 @@
       <div class="footer__wrapper">
         <ul class="footer__contacts">
           <li class="footer__item" v-for="(item, i) of contactsSection.contacts" :key="i">
-            <img class="footer__icon" :src="require(`../../../assets/svg/${item.icon}.svg`)" alt="">
+            <img class="footer__icon" :src="require(`../../assets/svg/${item.icon}.svg`)" alt="">
             <a :href="item.link" class="footer__contact">{{ item.text }}</a>
           </li>
         </ul>
@@ -21,7 +21,7 @@
 </script>
 
 <script>
-import FormComp from '../../Form/FormComp.vue';
+import FormComp from '../FormComp.vue';
 export default {
   components: { FormComp },
 }

@@ -1,14 +1,14 @@
 <script>
 import './assets/style/normalize.scss';
-import HeaderComp from './components/views/Header/HeaderComp.vue';
-import ContactsComp from '@/components/views/Contacts/ContactsComp.vue';
-import MainPage from '@/components/views/MainPage/MainPage.vue';
-import AboutPage from './components/views/About/AboutPage.vue';
-import BenefitsPage from './components//views/BenefitsPage/BenefitsPage.vue';
-import ExperiencePage from './components/views/Experience/ExperiencePage.vue';
-import ServicesList from './components/views/ServicesList/ServicesList.vue';
-// import ToTopButton from './components/ToTopButton/ToTopButton.vue';
-import ModalComp from './components/Modal/ModalComp.vue';
+import HeaderComp from '@/components/views/HeaderComp.vue';
+import ContactsComp from '@/components/views/ContactsComp.vue';
+import MainPage from '@/components/views/MainPage.vue';
+import AboutPage from '@/components/views/AboutPage.vue';
+import BenefitsPage from '@/components/views/BenefitsPage.vue';
+import ExperiencePage from '@/components/views/ExperiencePage.vue';
+import ServicesList from '@/components/views/ServicesList.vue';
+// import ToTopButton from '@/components/ToTopButton.vue';
+import ModalComp from '@/components/ModalComp.vue';
 
 export default {
   name: 'App',
@@ -30,6 +30,12 @@ export default {
   methods: {
     togglecallOrder() {
       this.callOrder = !this.callOrder;
+    },
+    openModal() {
+      this.$modal.show(this.modalName);
+    },
+    closeModal() {
+      this.$modal.hide(this.modalName);
     }
   }
 };
@@ -45,6 +51,7 @@ export default {
   <ContactsComp />
   <ModalComp v-if="callOrder" @toggleModal="togglecallOrder" />
 </template>
+
 
 <style lang="scss">
 * {

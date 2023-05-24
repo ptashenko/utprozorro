@@ -6,13 +6,13 @@
       </h2>
       <ul class="about__list">
         <li class="about__item" v-for="(item, i) of aboutPageSection.list" :key="i">
-          <img class="about__icon" :src="require(`../../../assets/svg/${item.icon}_logo.svg`)" alt="">
+          <img class="about__icon" :src="require(`../../assets/svg/${item.icon}_logo.svg`)" alt="">
           <p class="about__text">{{ item.text }}</p>
         </li>
       </ul>
       <ul class="about__wrapper">
         <li class="about__bottomItem about__bottomItem--wrapper">
-          <img class="about__image" src="../../../assets/images/hummer-sub.jpg" alt="">
+          <img class="about__image" src="../../assets/images/hummer-sub.jpg" alt="">
         </li>
         <div>
           <li class="about__bottomItem">

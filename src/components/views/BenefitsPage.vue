@@ -5,7 +5,7 @@
     </h2>
     <ul class="benefits__list">
       <li class="benefits__item" v-for="(item, i) of benefitsPageSection.benefits" :key="i">
-        <img class="benefits__icon" :src="require(`../../../assets/svg/${item.logo}_icon.svg`)" alt="">
+        <img class="benefits__icon" :src="require(`../../assets/svg/${item.logo}_icon.svg`)" alt="">
         <h3 class="benefits__name">{{ item.name }}</h3>
         <p class="benefits__text">{{ item.text }}</p>
       </li>

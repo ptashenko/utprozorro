@@ -1,5 +1,5 @@
 <script>
-import MobileMenu from './MobileMenu/MobileMenu.vue'
+import MobileMenu from './MobileMenu.vue'
 
 export default {
   components: {
@@ -19,7 +19,7 @@ export default {
       <ul class="header__list">
         <li class="header__item">
           <a href="#" class="header__link">
-            <img class="header__image--logo" src="../../../assets/svg/logo.svg" alt="logo" />
+            <img class="header__image--logo" src="../../assets/svg/logo.svg" alt="logo" />
           </a>
         </li>
         <ul class="header__navigation">
@@ -40,7 +40,7 @@ export default {
           </ul>
         </li>
         <li class="header__item header__item--burger">
-          <img @click="mobileMenuToggle()" class="header__image--burger" src="../../../assets/svg/burger_icons.svg"
+          <img @click="mobileMenuToggle()" class="header__image--burger" src="../../assets/svg/burger_icons.svg"
             alt="logo" />
         </li>
       </ul>
