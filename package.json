@@ -11,11 +11,12 @@
     "@devindex/vue-mask": "^2.0.3",
     "@formkit/themes": "^1.0.0-beta.10",
     "@formkit/vue": "^1.0.0-beta.10",
+    "@popperjs/core": "^2.11.7",
+    "bootstrap": "^5.2.3",
     "core-js": "^3.8.3",
     "lodash.throttle": "^4.1.1",
     "sweetalert2": "^11.7.1",
     "vue": "^3.2.13",
-    "vue-final-modal": "^4.4.2",
     "vue-radial-progress": "^0.3.2",
     "vuex": "^4.0.2"
   },

@@ -1,39 +1,57 @@
 <template>
-  <main class="hero">
+  <main class="hero-main">
     <div :class="heroClass">
-      <h1 class="hero__title">
-        {{ mainPageSection.titles[0] }} <span class="hero__title--bold">{{ mainPageSection.titles[1] }}</span><span
-          class="hero__title--underline">{{ mainPageSection.titles[2] }}</span>
+      <h1 class="hero-main__title">
+        {{ mainPageSection.titles[0] }} <span class="hero-main__title--bold">{{ mainPageSection.titles[1] }}</span><span
+          class="hero-main__title--underline">{{ mainPageSection.titles[2] }}</span>
       </h1>
-      <ul class="hero__benefits">
-        <li class="hero__benefitsItem" v-for="(item, i) of mainPageSection.benefits" :key="i">{{ item }}</li>
+      <ul class="hero-main__benefits">
+        <li class="hero-main__benefitsItem" v-for="(item, i) of mainPageSection.benefits" :key="i">{{ item }}</li>
       </ul>
-      <p class="hero__subtitle">
+      <p class="hero-main__subtitle">
         {{ mainPageSection.subtitle }}
       </p>
-      <a class="hero__button" @click="$emit('openModal')">
-        {{ mainPageSection.button }}
-      </a>
-      <span class="hero__image--wrapper">
-        <img class="hero__image" src="../../assets/images/hummer-main.jpg" alt="" />
+      <a class="hero-main__button" @click="showModal = true">{{ mainPageSection.button }}</a>
+
+      <BaseModal
+        :show-modal="showModal"
+        @update:show-modal="showModal = $event"
+        :title="modalSection.header"
+      >
+        <ApplicationForm />
+      </BaseModal>
+
+      <span class="hero-main__image--wrapper">
+        <img class="hero-main__image" src="../../assets/images/hummer-main.jpg" alt="" />
       </span>
     </div>
   </main>
 </template>
 
 <script>
+import BaseModal from '../BaseModal.vue';
+import ApplicationForm from '../ApplicationForm.vue';
+
 export default {
+  components: {
+    BaseModal,
+    ApplicationForm
+  },
+  data() {
+    return {
+      showModal: false,
+    };
+  },
   computed: {
     heroClass() {
-      return window.innerWidth >= 1199 ? 'hero__desktop' : 'hero__mobile';
+      return window.innerWidth >= 1199 ? 'hero-main__desktop' : 'hero-main__mobile';
     }
-  }
+  },
 };
 </script>
 
-
 <style lang="scss">
-.hero {
+.hero-main {
   max-width: 320px;
   padding: 30px 0 140px;
   margin: 0 auto;
@@ -120,13 +138,13 @@ export default {
 
 
 @media (max-width: 1199px) {
-  .hero__desktop {
+  .hero-main__desktop {
     display: none;
   }
 }
 
 @media (min-width: 767px) {
-  .hero {
+  .hero-main {
     max-width: 640px;
 
     &__title {
@@ -157,7 +175,7 @@ export default {
 }
 
 @media (min-width: 1200px) {
-  .hero {
+  .hero-main {
     max-width: 1200px;
 
     &__mobile {
@@ -197,4 +215,6 @@ export default {
     }
   }
 }
+
+
 </style>

@@ -8,57 +8,39 @@ import BenefitsPage from '@/components/views/BenefitsPage.vue';
 import ExperiencePage from '@/components/views/ExperiencePage.vue';
 import ServicesList from '@/components/views/ServicesList.vue';
 // import ToTopButton from '@/components/ToTopButton.vue';
-import ModalComp from '@/components/ModalComp.vue';
 
 export default {
   name: 'App',
-  data() {
-    return {
-      callOrder: false,
-    }
-  },
   components: {
     HeaderComp,
     MainPage,
-    ModalComp,
     AboutPage,
     BenefitsPage,
     ExperiencePage,
     ContactsComp,
-    ServicesList
+    ServicesList,
   },
-  methods: {
-    togglecallOrder() {
-      this.callOrder = !this.callOrder;
-    },
-    openModal() {
-      this.$modal.show(this.modalName);
-    },
-    closeModal() {
-      this.$modal.hide(this.modalName);
-    }
-  }
 };
 </script>
 
 <template>
   <HeaderComp />
-  <MainPage @openModal="togglecallOrder" />
+  <MainPage />
   <AboutPage />
   <BenefitsPage />
   <ExperiencePage />
-  <ServicesList @openModal="togglecallOrder" />
+  <ServicesList />
   <ContactsComp />
-  <ModalComp v-if="callOrder" @toggleModal="togglecallOrder" />
 </template>
-
 
 <style lang="scss">
 * {
   box-sizing: border-box;
 }
 
-ul {
+ul,
+li,
+a {
   padding: 0;
   margin: 0;
   list-style: none;
@@ -67,5 +49,26 @@ ul {
 body {
   font-family: Montserrat, sans-serif;
   margin: 0 auto;
+  color: #000;
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+}
+
+p {
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+
+h2 {
+  display: block;
+  font-size: 1.5em;
+  margin-block-start: 0.83em;
+  margin-block-end: 0.83em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
 }
 </style>

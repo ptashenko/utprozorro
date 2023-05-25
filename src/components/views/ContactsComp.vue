@@ -18,9 +18,6 @@
 </template>
 
 <script>
-</script>
-
-<script>
 import FormComp from '../FormComp.vue';
 export default {
   components: { FormComp },
