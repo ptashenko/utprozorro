@@ -5,7 +5,7 @@
         <div class="modal-container">
           <div class="modal-top">
             <h2>{{ title }}</h2>
-            <button type="button" class="modal-default-button" @click="closeModal">
+            <button v-if="showCloseButton" type="button" class="modal-default-button" @click="closeModal">
               <span>x</span>
             </button>
           </div>
@@ -21,13 +21,13 @@
 <script>
 export default {
   name: 'BaseModal',
-  props: ["showModal", "title"],
+  props: ["showModal", "title", "showCloseButton"],
   methods: {
     closeModal() {
-      this.$emit('update:showModal', false);
-    },
-  },
-};
+      this.$emit('update:showModal', false); 
+    }
+  }
+}
 </script>
 
 <style lang="scss">
