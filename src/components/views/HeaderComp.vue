@@ -1,5 +1,5 @@
 <script>
-import MobileMenu from './MobileMenu/MobileMenu.vue';
+import MobileMenu from './MobileMenu.vue'
 
 export default {
   components: {

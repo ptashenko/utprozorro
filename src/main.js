@@ -1,3 +1,4 @@
+import 'bootstrap/dist/css/bootstrap.css';
 import { createApp } from 'vue';
 import App from './App.vue';
 import { plugin, defaultConfig } from '@formkit/vue';
@@ -11,4 +12,4 @@ app.config.devtools = true;
 app.use(plugin, defaultConfig());
 app.use(VueMask);
 app.mixin(textMixin);
-app.mount('#app');
+app.mount('#app')

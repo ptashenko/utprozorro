@@ -17,7 +17,7 @@
       }" placeholder="Введіть ваш email" />
       <FormKit type="tel" name="phone" :validation="[['required'], ['matches', /^\d{3}\d{3}\d{2}\d{2}$/]]"
         :validation-messages="{
-          matches: 'Введіть номер телефону у форматі 0505241332', required: 'Номер телефона обязателен!',
+          matches: 'Введіть номер телефону у форматі 0505241332', required: 'Введіть номер телефону',
         }" placeholder="0505241332" />
       <FormKit type="textarea" text-area name="comment" placeholder="Залиште коментар або запитання" />
     </div>
