@@ -11,62 +11,36 @@
       <p class="hero-main__subtitle">
         {{ mainPageSection.subtitle }}
       </p>
-      <a class="hero-main__button" @click="showModal = true">{{ mainPageSection.button }}</a>
+      <a class="hero-main__button" @click="showModal = true">
+        {{ mainPageSection.button }}
+      </a>
 
-      <BaseModal
-        :show-modal="showModal"
-        :show-close-button="true"
-        @update:show-modal="showModal = $event"
-        :title="modalSection.header"
-      >
+      <BaseModal :show-modal="showModal" :show-close-button="true" @update:show-modal="showModal = $event"
+        :title="modalSection.header">
         <Form class="modalForm" @submit.prevent="handleSubmit">
           <label class="modalForm__label">
             {{ modalSection.labels[0] }}
-            <input
-              class="modalForm__input"
-              name="name" type="text"
-              v-model="name"
-              placeholder="Ваше ім'я"
-            >
+            <input class="modalForm__input" name="name" type="text" v-model="name" placeholder="Ваше ім'я">
           </label>
           <label class="modalForm__label">
             {{ modalSection.labels[1] }}
-            <input
-              class="modalForm__input"
-              name="phone" type="tel"
-              v-model="number"
-              placeholder="Ваш телефон"
-              @input="handlePhoneInput"
-            >
-            <div v-if="!isPhoneValid && isSubmitted" class="modalForm__error-message">Введіть номер телефону</div>
+            <input class="modalForm__input" name="phone" type="tel" v-model="number" placeholder="Ваш телефон"
+              @input="handlePhoneInput">
+            <div class="modalForm__error-message" :class="{ 'modalForm__error-red': !isPhoneValid && isSubmitted }">
+              Введіть номер телефону</div>
           </label>
           <label class="modalForm__label">
             {{ modalSection.labels[2] }}
-            <input
-              class="modalForm__input"
-              name="email" type="email"
-              v-model="mail"
-              placeholder="Ваш email"
-            >
+            <input class="modalForm__input" name="email" type="email" v-model="mail" placeholder="Ваш email">
           </label>
           <label class="modalForm__label">
             {{ modalSection.labels[3] }}
-            <textarea
-              name="message"
-              maxlength="320"
-              class="modalForm__textarea"
-              v-model="question" cols="30"
-              rows="5"
-            >
+            <textarea name="message" maxlength="320" class="modalForm__textarea" v-model="question" cols="30" rows="5">
             </textarea>
           </label>
-          <input
-            type="submit"
-            :disabled="isSubmitted && !isPhoneValid"
-            :value="buttonValue"
-            class="modalForm__submit"
-            :class="{ 'modalForm__submit__disabled': isSubmitted && !isPhoneValid }" @click="isSubmitted = true"
-          >
+          <button type="submit" :disabled="isSubmitted && !isPhoneValid" class="modalForm__submit"
+            :class="{ 'modalForm__submit__disabled': isSubmitted && !isPhoneValid }"
+            @click="isSubmitted = true">Відправити</button>
         </Form>
       </BaseModal>
 
@@ -85,7 +59,7 @@
       </BaseModal>
 
       <span class="hero-main__image--wrapper">
-        <img class="hero-main__image" src="../../assets/images/hummer-main.jpg" alt="" />
+        <img class="hero-main__image" src="../../assets/images/hummer-main.png" alt="" />
       </span>
     </div>
   </main>
@@ -108,6 +82,7 @@ export default {
       question: null,
       isSubmitted: false,
       showApplicationModal: false,
+      buttonValue: 'Відправити'
     };
   },
   methods: {
@@ -118,10 +93,10 @@ export default {
       this.showApplicationModal = true;
       this.showModal = false;
       this.name = null,
-      this.number = null,
-      this.mail = null,
-      this.question = null,
-      this.isSubmitted = false
+        this.number = null,
+        this.mail = null,
+        this.question = null,
+        this.isSubmitted = false
     },
     handlePhoneInput() {
       this.number = this.number.replace(/[^0-9]/g, '');
@@ -166,9 +141,13 @@ export default {
         display: flex;
         width: 100%;
         background: #1550e7;
-        height: 5px;
+        height: 6px;
       }
     }
+  }
+
+  &__benefits {
+    margin-bottom: 17px;
   }
 
   &__benefitsItem {
@@ -179,21 +158,37 @@ export default {
   &__subtitle {
     font-size: 13px;
     font-weight: 500;
+    margin-bottom: 17px;
   }
 
   &__button {
     display: block;
-    width: 270px;
-    text-align: center;
+    width: 380px;
+    align-items: center;
     margin: 30px auto;
     text-decoration: none;
-    padding: 20px 40px;
+    padding: 18px 70px;
     border: 1px solid #000;
+    background: #fff;
     color: #000;
-    font-size: 14px;
+    font-size: 19px;
     line-height: 1;
     transition: all 250ms linear;
     cursor: pointer;
+    border: 1px solid #000;
+    position: relative;
+
+    &::after {
+      content: '';
+      width: 38px;
+      height: 42px;
+      display: inline-block;
+      background: url(../../assets/images/press.png);
+      background-size: cover;
+      position: absolute;
+      top: 7px;
+      right: 11px;
+    }
 
     &:hover {
       background: #000;
@@ -208,22 +203,31 @@ export default {
 
     &--wrapper {
       display: block;
-      max-width: 522px;
+      max-width: 603px;
       margin: 0 auto;
       position: relative;
 
       &::before {
         content: '';
         position: absolute;
-        bottom: -5px;
-        right: -5px;
-        width: 100px;
-        height: 100px;
+        bottom: -6px;
+        right: -6px;
+        width: 137px;
+        height: 137px;
         z-index: -1;
         background: #1550e7;
       }
     }
   }
+}
+
+.icon__btn {
+  display: inline-block;
+  width: 44px;
+  height: 44px;
+  background-image: url('../../assets/images/press.png');
+  background-size: cover;
+  margin-left: 10px;
 }
 
 @media (max-width: 1199px) {
@@ -249,23 +253,46 @@ export default {
     }
 
     &__benefitsItem {
-      font-size: 18px;
+      font-weight: 400;
+      font-size: 19px;
+      line-height: 137%;
+      color: #333333;
+      padding-left: 30px;
+      position: relative;
+
+      &::before {
+        content: '';
+        display: block;
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        background: url(../../assets/images/check.png);
+        background-repeat: no-repeat;
+        top: 4px;
+        left: 4px;
+      }
     }
 
     &__subtitle {
-      font-size: 16px;
+      font-weight: 400;
+      font-size: 19px;
+      line-height: 137%;
     }
 
     &__button {
-      font-size: 18px;
-      width: 320px;
+      font-size: 19px;
+      width: 380px;
+      font-weight: 400;
+      line-height: 137%;
     }
   }
 }
 
 @media (min-width: 1200px) {
   .hero-main {
-    max-width: 1200px;
+    max-width: 100%;
+    padding: 87px 0 149px;
+    margin: 0 50px 0 56px;
 
     &__mobile {
       display: none;
@@ -276,17 +303,23 @@ export default {
     }
 
     &__title {
-      font-size: 64px;
+      font-size: 70px;
+      line-height: 85px;
+      font-weight: 400;
+      margin-bottom: 65px;
 
       &--bold {
         display: block;
-        font-size: 64px;
-        text-shadow: 1px 1px 10px #fff;
+        font-weight: 900;
+        font-size: 70px;
+        line-height: 85px;
       }
 
       &--underline {
         display: inline-block;
-        font-size: 42px;
+        font-weight: 400;
+        font-size: 55px;
+        line-height: 67px;
       }
     }
 
@@ -308,13 +341,22 @@ export default {
 .modalForm {
   display: flex;
   flex-direction: column;
+  width: 435px;
 
   &__label {
     display: flex;
     flex-direction: column;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 130%;
+    color: #111111;
 
     &:not(:last-child) {
       margin-bottom: 20px;
+    }
+
+    &:nth-child(2) {
+      margin-bottom: 0;
     }
   }
 
@@ -325,6 +367,10 @@ export default {
     padding: 10px;
     background: rgba(8, 0, 255, 0.04);
     border-radius: 15px;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 130%;
+    color: #6C6C6C;
   }
 
   &__textarea {
@@ -335,19 +381,33 @@ export default {
     padding: 10px;
     background: rgba(8, 0, 255, 0.04);
     border-radius: 15px;
+    height: 132px;
   }
 
   &__submit {
     display: block;
     width: 100%;
-    max-width: 300px;
-    padding: 15px 20px;
-    margin: 20px auto 0;
+    max-width: 310px;
+    padding: 13px 98px;
+    margin: 0 auto;
     background: transparent;
     color: #000;
     border: 1px solid #000;
     cursor: pointer;
     transition: all 250ms linear;
+    position: relative;
+
+    &::after {
+      content: '';
+      width: 31px;
+      height: 34px;
+      display: inline-block;
+      background: url(../../assets/images/press.png);
+      background-size: cover;
+      position: absolute;
+      top: 4px;
+      right: 14px;
+    }
 
     &:hover {
       background: #000;
@@ -357,21 +417,41 @@ export default {
     &__disabled {
       display: block;
       width: 100%;
-      max-width: 300px;
-      padding: 15px 20px;
-      margin: 20px auto 0;
+      max-width: 310px;
+      padding: 13px 98px;
+      margin: 0 auto;
       background: transparent;
       border: 1px solid #adadad;
       color: #adadad;
       cursor: not-allowed;
       transition: all 250ms linear;
+
+      &:hover {
+        display: block;
+        width: 100%;
+        max-width: 310px;
+        padding: 13px 98px;
+        margin: 0 auto;
+        background: transparent;
+        border: 1px solid #adadad;
+        color: #adadad;
+        cursor: not-allowed;
+        transition: all 250ms linear;
+      }
     }
   }
 
   &__error-message {
+    color: white;
+    font-size: 10px;
+    line-height: 1.5;
+    transition: all 250ms linear;
+  }
+
+  &__error-red {
     color: red;
-    margin-top: 5px;
-    font-size: 11px;
+    font-size: 10px;
+    line-height: 1.5;
     transition: all 250ms linear;
   }
 }
@@ -385,25 +465,28 @@ export default {
 
 .success__title {
   position: relative;
-  top: -20px;
-  font-size: 28px;
-  font-weight: bold;
+  top: -5px;
+  font-size: 45px;
+  font-weight: 600;
+  margin-bottom: 65px;
 }
 
 .success__text {
-  font-size: 16px;
-  margin-bottom: 20px;
+  font-size: 26px;
+  margin-bottom: 35px;
+  font-weight: 400;
+  line-height: 100%;
 }
 
 .success__btn {
-  width: 80px;
-  height: 34px;
-  font-size: 14px;
-  font-weight: 500;
+  width: 140px;
+  height: 63px;
+  font-size: 22px;
+  font-weight: 600;
   background: #000;
   color: #fff;
   border: 1px solid #000;
-  border-radius: 5px;
+  border-radius: 4px;
 }
 
 .success-icon {
@@ -435,18 +518,19 @@ export default {
     position: absolute;
     height: 4px;
     background-color: lighten(#000, 20%);
-    border-radius: 10px;
   }
 
   &__tip {
     width: 2.4em;
     top: 4.3em;
     left: 1.4em;
-    transform: rotate(45deg);
+    transform: rotate(42deg);
     animation: tipInPlace 300ms ease-in-out;
     animation-fill-mode: forwards;
     animation-delay: 180ms;
     visibility: hidden;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
   }
 
   &__long {
@@ -457,6 +541,9 @@ export default {
     animation-fill-mode: forwards;
     visibility: hidden;
     animation-delay: 400ms;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
   }
 }
 

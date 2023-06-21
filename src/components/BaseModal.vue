@@ -4,7 +4,7 @@
       <div class="modal-wrapper">
         <div class="modal-container">
           <div class="modal-top">
-            <h2>{{ title }}</h2>
+            <h2 class="modal-title">{{ title }}</h2>
             <button v-if="showCloseButton" type="button" class="modal-default-button" @click="closeModal">
               <span>x</span>
             </button>
@@ -24,7 +24,7 @@ export default {
   props: ["showModal", "title", "showCloseButton"],
   methods: {
     closeModal() {
-      this.$emit('update:showModal', false); 
+      this.$emit('update:showModal', false);
     }
   }
 }
@@ -49,7 +49,6 @@ export default {
 
 .modal-top {
   display: flex;
-  align-items: center;
 
   & h2 {
     text-align: center;
@@ -65,9 +64,10 @@ export default {
 .modal-container {
   display: flex;
   flex-direction: column;
-  max-width: 450px;
+  width: fit-content;
+  max-height: 700px;
   margin: 0px auto;
-  padding: 20px 30px;
+  padding: 34px 30px 45px 37px;
   background-color: #fff;
   border-radius: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
@@ -75,7 +75,7 @@ export default {
 }
 
 .modal-main-body {
-  margin: 20px 0;
+  margin: 44px 0 0;
 }
 
 .modal-default-button {
@@ -96,4 +96,13 @@ export default {
     color: #fff;
   }
 }
+
+.modal-title {
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 87%;
+  color: #000;
+  padding-top: 26px;
+}
+
 </style>

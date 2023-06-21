@@ -3,93 +3,67 @@
     <h2 class="services_title">
       {{ servicesListSection.title }}
     </h2>
-    <table class="services_body">
-      <tbody @click="showModal = true">
-        <tr class="table_row">
-          <td class="name">{{ servicesListSection.name[0] }}</td>
-          <td class="cost">{{ servicesListSection.cost[0] }}</td>
-        </tr>
-        <tr class="table_row">
-          <td class="name">{{ servicesListSection.name[1] }}</td>
-          <td class="cost">{{ servicesListSection.cost[1] }}</td>
-        </tr>
-        <tr class="table_row">
-          <td class="name">{{ servicesListSection.name[2] }}</td>
-          <td class="cost">{{ servicesListSection.cost[2] }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="services_body">
+      <div class="table_box">
+        <p class="name">{{ servicesListSection.name[0] }}</p>
+        <p class="cost">{{ servicesListSection.cost[0] }}</p>
+        <button class="button-service" @click="showModal = true">Обрати послугу</button>
+      </div>
+      <div class="table_box">
+        <p class="name">{{ servicesListSection.name[1] }}</p>
+        <p class="cost">{{ servicesListSection.cost[1] }}</p>
+        <button class="button-service" @click="showModal = true">Обрати послугу</button>
+      </div>
+      <div class="table_box">
+        <p class="name">{{ servicesListSection.name[2] }}</p>
+        <p class="cost">{{ servicesListSection.cost[2] }}</p>
+        <button class="button-service" @click="showModal = true">Обрати послугу</button>
+      </div>
+    </div>
 
-    <BaseModal
-        :show-modal="showModal"
-        :show-close-button="true"
-        @update:show-modal="showModal = $event"
-        :title="modalSection.header"
-      >
-        <Form class="modalForm" @submit.prevent="handleSubmit">
-          <label class="modalForm__label">
-            {{ modalSection.labels[0] }}
-            <input
-              class="modalForm__input"
-              name="name" type="text"
-              v-model="name"
-              placeholder="Ваше ім'я"
-            >
-          </label>
-          <label class="modalForm__label">
-            {{ modalSection.labels[1] }}
-            <input
-              class="modalForm__input"
-              name="phone" type="tel"
-              v-model="number"
-              placeholder="Ваш телефон"
-              @input="handlePhoneInput"
-            >
-            <div v-if="!isPhoneValid && isSubmitted" class="modalForm__error-message">Введіть номер телефону</div>
-          </label>
-          <label class="modalForm__label">
-            {{ modalSection.labels[2] }}
-            <input
-              class="modalForm__input"
-              name="email" type="email"
-              v-model="mail"
-              placeholder="Ваш email"
-            >
-          </label>
-          <label class="modalForm__label">
-            {{ modalSection.labels[3] }}
-            <textarea
-              name="message"
-              maxlength="320"
-              class="modalForm__textarea"
-              v-model="question" cols="30"
-              rows="5"
-            >
+
+    <BaseModal :show-modal="showModal" :show-close-button="true" @update:show-modal="showModal = $event"
+      :title="modalSection.header">
+      <Form class="modalForm" @submit.prevent="handleSubmit">
+        <label class="modalForm__label">
+          {{ modalSection.labels[0] }}
+          <input class="modalForm__input" name="name" type="text" v-model="name" placeholder="Ваше ім'я">
+        </label>
+        <label class="modalForm__label">
+          {{ modalSection.labels[1] }}
+          <input class="modalForm__input" name="phone" type="tel" v-model="number" placeholder="Ваш телефон"
+            @input="handlePhoneInput">
+          <div class="modalForm__error-message" :class="{ 'modalForm__error-red': !isPhoneValid && isSubmitted }">
+            Введіть номер телефону</div>
+        </label>
+        <label class="modalForm__label">
+          {{ modalSection.labels[2] }}
+          <input class="modalForm__input" name="email" type="email" v-model="mail" placeholder="Ваш email">
+        </label>
+        <label class="modalForm__label">
+          {{ modalSection.labels[3] }}
+          <textarea name="message" maxlength="320" class="modalForm__textarea" v-model="question" cols="30" rows="5">
             </textarea>
-          </label>
-          <input
-            type="submit"
-            :disabled="isSubmitted && !isPhoneValid"
-            :value="buttonValue"
-            class="modalForm__submit"
-            :class="{ 'modalForm__submit__disabled': isSubmitted && !isPhoneValid }" @click="isSubmitted = true"
-          >
-        </Form>
-      </BaseModal>
+        </label>
+        <button type="submit" :disabled="isSubmitted && !isPhoneValid" :value="buttonValue" class="modalForm__submit"
+          :class="{ 'modalForm__submit__disabled': isSubmitted && !isPhoneValid }"
+          @click="isSubmitted = true">Відправити</button>
+      </Form>
+    </BaseModal>
 
-      <BaseModal :show-modal="showApplicationModal" @update:show-modal="showApplicationModal = $event">
-        <div class="success-modal">
-          <div class="success-icon">
-            <div class="success-icon__wrapper">
-              <div class="success-icon__tip"></div>
-              <div class="success-icon__long"></div>
-            </div>
+    <BaseModal :show-modal="showApplicationModal" @update:show-modal="showApplicationModal = $event">
+      <div class="success-modal">
+        <div class="success-icon">
+          <div class="success-icon__wrapper">
+            <div class="success-icon__tip"></div>
+            <div class="success-icon__long"></div>
           </div>
-          <div class="success__title">{{ modalSection.success[0] }}</div>
-          <div class="success__text">{{ modalSection.success[1] }}</div>
-          <button class="success__btn" @click="closeApplicationModal">{{ modalSection.successButton }}</button>
         </div>
-      </BaseModal>
+        <div class="success__title">{{ modalSection.success[0] }}</div>
+        <div class="success__text">{{ modalSection.success[1] }}</div>
+        <button class="success__btn" @click="closeApplicationModal">{{ modalSection.successButton }}</button>
+      </div>
+    </BaseModal>
   </section>
 </template>
 
@@ -121,10 +95,10 @@ export default {
       this.showApplicationModal = true;
       this.showModal = false;
       this.name = null,
-      this.number = null,
-      this.mail = null,
-      this.question = null,
-      this.isSubmitted = false
+        this.number = null,
+        this.mail = null,
+        this.question = null,
+        this.isSubmitted = false
     },
     handlePhoneInput() {
       this.number = this.number.replace(/[^0-9]/g, '');
@@ -144,40 +118,98 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .services_body {
-  width: 60vw;
-  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
-table {
-  border-collapse: initial;
-}
-
-.table_row {
-  height: 3vw;
+.table_box {
+  padding: 55px 28px 50px;
+  border: 1px solid #000000;
   cursor: pointer;
   transition: all .25s linear;
+  position: relative;
 
-  &:hover {
-    background: #1550e7;
-    color: #fff;
+  &::before {
+    content: '';
+    background: url('../../assets/images/blue-bg.png');
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    position: absolute;
+    z-index: -1;
+    top: -1px;
+    left: -1px;
+  }
+
+  &:not(:last-child) {
+    margin-right: 20px;
+  }
+
+  &:last-child {
+    .name {
+      margin-bottom: 160px;
+    }
   }
 }
 
 .name {
-  padding: 10px;
-  border: 1px solid #000;
+  font-weight: 600;
+  font-size: 23px;
+  line-height: 113%;
+  color: #FFFFFF;
+  margin-bottom: 137px;
+  padding-left: 7px;
+  width: 95%;
 }
 
 .cost {
-  text-align: center;
   font-weight: 800;
+  font-size: 22px;
+  line-height: 118%;
+  color: #000000;
+  margin-bottom: 59px;
+  padding-left: 15px;
+}
+
+.button-service {
+  display: block;
+  width: 380px;
+  align-items: center;
+  text-decoration: none;
+  padding: 18px 70px;
   border: 1px solid #000;
+  background: #fff;
+  color: #000;
+  font-size: 19px;
+  line-height: 1;
+  transition: all 250ms linear;
+  cursor: pointer;
+  border: 1px solid #000;
+  position: relative;
+
+  &::after {
+    content: '';
+    width: 38px;
+    height: 42px;
+    display: inline-block;
+    background: url(../../assets/images/press.png);
+    background-size: cover;
+    position: absolute;
+    top: 7px;
+    right: 11px;
+  }
+
+  &:hover {
+    background: #000;
+    color: #fff;
+  }
 }
 
 .services {
-  padding: 60px 0;
+  padding: 50px;
   max-width: 320px;
   margin: 0 auto;
 
@@ -186,18 +218,16 @@ table {
   }
 
   @media (min-width: 1200px) {
-    max-width: 1200px;
+    max-width: 100%;
   }
 
   &_title {
     position: relative;
-    margin: 0;
-    margin-left: 60px;
-    font-size: 16px;
-    line-height: 1.3;
-    color: #111111;
-    width: 255px;
-    padding: 30px 0;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 130%;
+    color: #000;
+    margin: 0 0 50px 60px;
 
     &::before {
       content: '';
@@ -215,13 +245,22 @@ table {
 .modalForm {
   display: flex;
   flex-direction: column;
+  width: 435px;
 
   &__label {
     display: flex;
     flex-direction: column;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 130%;
+    color: #111111;
 
     &:not(:last-child) {
       margin-bottom: 20px;
+    }
+
+    &:nth-child(2) {
+      margin-bottom: 0;
     }
   }
 
@@ -232,6 +271,10 @@ table {
     padding: 10px;
     background: rgba(8, 0, 255, 0.04);
     border-radius: 15px;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 130%;
+    color: #6C6C6C;
   }
 
   &__textarea {
@@ -242,19 +285,33 @@ table {
     padding: 10px;
     background: rgba(8, 0, 255, 0.04);
     border-radius: 15px;
+    height: 132px;
   }
 
   &__submit {
     display: block;
     width: 100%;
-    max-width: 300px;
-    padding: 15px 20px;
-    margin: 20px auto 0;
+    max-width: 310px;
+    padding: 13px 98px;
+    margin: 0 auto;
     background: transparent;
     color: #000;
     border: 1px solid #000;
     cursor: pointer;
     transition: all 250ms linear;
+    position: relative;
+
+    &::after {
+      content: '';
+      width: 31px;
+      height: 34px;
+      display: inline-block;
+      background: url(../../assets/images/press.png);
+      background-size: cover;
+      position: absolute;
+      top: 4px;
+      right: 14px;
+    }
 
     &:hover {
       background: #000;
@@ -264,21 +321,41 @@ table {
     &__disabled {
       display: block;
       width: 100%;
-      max-width: 300px;
-      padding: 15px 20px;
-      margin: 20px auto 0;
+      max-width: 310px;
+      padding: 13px 98px;
+      margin: 0 auto;
       background: transparent;
       border: 1px solid #adadad;
       color: #adadad;
       cursor: not-allowed;
       transition: all 250ms linear;
+
+      &:hover {
+        display: block;
+        width: 100%;
+        max-width: 310px;
+        padding: 13px 98px;
+        margin: 0 auto;
+        background: transparent;
+        border: 1px solid #adadad;
+        color: #adadad;
+        cursor: not-allowed;
+        transition: all 250ms linear;
+      }
     }
   }
 
   &__error-message {
+    color: white;
+    font-size: 10px;
+    line-height: 1.5;
+    transition: all 250ms linear;
+  }
+
+  &__error-red {
     color: red;
-    margin-top: 5px;
-    font-size: 11px;
+    font-size: 10px;
+    line-height: 1.5;
     transition: all 250ms linear;
   }
 }
@@ -292,25 +369,28 @@ table {
 
 .success__title {
   position: relative;
-  top: -20px;
-  font-size: 28px;
-  font-weight: bold;
+  top: -5px;
+  font-size: 45px;
+  font-weight: 600;
+  margin-bottom: 65px;
 }
 
 .success__text {
-  font-size: 16px;
-  margin-bottom: 20px;
+  font-size: 26px;
+  margin-bottom: 35px;
+  font-weight: 400;
+  line-height: 100%;
 }
 
 .success__btn {
-  width: 80px;
-  height: 34px;
-  font-size: 14px;
-  font-weight: 500;
+  width: 140px;
+  height: 63px;
+  font-size: 22px;
+  font-weight: 600;
   background: #000;
   color: #fff;
   border: 1px solid #000;
-  border-radius: 5px;
+  border-radius: 4px;
 }
 
 .success-icon {
@@ -323,8 +403,8 @@ table {
 
   &__wrapper {
     display: inline-block;
-    width: 8em;
-    height: 8em;
+    width: 16em;
+    height: 16em;
     font-size: 8px;
     border-radius: 50%;
     border: 3px solid lighten(#000, 60%);
@@ -342,18 +422,19 @@ table {
     position: absolute;
     height: 4px;
     background-color: lighten(#000, 20%);
-    border-radius: 10px;
   }
 
   &__tip {
     width: 2.4em;
     top: 4.3em;
     left: 1.4em;
-    transform: rotate(45deg);
+    transform: rotate(42deg);
     animation: tipInPlace 300ms ease-in-out;
     animation-fill-mode: forwards;
     animation-delay: 180ms;
     visibility: hidden;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
   }
 
   &__long {
@@ -364,6 +445,9 @@ table {
     animation-fill-mode: forwards;
     visibility: hidden;
     animation-delay: 400ms;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
   }
 }
 

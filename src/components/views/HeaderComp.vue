@@ -62,7 +62,7 @@ ul {
   left: 0;
   background: #fff;
   z-index: 999;
-  padding-top: 5px;
+  padding: 23px 50px 13px;
   width: 100%;
 
   .container {
@@ -78,7 +78,7 @@ ul {
     }
 
     @media (min-width: 1200px) {
-      max-width: 1200px;
+      max-width: 100%;
     }
   }
 
@@ -98,15 +98,15 @@ ul {
 
   &__navigationItem {
     &:not(:last-child) {
-      margin-right: 80px;
+      margin-right: 96px;
     }
 
     transition: all 250ms linear;
   }
 
   &__navigationLink {
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 19px;
+    font-weight: 700;
     text-decoration: none;
     color: #000;
     transition: all 250ms linear;
@@ -136,8 +136,8 @@ ul {
 
     &--margin {
       position: relative;
-      margin-top: 5px;
-      font-size: 14px;
+      font-size: 16px;
+      line-height: 20px;
 
       &::before {
         content: '';
@@ -163,7 +163,8 @@ ul {
   &__link {
     color: #000;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 16px;
+    line-height: 20px;
 
     &--bold {
       font-weight: 500;

@@ -27,7 +27,7 @@ export default {
 <style lang="scss">
 .footer {
   background: #fafafa;
-  padding: 30px 0;
+  padding: 50px 50px 35px;
 
   &__container {
     max-width: 320px;
@@ -38,17 +38,17 @@ export default {
     }
 
     @media (min-width: 1200px) {
-      max-width: 1200px;
+      max-width: 100%;
     }
   }
 
   &__title {
     position: relative;
-    margin: 0 auto;
-    font-size: 16px;
-    line-height: 1.3;
-    color: #111111;
-    width: 255px;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 130%;
+    color: #000;
+    margin-bottom: 50px;
 
     &::before {
       content: '';
@@ -90,11 +90,10 @@ export default {
 @media (min-width: 767px) {
   .footer {
     &__title {
-      margin: 0 0 0 60px;
+      margin: 0 0 35px 60px;
     }
 
     &__contacts {
-      width: 375px;
       margin: 20px auto 0;
     }
   }
@@ -108,7 +107,7 @@ export default {
   .footer {
     &__wrapper {
       display: flex;
-      margin-top: 30px;
+      justify-content: space-between;
     }
 
     &__contacts {
@@ -116,16 +115,18 @@ export default {
       flex-direction: column;
       justify-content: center;
       margin: 0;
+      width: 30%;
     }
 
     &__contact {
-      font-size: 22px;
+      font-size: 24px;
+      line-height: 29px;
     }
   }
 
   .form {
     margin: 0;
-    flex-grow: 1;
+    width: 931px;
   }
 }
 </style>
