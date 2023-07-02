@@ -1,6 +1,6 @@
 <template>
   <div class="modal fade" :class="{ show: showModal }" tabindex="-1" role="dialog">
-    <div class="modal-mask" role="document">
+    <div class="modal-mask" role="document" @click="closeModal">
       <div class="modal-wrapper">
         <div class="modal-container">
           <div class="modal-top">
@@ -45,6 +45,7 @@ export default {
   background-color: rgba(0, 0, 0, 0.5);
   display: table;
   transition: opacity 0.3s ease;
+  cursor: pointer;
 }
 
 .modal-top {
@@ -64,18 +65,28 @@ export default {
 .modal-container {
   display: flex;
   flex-direction: column;
-  width: fit-content;
-  max-height: 700px;
+  width: 320px;
+  max-height: 600px;
   margin: 0px auto;
-  padding: 34px 30px 45px 37px;
+  padding: 20px;
   background-color: #fff;
   border-radius: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
+
+  @media(min-width: 767px) {
+    max-height: 700px;
+    width: fit-content;
+    padding: 34px 30px 45px 37px;
+  }
 }
 
 .modal-main-body {
-  margin: 44px 0 0;
+  margin: 25px 0 0;
+
+  @media(min-width: 767px) {
+    margin: 44px 0 0;
+  }
 }
 
 .modal-default-button {
@@ -88,21 +99,27 @@ export default {
   background: transparent;
   border: 1px groove rgba(0, 0, 0, 0.2);
   border-radius: 50%;
-  cursor: pointer;
+  cursor: url(../assets/images/press-black.png), auto;
   transition: all .25s linear;
 
   &:hover {
     background: #000;
     color: #fff;
+    cursor: url(../assets/images/press-black.png), auto;
   }
 }
 
 .modal-title {
   font-weight: 700;
-  font-size: 30px;
+  font-size: 18px;
   line-height: 87%;
   color: #000;
-  padding-top: 26px;
+  padding-top: 5px;
+
+  @media(min-width: 767px) {
+    padding-top: 26px;
+    font-size: 30px;
+  }
 }
 
 </style>

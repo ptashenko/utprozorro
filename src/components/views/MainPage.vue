@@ -1,12 +1,12 @@
 <template>
   <main class="hero-main">
-    <div :class="heroClass">
+    <div class="main-wrap">
       <h1 class="hero-main__title">
         {{ mainPageSection.titles[0] }} <span class="hero-main__title--bold">{{ mainPageSection.titles[1] }}</span><span
           class="hero-main__title--underline">{{ mainPageSection.titles[2] }}</span>
       </h1>
       <ul class="hero-main__benefits">
-        <li class="hero-main__benefitsItem" v-for="(item, i) of mainPageSection.benefits" :key="i">{{ item }}</li>
+        <li class="hero-main__benefitsItem" v-for="(item, i) of mainPageSection.benefits" :key="i"><span class="space">{{ item }}</span></li>
       </ul>
       <p class="hero-main__subtitle">
         {{ mainPageSection.subtitle }}
@@ -106,9 +106,6 @@ export default {
     },
   },
   computed: {
-    heroClass() {
-      return window.innerWidth >= 1199 ? 'hero-main__desktop' : 'hero-main__mobile';
-    },
     isPhoneValid() {
       return this.number !== null && this.number.trim() !== '';
     },
@@ -117,10 +114,26 @@ export default {
 </script>
 
 <style lang="scss">
+.main-wrap {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-bottom: 30px;
+
+  @media (min-width: 767px) {
+    display: block;
+    margin-bottom: 0;
+  }
+}
+
 .hero-main {
   max-width: 320px;
-  padding: 30px 0 140px;
+  padding: 30px 0 10px;
   margin: 0 auto;
+
+  @media (min-width: 767px) {
+    padding: 15px 0 140px;
+  }
 
   &__title {
     font-size: 28px;
@@ -147,52 +160,79 @@ export default {
   }
 
   &__benefits {
-    margin-bottom: 17px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: #333;
+
+    @media (min-width: 767px) {
+      margin-bottom: 10px;
+      margin-top: 0;
+    }
+  }
+
+  .space {
+    margin-left: 20px;
+
+    @media (min-width: 767px) {
+      margin: 0;
+    }
   }
 
   &__benefitsItem {
     font-size: 13px;
-    line-height: 1.3;
+    line-height: 1.5;
+    position: relative;
+
+    &::before {
+        content: '';
+        display: block;
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        background: url(../../assets/images/check.png);
+        background-repeat: no-repeat;
+        top: 2px;
+        left: 0;
+      }
   }
 
   &__subtitle {
     font-size: 13px;
     font-weight: 500;
-    margin-bottom: 17px;
+    margin-bottom: 10px;
+
+    @media (min-width: 767px) {
+      margin-bottom: 17px;
+    }
   }
 
   &__button {
     display: block;
-    width: 380px;
-    align-items: center;
-    margin: 30px auto;
+    width: 100%;
+    margin: 10px auto 40px;
     text-decoration: none;
-    padding: 18px 70px;
+    padding: 15px 50px;
     border: 1px solid #000;
     background: #fff;
     color: #000;
-    font-size: 19px;
+    font-size: 16px;
     line-height: 1;
     transition: all 250ms linear;
-    cursor: pointer;
+    cursor: url(../../assets/images/press.png), auto;
     border: 1px solid #000;
     position: relative;
 
-    &::after {
-      content: '';
-      width: 38px;
-      height: 42px;
-      display: inline-block;
-      background: url(../../assets/images/press.png);
-      background-size: cover;
-      position: absolute;
-      top: 7px;
-      right: 11px;
+    @media (min-width: 767px) {
+      width: 380px;
+      font-size: 19px;
+      padding: 18px 70px;
+      margin: 0 auto;
     }
 
     &:hover {
       background: #000;
       color: #fff;
+      cursor: url(../../assets/images/press.png), auto;
     }
   }
 
@@ -201,9 +241,13 @@ export default {
     margin: 0 auto;
     max-width: 100%;
 
+    @media (min-width: 767px) {
+      width: 608px;
+    }
+
     &--wrapper {
       display: block;
-      max-width: 603px;
+      max-width: 608px;
       margin: 0 auto;
       position: relative;
 
@@ -218,21 +262,6 @@ export default {
         background: #1550e7;
       }
     }
-  }
-}
-
-.icon__btn {
-  display: inline-block;
-  width: 44px;
-  height: 44px;
-  background-image: url('../../assets/images/press.png');
-  background-size: cover;
-  margin-left: 10px;
-}
-
-@media (max-width: 1199px) {
-  .hero-main__desktop {
-    display: none;
   }
 }
 
@@ -280,23 +309,25 @@ export default {
     }
 
     &__button {
+      font-size: 16px;
+      width: 300px;
+      font-weight: 400;
+
+    @media (min-width: 767px) {
       font-size: 19px;
       width: 380px;
       font-weight: 400;
       line-height: 137%;
     }
   }
+  }
 }
 
 @media (min-width: 1200px) {
   .hero-main {
-    max-width: 100%;
-    padding: 87px 0 149px;
-    margin: 0 50px 0 56px;
-
-    &__mobile {
-      display: none;
-    }
+    max-width: 1440px;
+    padding: 87px 0 170px;
+    margin: 0 50px;
 
     &__desktop {
       position: relative;
@@ -341,15 +372,22 @@ export default {
 .modalForm {
   display: flex;
   flex-direction: column;
-  width: 435px;
+
+  @media (min-width: 767px) {
+    width: 435px;
+  }
 
   &__label {
     display: flex;
     flex-direction: column;
     font-weight: 400;
-    font-size: 20px;
+    font-size: 14px;
     line-height: 130%;
     color: #111111;
+
+    @media (min-width: 767px) {
+      font-size: 20px;
+    }
 
     &:not(:last-child) {
       margin-bottom: 20px;
@@ -358,7 +396,7 @@ export default {
     &:nth-child(2) {
       margin-bottom: 0;
     }
-  }
+}
 
   &__input {
     margin-top: 10px;
@@ -368,9 +406,13 @@ export default {
     background: rgba(8, 0, 255, 0.04);
     border-radius: 15px;
     font-weight: 400;
-    font-size: 20px;
+    font-size: 14px;
     line-height: 130%;
     color: #6C6C6C;
+
+    @media (min-width: 767px) {
+      font-size: 20px;
+    }
   }
 
   &__textarea {
@@ -393,25 +435,15 @@ export default {
     background: transparent;
     color: #000;
     border: 1px solid #000;
-    cursor: pointer;
+    cursor: url(../../assets/images/press.png), auto;
     transition: all 250ms linear;
     position: relative;
 
-    &::after {
-      content: '';
-      width: 31px;
-      height: 34px;
-      display: inline-block;
-      background: url(../../assets/images/press.png);
-      background-size: cover;
-      position: absolute;
-      top: 4px;
-      right: 14px;
-    }
 
     &:hover {
       background: #000;
       color: #fff;
+      cursor: url(../../assets/images/press.png), auto;
     }
 
     &__disabled {

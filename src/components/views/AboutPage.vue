@@ -14,11 +14,11 @@
         <li class="about__bottomItem about__bottomItem--wrapper">
           <img class="about__image" src="../../assets/images/hummer-sub.jpg" alt="">
         </li>
-        <div class="about__column">
+        <li class="about__column">
           <h3 class="about__second-title">
             {{ aboutPageSection.secondTitle }}
           </h3>
-          <li class="about__bottomItem">
+          <div class="about__bottomItem">
             <p class="about__bottomText">
               <span class="bold">{{ aboutPageSection.bottom[0].split(' ').slice(0, 2).join(' ').concat(' ') }} </span>
               <span class="blue">{{ aboutPageSection.bottom[0].split(' ').slice(2, 6).join(' ') }}</span>
@@ -29,9 +29,9 @@
               <span>{{ aboutPageSection.bottom[1].split(' ').slice(2, 17).join(' ').concat(' ') }}</span>
               <span class="blue">{{ aboutPageSection.bottom[1].split(' ').slice(17, 22).join(' ').concat(' ') }}</span>
               <span>{{ aboutPageSection.bottom[1].split(' ').slice(22).join(' ') }}</span>
-              </p>
-          </li>
-        </div>
+            </p>
+          </div>
+        </li>
       </ul>
     </div>
   </section>
@@ -47,13 +47,14 @@
   &__container {
     max-width: 320px;
     margin: 0 auto;
+    padding: 30px 0 30px;
 
     @media (min-width: 767px) {
       max-width: 640px;
     }
 
     @media (min-width: 1200px) {
-      max-width: 100%;
+      max-width: 1440px;
       padding: 50px 50px 66px 50px;
     }
   }
@@ -61,24 +62,27 @@
   &__title {
     position: relative;
     font-weight: 600;
-    font-size: 20px;
+    font-size: 16px;
     line-height: 130%;
     color: #000;
-    width: 312px;
-    margin-bottom: 67px;
+    width: 290px;
+    margin: 0 0 30px 30px;
 
     &::before {
       content: '';
       position: absolute;
       top: 50%;
-      left: -60px;
-      width: 40px;
+      left: -30px;
+      width: 22px;
       height: 6px;
       background: #1550e7;
       transform: translateY(-50%);
     }
-  }
 
+    @media (min-width: 767px) {
+      width: 312px;
+    }
+  }
 
   &__wrapper {
     display: flex;
@@ -87,31 +91,52 @@
   }
 
   &__column {
-    width: 46%;
+    width: 100%;
+
+    @media (min-width: 767px) {
+      width: 56%;
+    }
   }
 
   &__second-title {
     font-weight: 600;
-    font-size: 36px;
+    font-size: 26px;
     line-height: 72%;
     color: #1550E7;
-    padding-top: 20px;
     position: relative;
-    margin-bottom: 61px;
+    margin-bottom: 30px;
+
+    @media (min-width: 767px) {
+      font-size: 36px;
+      padding-top: 20px;
+      margin-bottom: 61px;
+    }
 
     &::after {
       content: "";
       position: absolute;
-      left: -55px;
+      left: -35px;
       bottom: -7px;
-      width: 720px;
+      width: 110%;
       height: 1px;
       background-color: #000;
+
+      @media (min-width: 767px) {
+        width: 111%;
+      }
     }
   }
 
   &__bottomItem {
     position: relative;
+
+    &:first-child {
+      margin-bottom: 30px;
+    }
+
+    @media (min-width: 767px) {
+      margin-bottom: 0;
+    }
 
     &--wrapper {
 
@@ -128,10 +153,49 @@
     }
   }
 
+  &__bottomText {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.2;
+    color: #333333;
+
+    &:first-child {
+      margin-bottom: 20px;
+    }
+  }
+
   &__image {
     position: relative;
     display: block;
-    width: 535px;
+    width: 503px;
+
+    @media (max-width: 767px) {
+      width: 300px;
+    }
+  }
+
+  &__list {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+  }
+
+  &__item {
+    display: flex;
+    font-size: 13px;
+    margin-bottom: 15px;
+  }
+
+  &__icon {
+    width: 13%;
+  }
+
+  &__text {
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
   }
 }
 
@@ -139,15 +203,25 @@
   .about {
     &__title {
       margin: 0 0 67px 60px;
+      font-size: 20px;
+      line-height: 130%;
+      width: 312px;
+
+      &::before {
+        left: -60px;
+        width: 40px;
+      }
     }
 
     &__list {
       display: flex;
       width: 100%;
       flex-wrap: wrap;
+      flex-direction: row;
     }
 
     &__item {
+      display: block;
       width: calc(100%/2);
     }
 
@@ -156,6 +230,8 @@
       font-size: 18px;
       line-height: 144%;
       color: #333333;
+      margin-left: 0;
+      display: block;
     }
   }
 }
@@ -193,11 +269,15 @@
     }
 
     &__list {
+      display: flex;
+      width: 100%;
+      flex-wrap: wrap;
       margin-bottom: 48px;
     }
 
     &__icon {
       margin-bottom: 20px;
+      width: 14%;
     }
 
     &__wrapper {
@@ -209,8 +289,8 @@
     &__bottomText {
       margin: 0 0 20px 0;
       font-weight: 400;
-      font-size: 18px;
-      line-height: 118%;
+      font-size: 22px;
+      line-height: 26px;
       color: #333333;
     }
   }
@@ -219,8 +299,12 @@
 .bold {
   font-weight: 700;
   color: #1550E7;
-  font-size: 22px;
+  font-size: 16px;
   line-height: 118%;
+
+  @media (min-width: 767px) {
+    font-size: 22px;
+  }
 }
 
 .blue {

@@ -123,14 +123,23 @@ export default {
   width: 100%;
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
+
+  @media (min-width: 767px) {
+    flex-direction: row;
+  }
 }
 
 .table_box {
-  padding: 55px 28px 50px;
+  padding: 20px 20px 20px;
   border: 1px solid #000000;
-  cursor: pointer;
   transition: all .25s linear;
   position: relative;
+  border-radius: 3px;
+
+  &:not(:last-child) {
+    margin-bottom: 25px;
+  }
 
   &::before {
     content: '';
@@ -138,106 +147,142 @@ export default {
     width: 100%;
     height: 100%;
     background-repeat: no-repeat;
+    background-size: contain;
     position: absolute;
     z-index: -1;
-    top: -1px;
-    left: -1px;
-  }
+    top: 0;
+    left: 0;
+    margin-right: 0;
 
-  &:not(:last-child) {
-    margin-right: 20px;
+  @media (min-width: 767px) {
+    background-size: auto;
+  }
+}
+
+  @media (min-width: 767px) {
+    padding: 55px 28px 50px;
+    margin-bottom: 0;
+
+    &:not(:last-child) {
+      margin-right: 20px;
+      margin-bottom: 0;
+    }
   }
 
   &:last-child {
     .name {
-      margin-bottom: 160px;
+      margin-bottom: 135px;
+
+      @media (min-width: 767px) {
+        margin-bottom: 160px;
+      }
     }
   }
 }
 
 .name {
   font-weight: 600;
-  font-size: 23px;
-  line-height: 113%;
+  font-size: 16px;
+  line-height: 1.3;
   color: #FFFFFF;
-  margin-bottom: 137px;
+  margin-bottom: 115px;
   padding-left: 7px;
-  width: 95%;
+  width: 90%;
+
+  @media (min-width: 767px) {
+    font-size: 23px;
+    line-height: 113%;
+    margin-bottom: 137px;
+    width: 95%;
+  }
 }
 
 .cost {
   font-weight: 800;
-  font-size: 22px;
-  line-height: 118%;
+  font-size: 16px;
+  line-height: 1.3;
   color: #000000;
-  margin-bottom: 59px;
+  margin-bottom: 30px;
   padding-left: 15px;
+
+  @media (min-width: 767px) {
+    font-size: 22px;
+    line-height: 118%;
+    margin-bottom: 59px;
+  }
 }
 
 .button-service {
   display: block;
-  width: 380px;
+  width: 100%;
   align-items: center;
   text-decoration: none;
-  padding: 18px 70px;
+  padding: 15px 50px;
   border: 1px solid #000;
   background: #fff;
   color: #000;
-  font-size: 19px;
+  font-size: 16px;
   line-height: 1;
   transition: all 250ms linear;
-  cursor: pointer;
+  cursor: url(../../assets/images/press.png), auto;
   border: 1px solid #000;
   position: relative;
 
-  &::after {
-    content: '';
-    width: 38px;
-    height: 42px;
-    display: inline-block;
-    background: url(../../assets/images/press.png);
-    background-size: cover;
-    position: absolute;
-    top: 7px;
-    right: 11px;
+  @media (min-width: 767px) {
+    width: 380px;
+    padding: 18px 70px;
+    font-size: 19px;
   }
 
   &:hover {
     background: #000;
     color: #fff;
+    cursor: url(../../assets/images/press.png), auto;
   }
 }
 
 .services {
-  padding: 50px;
+  padding: 30px 0;
   max-width: 320px;
   margin: 0 auto;
 
   @media (min-width: 767px) {
     max-width: 640px;
+    padding: 50px;
   }
 
   @media (min-width: 1200px) {
-    max-width: 100%;
+    max-width: 1440px;
   }
 
   &_title {
     position: relative;
     font-weight: 600;
-    font-size: 20px;
+    font-size: 16px;
     line-height: 130%;
     color: #000;
-    margin: 0 0 50px 60px;
+    margin: 0 0 30px 30px;
 
     &::before {
       content: '';
       position: absolute;
       top: 50%;
-      left: -60px;
-      width: 40px;
+      left: -30px;
+      width: 22px;
       height: 5px;
       background: #1550e7;
       transform: translateY(-50%);
+
+      @media (min-width: 767px) {
+        left: -60px;
+        width: 40px;
+      }
+    }
+
+    @media (min-width: 767px) {
+      font-size: 20px;
+      line-height: 130%;
+      margin: 0 0 50px 60px;
     }
   }
 }
@@ -245,15 +290,22 @@ export default {
 .modalForm {
   display: flex;
   flex-direction: column;
-  width: 435px;
+
+  @media (min-width: 767px) {
+    width: 435px;
+  }
 
   &__label {
     display: flex;
     flex-direction: column;
     font-weight: 400;
-    font-size: 20px;
+    font-size: 14px;
     line-height: 130%;
     color: #111111;
+
+    @media (min-width: 767px) {
+      font-size: 20px;
+    }
 
     &:not(:last-child) {
       margin-bottom: 20px;
@@ -272,9 +324,13 @@ export default {
     background: rgba(8, 0, 255, 0.04);
     border-radius: 15px;
     font-weight: 400;
-    font-size: 20px;
+    font-size: 14px;
     line-height: 130%;
     color: #6C6C6C;
+
+    @media (min-width: 767px) {
+      font-size: 20px;
+    }
   }
 
   &__textarea {
@@ -297,25 +353,14 @@ export default {
     background: transparent;
     color: #000;
     border: 1px solid #000;
-    cursor: pointer;
+    cursor: url(../../assets/images/press.png), auto;
     transition: all 250ms linear;
     position: relative;
-
-    &::after {
-      content: '';
-      width: 31px;
-      height: 34px;
-      display: inline-block;
-      background: url(../../assets/images/press.png);
-      background-size: cover;
-      position: absolute;
-      top: 4px;
-      right: 14px;
-    }
 
     &:hover {
       background: #000;
       color: #fff;
+      cursor: url(../../assets/images/press.png), auto;
     }
 
     &__disabled {

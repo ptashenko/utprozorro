@@ -27,7 +27,7 @@ export default {
 <style lang="scss">
 .footer {
   background: #fafafa;
-  padding: 50px 50px 35px;
+  padding: 30px 0;
 
   &__container {
     max-width: 320px;
@@ -35,30 +35,42 @@ export default {
 
     @media (min-width: 767px) {
       max-width: 640px;
+      padding: 50px 50px 35px;
     }
 
     @media (min-width: 1200px) {
-      max-width: 100%;
+      max-width: 1440px;
     }
   }
 
   &__title {
     position: relative;
     font-weight: 600;
-    font-size: 20px;
+    font-size: 16px;
     line-height: 130%;
     color: #000;
-    margin-bottom: 50px;
+    margin: 0 0 30px 30px;
+
+  @media (min-width: 767px) {
+    font-size: 20px;
+    line-height: 130%;
+    margin: 0 0 0 50px;
+  }
 
     &::before {
       content: '';
       position: absolute;
       top: 50%;
-      left: -60px;
-      width: 40px;
-      height: 5px;
+      left: -30px;
+      width: 22px;
+      height: 6px;
       background: #1550e7;
       transform: translateY(-50%);
+
+      @media (min-width: 767px) {
+        left: -60px;
+        width: 40px;
+      }
     }
   }
 

@@ -52,14 +52,22 @@ export default {
 .form {
   margin-top: 30px;
   background: #fff;
-  padding: 40px 10px;
+  padding: 30px 20px;
+
+  @media (min-width: 767px) {
+    padding: 40px 10px;
+  }
 
   &__title {
-    font-size: 18px;
+    font-size: 16px;
     margin-top: 0;
     margin-bottom: 54px;
     text-align: center;
     font-weight: 600;
+
+    @media (min-width: 767px) {
+      font-size: 18px;
+    }
   }
 
   &__wrapper {
@@ -80,45 +88,44 @@ export default {
     outline: none;
     border-bottom: 1px solid #333333;
     font-weight: 400;
-    font-size: 18px;
+    font-size: 16px;
     line-height: 144%;
     color: #6C6C6C;
+
+    @media (min-width: 767px) {
+      font-size: 18px;
+    }
   }
 
   &__button {
     border-bottom: none;
     display: block;
-    width: 292px;
+    width: 279px;
     text-align: center;
     margin: 30px auto 25px;
     text-decoration: none;
-    padding: 18px 90px 18px 90px;
+    padding: 15px 50px;
     border: 1px solid #fff;
     color: #000;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
     line-height: 1;
     background: #fff;
     transition: all 250ms linear;
-    cursor: pointer;
+    cursor: url(../assets/images/press.png), auto;
     position: relative;
     border: 1px solid #000;
-
-    &::after {
-      content: '';
-      width: 38px;
-      height: 42px;
-      display: inline-block;
-      background: url(../assets/images/press.png);
-      background-size: cover;
-      position: absolute;
-      top: 5px;
-      right: 11px;
-    }
 
     &:hover {
       background: #000;
       color: #fff;
+      cursor: url(../assets/images/press.png), auto;
+    }
+
+    @media (min-width: 767px) {
+      font-size: 18px;
+      width: 292px;
+      padding: 18px 90px;
     }
   }
 
