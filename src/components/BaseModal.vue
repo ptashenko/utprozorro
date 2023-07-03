@@ -1,6 +1,6 @@
 <template>
-  <div class="modal fade" :class="{ show: showModal }" tabindex="-1" role="dialog">
-    <div class="modal-mask" role="document" @click="closeModal">
+  <div class="modal fade" :class="{ show: showModal }" tabindex="-1" role="dialog" @click="closeModal($event)">
+    <div class="modal-mask" role="document">
       <div class="modal-wrapper">
         <div class="modal-container">
           <div class="modal-top">
@@ -23,8 +23,16 @@ export default {
   name: 'BaseModal',
   props: ["showModal", "title", "showCloseButton"],
   methods: {
-    closeModal() {
-      this.$emit('update:showModal', false);
+    closeModal(event) {
+      const overlay = event.currentTarget;
+      const closeButton = event.currentTarget.querySelector('.modal-default-button');
+      const modalContainer = event.currentTarget.querySelector('.modal-container');
+      if (event.target === overlay || event.target === closeButton) {
+        this.$emit('update:showModal', false);
+      }
+      else if (!modalContainer.contains(event.target)) {
+        this.$emit('update:showModal', false);
+      }
     }
   }
 }
@@ -45,7 +53,6 @@ export default {
   background-color: rgba(0, 0, 0, 0.5);
   display: table;
   transition: opacity 0.3s ease;
-  cursor: pointer;
 }
 
 .modal-top {
@@ -121,5 +128,4 @@ export default {
     font-size: 30px;
   }
 }
-
 </style>

@@ -326,8 +326,8 @@ export default {
 @media (min-width: 1200px) {
   .hero-main {
     max-width: 1440px;
-    padding: 87px 0 170px;
-    margin: 0 50px;
+    padding: 87px 50px 170px;
+    margin: 0 auto;
 
     &__desktop {
       position: relative;
