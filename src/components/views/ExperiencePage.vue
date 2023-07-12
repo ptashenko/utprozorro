@@ -150,7 +150,11 @@
     flex-direction: column;
     margin-bottom: 30px;
 
-    @media (min-width: 767px) {
+    @media (min-width: 441px) and (max-width: 1024px) {
+      flex-direction: row;
+    }
+
+    @media (min-width: 1025px) {
       flex-direction: row;
       margin-bottom: 50px;
     }
@@ -418,7 +422,13 @@
     }
 
     &__top {
-      flex-direction: row-reverse;
+      @media (min-width: 441px) and (max-width: 1024px) {
+        flex-direction: column-reverse;
+      }
+      
+      @media (min-width: 1025px) {
+        flex-direction: row-reverse;
+      }
     }
 
     &__textWrapper {

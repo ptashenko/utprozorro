@@ -120,7 +120,11 @@ export default {
   position: relative;
   margin-bottom: 30px;
 
-  @media (min-width: 767px) {
+  @media (min-width: 441px) and (max-width: 1024px) {
+    margin-top: 30px;
+  }
+
+  @media (min-width: 1025px) {
     display: block;
     margin-bottom: 0;
   }
@@ -128,10 +132,18 @@ export default {
 
 .hero-main {
   max-width: 320px;
-  padding: 30px 0 10px;
+  padding: 10px 0 10px;
   margin: 0 auto;
 
-  @media (min-width: 767px) {
+  @media (min-width: 440px) {
+    padding: 30px 0 10px;
+  }
+
+  @media (min-width: 441px) and (max-width: 1024px) {
+    padding: 15px 0 30px;
+  }
+
+  @media (min-width: 1025px) {
     padding: 15px 0 140px;
   }
 
@@ -222,7 +234,11 @@ export default {
     border: 1px solid #000;
     position: relative;
 
-    @media (min-width: 767px) {
+    @media (min-width: 441px) and (max-width: 1024px) {
+      margin: 10px auto 40px;
+    }
+
+    @media (min-width: 1025px) {
       width: 380px;
       font-size: 19px;
       padding: 18px 70px;
@@ -498,36 +514,56 @@ export default {
 .success__title {
   position: relative;
   top: -5px;
-  font-size: 45px;
+  font-size: 35px;
   font-weight: 600;
-  margin-bottom: 65px;
+  margin-bottom: 20px;
+
+  @media (min-width: 767px) {
+    font-size: 45px;
+    margin-bottom: 40px;
+  }
 }
 
 .success__text {
-  font-size: 26px;
+  font-size: 18px;
   margin-bottom: 35px;
   font-weight: 400;
-  line-height: 100%;
+  line-height: 1.5;
+  font-size: 18px;
+  text-align: center;
+
+  @media (min-width: 767px) {
+    font-size: 26px;
+    margin-bottom: 35px;
+  }
 }
 
 .success__btn {
   width: 140px;
-  height: 63px;
-  font-size: 22px;
+  height: 50px;
+  font-size: 18px;
   font-weight: 600;
   background: #000;
   color: #fff;
   border: 1px solid #000;
   border-radius: 4px;
+
+  @media (min-width: 767px) {
+    height: 63px;
+  }
 }
 
 .success-icon {
   position: relative;
-  top: -45px;
+  top: -18px;
   display: flex;
   height: fit-content;
   align-items: center;
   justify-content: center;
+
+  @media (min-width: 767px) {
+    top: -45px;
+  }
 
   &__wrapper {
     display: inline-block;

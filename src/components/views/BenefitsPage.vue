@@ -67,6 +67,10 @@
     font-weight: 400;
     font-size: 13px;
     line-height: 1.2;
+
+    @media (min-width: 441px) and (max-width: 1024px) {
+      font-size: 16px;
+    }
   }
 
     &__name {
@@ -75,6 +79,10 @@
       line-height: 1.2;
       color: #000;
       margin-bottom: 15px;
+      
+      @media (min-width: 441px) and (max-width: 1024px) {
+        font-size: 18px;
+      }
     }
 }
 
