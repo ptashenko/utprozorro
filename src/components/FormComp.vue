@@ -7,6 +7,7 @@
     outer: 'form__label',
   }
 }">
+
     <h3 class="form__title">{{ formSection.title }}</h3>
     <div class="form__wrapper">
       <FormKit type="text" name="name" validation="?length:2" :validation-messages="{
@@ -51,13 +52,22 @@ export default {
 .form {
   margin-top: 30px;
   background: #fff;
-  padding: 40px 10px;
+  padding: 30px 20px;
+
+  @media (min-width: 767px) {
+    padding: 40px 10px;
+  }
 
   &__title {
     font-size: 16px;
     margin-top: 0;
-    margin-bottom: 40px;
+    margin-bottom: 54px;
     text-align: center;
+    font-weight: 600;
+
+    @media (min-width: 767px) {
+      font-size: 18px;
+    }
   }
 
   &__wrapper {
@@ -76,29 +86,46 @@ export default {
     width: 100%;
     border: none;
     outline: none;
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid #333333;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 144%;
+    color: #6C6C6C;
+
+    @media (min-width: 767px) {
+      font-size: 18px;
+    }
   }
 
   &__button {
     border-bottom: none;
     display: block;
-    width: 270px;
+    width: 279px;
     text-align: center;
-    margin: 20px auto;
+    margin: 30px auto 25px;
     text-decoration: none;
-    padding: 20px 40px;
-    border: 1px solid #000;
+    padding: 15px 50px;
+    border: 1px solid #fff;
     color: #000;
     font-size: 16px;
-    font-weight: 700;
+    font-weight: 600;
     line-height: 1;
-    background: transparent;
+    background: #fff;
     transition: all 250ms linear;
-    cursor: pointer;
+    cursor: url(../assets/images/press.png), auto;
+    position: relative;
+    border: 1px solid #000;
 
     &:hover {
       background: #000;
       color: #fff;
+      cursor: url(../assets/images/press.png), auto;
+    }
+
+    @media (min-width: 767px) {
+      font-size: 18px;
+      width: 292px;
+      padding: 18px 90px;
     }
   }
 

@@ -1,4 +1,11 @@
 <script>
+export default {
+  methods: {
+    closeMenu() {
+      this.$emit('close');
+    },
+  },
+}
 </script>
 
 <template>
@@ -7,7 +14,7 @@
       <img src="../../assets/svg/cross.svg" alt="Закрыть" class="mobileMenu__close" @click="$emit('close')" />
       <ul class="mobileMenu__menuList mobileMenu__menuList--navigation">
         <li class="mobileMenu__menuItem" v-for="(item, idx) of headerSection.headerLinks" :key="idx">
-          <a :href="item.hash" class="mobileMenu__menuLink">
+          <a :href="item.hash" class="mobileMenu__menuLink" @click="closeMenu">
             {{ item.name }}
           </a>
         </li>
@@ -56,11 +63,11 @@
 }
 
 .mobileMenu {
-  padding: 42px 20px;
+  padding: 68px 30px;
   position: fixed;
   top: 0;
   right: 0;
-  height: 100vh;
+  height: 100%;
   width: 100%;
   box-sizing: border-box;
   background: #000;
@@ -70,8 +77,8 @@
   z-index: 10;
 
   &__close {
-    right: 15px;
-    top: 15px;
+    right: 30px;
+    top: 43px;
     position: absolute;
     width: 18px;
     height: 18px;
