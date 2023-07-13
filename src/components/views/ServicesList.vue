@@ -125,8 +125,13 @@ export default {
   justify-content: space-between;
   flex-direction: column;
 
-  @media (min-width: 767px) {
+  @media (min-width: 441px) and (max-width: 1024px) {
+    padding: 0 50px;
+  }
+
+  @media (min-width: 1025px) {
     flex-direction: row;
+    padding: 0;
   }
 }
 
@@ -139,6 +144,10 @@ export default {
 
   &:not(:last-child) {
     margin-bottom: 25px;
+
+    @media (min-width: 441px) and (max-width: 1024px) {
+      margin-bottom: 30px;
+    }
   }
 
   &::before {
@@ -150,16 +159,20 @@ export default {
     background-size: contain;
     position: absolute;
     z-index: -1;
-    top: 0;
+    top: -1px;
     left: 0;
     margin-right: 0;
 
-  @media (min-width: 767px) {
-    background-size: auto;
+    @media (min-width: 1025px) {
+      background-size: auto;
+    }
   }
-}
 
-  @media (min-width: 767px) {
+  @media (min-width: 441px) and (max-width: 1024px) {
+    padding: 55px 28px 50px;
+  }
+
+  @media (min-width: 1025px) {
     padding: 55px 28px 50px;
     margin-bottom: 0;
 
@@ -173,7 +186,11 @@ export default {
     .name {
       margin-bottom: 135px;
 
-      @media (min-width: 767px) {
+      @media (min-width: 441px) and (max-width: 1024px) {
+        margin-bottom: 200px;
+      }
+
+      @media (min-width: 1025px) {
         margin-bottom: 160px;
       }
     }
@@ -189,7 +206,12 @@ export default {
   padding-left: 7px;
   width: 90%;
 
-  @media (min-width: 767px) {
+  @media (min-width: 441px) and (max-width: 1024px) {
+    margin-bottom: 198px;
+    font-size: 20px;
+  }
+
+  @media (min-width: 1025px) {
     font-size: 23px;
     line-height: 113%;
     margin-bottom: 137px;
@@ -205,9 +227,14 @@ export default {
   margin-bottom: 30px;
   padding-left: 15px;
 
-  @media (min-width: 767px) {
-    font-size: 22px;
+  @media (min-width: 441px) and (max-width: 1024px) {
+    font-size: 20px;
     line-height: 118%;
+    margin-bottom: 37px;
+  }
+
+  @media (min-width: 1025px) {
+    font-size: 22px;
     margin-bottom: 59px;
   }
 }
@@ -232,6 +259,7 @@ export default {
     width: 380px;
     padding: 18px 70px;
     font-size: 19px;
+    margin: 0 auto;
   }
 
   &:hover {
@@ -246,7 +274,12 @@ export default {
   max-width: 320px;
   margin: 0 auto;
 
-  @media (min-width: 767px) {
+  @media (min-width: 441px) and (max-width: 1024px) {
+    padding: 30px 0;
+    max-width: 640px;
+  }
+
+  @media (min-width: 1025px) {
     max-width: 640px;
     padding: 50px;
   }
@@ -262,6 +295,15 @@ export default {
     line-height: 130%;
     color: #000;
     margin: 0 0 30px 30px;
+    
+  @media (min-width: 767px) {
+    margin: 0 0 60px 60px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 130%;
+    color: #000;
+  }
 
     &::before {
       content: '';
@@ -273,13 +315,19 @@ export default {
       background: #1550e7;
       transform: translateY(-50%);
 
-      @media (min-width: 767px) {
+      @media (min-width: 441px) {
+        content: '';
+        position: absolute;
+        top: 50%;
         left: -60px;
         width: 40px;
+        height: 6px;
+        background: #1550e7;
+        transform: translateY(-50%);
       }
     }
 
-    @media (min-width: 767px) {
+    @media (min-width: 1025px) {
       font-size: 20px;
       line-height: 130%;
       margin: 0 0 50px 60px;

@@ -169,7 +169,7 @@
     }
 
     @media (min-width: 441px) and (max-width: 1024px) {
-      font-size: 16px;
+      font-size: 18px;
     }
   }
 

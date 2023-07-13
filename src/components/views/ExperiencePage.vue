@@ -150,10 +150,6 @@
     flex-direction: column;
     margin-bottom: 30px;
 
-    @media (min-width: 441px) and (max-width: 1024px) {
-      flex-direction: row;
-    }
-
     @media (min-width: 1025px) {
       flex-direction: row;
       margin-bottom: 50px;
@@ -279,7 +275,13 @@
     position: relative;
     margin-bottom: 30px;
 
-    @media (min-width: 767px) {
+    @media (min-width: 441px) and (max-width: 1024px) {
+      font-size: 36px;
+      margin-bottom: 61px;
+      padding-top: 47px;
+    }
+
+    @media (min-width: 1025px) {
       font-size: 36px;
       margin-bottom: 61px;
       padding-top: 140px;
@@ -368,7 +370,7 @@
   &__achivements {
     margin-bottom: 30px;
 
-    @media (min-width: 767px) {
+    @media (min-width: 1025px) {
       margin-bottom: 0;
     }
   }
@@ -407,7 +409,11 @@
     color: #333333;
     margin-bottom: 30px;
 
-    @media (min-width: 767px) {
+    @media (min-width: 441px) and (max-width: 1024px) {
+      font-size: 18px;
+    }
+
+    @media (min-width: 1025px) {
       font-size: 18px;
       line-height: 144%;
       margin-bottom: 0;
@@ -418,12 +424,29 @@
 @media (min-width: 767px) {
   .experience {
     &__title {
-      margin: 0 0 0 60px;
+      margin: 0 0 60px 60px;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 130%;
+      color: #000;
+      
+      &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: -60px;
+        width: 40px;
+        height: 6px;
+        background: #1550e7;
+        transform: translateY(-50%);
+      }
     }
 
     &__top {
       @media (min-width: 441px) and (max-width: 1024px) {
         flex-direction: column-reverse;
+        margin-bottom: 0;
       }
       
       @media (min-width: 1025px) {
@@ -432,6 +455,10 @@
     }
 
     &__textWrapper {
+      @media (min-width: 441px) and (max-width: 1024px) {
+        width: 100%;
+      }
+
       width: 320px;
     }
 
@@ -486,6 +513,7 @@
       line-height: 130%;
       color: #000;
       margin-bottom: 50px;
+      
 
       &::before {
         content: '';

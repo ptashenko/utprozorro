@@ -1,8 +1,8 @@
 <template>
-  <div class="modal fade" :class="{ show: showModal }" tabindex="-1" role="dialog" @click="closeModal($event)">
+  <div class="modal fade" :class="{ show: showModal }" tabindex="-1" role="dialog" @click="closeModal">
     <div class="modal-mask" role="document">
       <div class="modal-wrapper">
-        <div class="modal-container">
+        <div class="modal-container" @click.stop>
           <div class="modal-top">
             <h2 class="modal-title">{{ title }}</h2>
             <button v-if="showCloseButton" type="button" class="modal-default-button" @click="closeModal">
@@ -23,16 +23,8 @@ export default {
   name: 'BaseModal',
   props: ["showModal", "title", "showCloseButton"],
   methods: {
-    closeModal(event) {
-      const overlay = event.currentTarget;
-      const closeButton = event.currentTarget.querySelector('.modal-default-button');
-      const modalContainer = event.currentTarget.querySelector('.modal-container');
-      if (event.target === overlay || event.target === closeButton) {
-        this.$emit('update:showModal', false);
-      }
-      else if (!modalContainer.contains(event.target)) {
-        this.$emit('update:showModal', false);
-      }
+    closeModal() {
+      this.$emit('update:showModal', false);
     }
   }
 }
