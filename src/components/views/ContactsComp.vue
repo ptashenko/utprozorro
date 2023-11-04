@@ -33,32 +33,58 @@ export default {
     max-width: 320px;
     margin: 0 auto;
 
-    @media (min-width: 767px) {
+    @media (min-width: 441px) and (max-width: 1024px) {
       max-width: 640px;
+      padding: 0;
+    }
+
+    @media (min-width: 1025px) {
+      padding: 50px 50px 35px;
     }
 
     @media (min-width: 1200px) {
-      max-width: 1200px;
+      max-width: 1440px;
+    }
+  }
+
+  &__wrapper {
+    @media (min-width: 441px) and (max-width: 1024px) {
+      padding: 0 50px;
+    }
+
+    @media (min-width: 1025px) {
+      padding: 0;
     }
   }
 
   &__title {
     position: relative;
-    margin: 0 auto;
+    font-weight: 600;
     font-size: 16px;
-    line-height: 1.3;
-    color: #111111;
-    width: 255px;
+    line-height: 130%;
+    color: #000;
+    margin: 0 0 30px 30px;
+
+  @media (min-width: 767px) {
+    font-size: 20px;
+    line-height: 130%;
+    margin: 0 0 0 50px;
+  }
 
     &::before {
       content: '';
       position: absolute;
       top: 50%;
-      left: -60px;
-      width: 40px;
-      height: 5px;
+      left: -30px;
+      width: 22px;
+      height: 6px;
       background: #1550e7;
       transform: translateY(-50%);
+
+      @media (min-width: 767px) {
+        left: -60px;
+        width: 40px;
+      }
     }
   }
 
@@ -90,11 +116,10 @@ export default {
 @media (min-width: 767px) {
   .footer {
     &__title {
-      margin: 0 0 0 60px;
+      margin: 0 0 35px 60px;
     }
 
     &__contacts {
-      width: 375px;
       margin: 20px auto 0;
     }
   }
@@ -108,7 +133,7 @@ export default {
   .footer {
     &__wrapper {
       display: flex;
-      margin-top: 30px;
+      justify-content: space-between;
     }
 
     &__contacts {
@@ -116,16 +141,18 @@ export default {
       flex-direction: column;
       justify-content: center;
       margin: 0;
+      width: 30%;
     }
 
     &__contact {
-      font-size: 22px;
+      font-size: 24px;
+      line-height: 29px;
     }
   }
 
   .form {
     margin: 0;
-    flex-grow: 1;
+    width: 931px;
   }
 }
 </style>

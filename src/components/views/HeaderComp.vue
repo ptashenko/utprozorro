@@ -10,6 +10,17 @@ export default {
       mobileMenu: false,
     }
   },
+  methods: {
+    mobileMenuToggle() {
+      this.mobileMenu = !this.mobileMenu;
+
+    if (this.mobileMenu) {
+      document.body.classList.add('overflow-hidden');
+    } else {
+      document.body.classList.remove('overflow-hidden');
+    }
+  },
+}
 }
 </script>
 
@@ -62,12 +73,16 @@ ul {
   left: 0;
   background: #fff;
   z-index: 999;
-  padding-top: 5px;
+  padding: 23px 30px 13px;
   width: 100%;
 
+  @media (min-width: 767px) {
+    padding: 10px 50px 13px;
+  }
   .container {
-    max-width: 320px;
+    width: 100%;
     margin: 0 auto;
+    padding: 0;
 
     @media (max-width: 475px) {
       max-width: 320px;
@@ -78,7 +93,7 @@ ul {
     }
 
     @media (min-width: 1200px) {
-      max-width: 1200px;
+      max-width: 1440px;
     }
   }
 
@@ -98,15 +113,15 @@ ul {
 
   &__navigationItem {
     &:not(:last-child) {
-      margin-right: 80px;
+      margin-right: 96px;
     }
 
     transition: all 250ms linear;
   }
 
   &__navigationLink {
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 19px;
+    font-weight: 700;
     text-decoration: none;
     color: #000;
     transition: all 250ms linear;
@@ -120,8 +135,16 @@ ul {
 
   &__image {
     &--burger {
-      width: 50px;
-      height: 50px;
+      width: 45px;
+      height: 40px;
+    }
+
+    &--logo {
+      width: 70%;
+
+      @media (min-width: 767px) {
+        width: 100%;
+      }
     }
   }
 
@@ -136,8 +159,8 @@ ul {
 
     &--margin {
       position: relative;
-      margin-top: 5px;
-      font-size: 14px;
+      font-size: 16px;
+      line-height: 20px;
 
       &::before {
         content: '';
@@ -163,10 +186,16 @@ ul {
   &__link {
     color: #000;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 16px;
+    line-height: 20px;
 
     &--bold {
       font-weight: 500;
     }
   }
-}</style>
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+</style>
